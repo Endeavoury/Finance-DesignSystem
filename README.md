@@ -2,7 +2,7 @@
 
 A standalone, framework-independent design system for technical and financial management interfaces. Lit Web Components are the only component implementation; Vanilla JavaScript, React, and Angular consume those same custom elements.
 
-This directory is independent of the current Finance Inzicht application. It has no application imports, API clients, authentication, or financial business logic.
+This repository is independent of the Finance Inzicht application. It has no application imports, API clients, authentication, or financial business logic.
 
 ## Quick start
 
@@ -13,19 +13,45 @@ npm run storybook
 
 Storybook is the primary review environment. It contains foundations, every production component, reusable patterns, and representative Finance Inzicht screens using mock data.
 
-From the repository root, Storybook is also available through Docker Compose:
+Build and run the standalone Storybook container with:
 
 ```bash
-docker compose up --build design-system
+docker build -t finance-design-system .
+docker run --rm -p 6006:8080 finance-design-system
 ```
 
-Open `http://localhost:6006`. Set `DESIGN_SYSTEM_PORT` to use another host port.
+Open `http://localhost:6006`.
 
 Run the complete quality gate with:
 
 ```bash
 npm run check
 ```
+
+## Finance Inzicht integration
+
+Finance Inzicht tracks this repository as a Git submodule. This keeps package
+history, releases, and CI independent while retaining a single local workspace
+for application and design-system development.
+
+Clone the application and this repository together with:
+
+```bash
+git clone --recurse-submodules git@github.com:Endeavoury/Finance-Inzicht.git
+cd Finance-Inzicht
+docker compose up --build
+```
+
+For an existing Finance Inzicht checkout:
+
+```bash
+git submodule update --init --recursive
+```
+
+Changes below `design-system/` are committed and pushed from inside that
+directory. The application repository then commits the updated submodule
+revision. This layout lets tools such as Codex inspect and edit both repositories
+in one workspace without coupling their Git histories.
 
 ## Packages
 
