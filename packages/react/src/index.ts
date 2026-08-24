@@ -12,6 +12,7 @@ import {
   DsCheckbox,
   DsContainer,
   DsDataTable,
+  DsDetailSidebar,
   DsEmptyState,
   DsFilterBar,
   DsFormField,
@@ -105,6 +106,12 @@ export const Inline = component('ds-inline', DsInline);
 export const Grid = component('ds-grid', DsGrid);
 export const Container = component('ds-container', DsContainer);
 export const PageHeader = component('ds-page-header', DsPageHeader);
+export const DetailSidebar = createComponent({
+  tagName: 'ds-detail-sidebar',
+  elementClass: DsDetailSidebar,
+  react: React,
+  events: { onDsClose: 'ds-close' as EventName<CustomEvent<void>> },
+});
 export const AppShell = component('ds-app-shell', DsAppShell);
 export const Sidebar = component('ds-sidebar', DsSidebar);
 export const SidebarItem = createComponent({

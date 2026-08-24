@@ -138,6 +138,22 @@ describe('data and navigation', () => {
       detail: { value: 'ledger' },
     });
   });
+
+  it('closes a detail sidebar from its button and the Escape key', async () => {
+    const sidebar = await mount(document.createElement('ds-detail-sidebar'));
+    sidebar.open = true;
+    sidebar.heading = 'Selected insight';
+    const listener = vi.fn();
+    sidebar.addEventListener('ds-close', listener);
+    await sidebar.updateComplete;
+
+    expect(sidebar.shadowRoot!.querySelector('aside')?.getAttribute('aria-labelledby')).toBe(
+      'detail-sidebar-title',
+    );
+    fireEvent.keyDown(sidebar.shadowRoot!.querySelector('aside')!, { key: 'Escape' });
+    fireEvent.click(sidebar.shadowRoot!.querySelector('.close')!);
+    expect(listener).toHaveBeenCalledTimes(2);
+  });
 });
 
 describe('display foundations', () => {

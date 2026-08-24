@@ -1,0 +1,8 @@
+name: finance-design-system
+
+services:
+  storybook:
+    image: ${DESIGN_SYSTEM_IMAGE:-ghcr.io/endeavoury/finance-design-system-storybook:latest}
+    ports:
+      - "${STORYBOOK_BIND_ADDRESS:-0.0.0.0}:${STORYBOOK_PORT:-6006}:8080"
+    restart: unless-stopped

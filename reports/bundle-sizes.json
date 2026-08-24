@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-24T15:11:00.328Z",
+  "generatedAt": "2026-08-24T16:59:26.212Z",
   "budgets": {
     "button": {
       "rawBytes": 45000,
@@ -24,8 +24,8 @@
       "gzipBytes": 11229
     },
     "full": {
-      "rawBytes": 98770,
-      "gzipBytes": 20276
+      "rawBytes": 104621,
+      "gzipBytes": 21235
     }
   },
   "sharedControlFoundationOccurrences": 1,

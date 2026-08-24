@@ -17,7 +17,14 @@ import type {
 } from './components/display.js';
 import type { DsAlert, DsEmptyState, DsLoadingState } from './components/feedback.js';
 import type { DsDataTable } from './components/data-table.js';
-import type { DsContainer, DsGrid, DsInline, DsPageHeader, DsStack } from './components/layout.js';
+import type {
+  DsContainer,
+  DsDetailSidebar,
+  DsGrid,
+  DsInline,
+  DsPageHeader,
+  DsStack,
+} from './components/layout.js';
 import type { DsAppShell, DsSidebar, DsSidebarItem } from './components/navigation.js';
 import type { DsFilterBar, DsKpiGrid } from './components/patterns.js';
 
@@ -47,6 +54,7 @@ declare global {
     'ds-grid': DsGrid;
     'ds-container': DsContainer;
     'ds-page-header': DsPageHeader;
+    'ds-detail-sidebar': DsDetailSidebar;
     'ds-app-shell': DsAppShell;
     'ds-sidebar': DsSidebar;
     'ds-sidebar-item': DsSidebarItem;
