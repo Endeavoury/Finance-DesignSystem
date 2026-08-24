@@ -2,6 +2,8 @@
 
 A standalone, framework-independent design system for technical and financial management interfaces. Lit Web Components are the only component implementation; Vanilla JavaScript, React, and Angular consume those same custom elements.
 
+![Finance Inzicht application and design-system example](docs/images/finance-workspace-example.png)
+
 This repository is independent of the Finance Inzicht application. It has no application imports, API clients, authentication, or financial business logic.
 
 ## Quick start
@@ -13,14 +15,19 @@ npm run storybook
 
 Storybook is the primary review environment. It contains foundations, every production component, reusable patterns, and representative Finance Inzicht screens using mock data.
 
-Build and run the standalone Storybook container with:
+Build and run the standalone Storybook with Docker Compose:
 
 ```bash
-docker build -t finance-design-system .
-docker run --rm -p 6006:8080 finance-design-system
+docker compose up --build
 ```
 
 Open `http://localhost:6006`.
+
+Set `DESIGN_SYSTEM_PORT` when port 6006 is already in use:
+
+```bash
+DESIGN_SYSTEM_PORT=6010 docker compose up --build
+```
 
 Run the complete quality gate with:
 
