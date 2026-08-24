@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { createRoot } from 'react-dom/client';
-import '@finance-inzicht/design-system/styles.css';
+import '@finance-design/design-system/styles.css';
 import {
   Alert,
   Button,
@@ -10,7 +10,7 @@ import {
   Metric,
   PageHeader,
   Stack,
-} from '@finance-inzicht/react';
+} from '@finance-design/react';
 function App() {
   const [name, setName] = useState('React consumer');
   return (

@@ -1,10 +1,10 @@
 {
-  "name": "finance-inzicht-design-system-workspace",
+  "name": "finance-design-workspace",
   "private": true,
   "version": "0.1.0",
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/Endeavoury/Finance-DesignSystem.git"
+    "url": "git+https://github.com/Endeavoury/Finance-DesignSystem.git"
   },
   "type": "module",
   "packageManager": "npm@12.0.2",
@@ -15,11 +15,11 @@
   ],
   "scripts": {
     "clean": "node scripts/clean.mjs",
-    "build:packages": "npm run build -w @finance-inzicht/tokens && npm run build -w @finance-inzicht/styles && npm run build -w @finance-inzicht/design-system && npm run build -w @finance-inzicht/react && npm run build -w @finance-inzicht/angular",
-    "build:examples": "npm run build -w @finance-inzicht/example-vanilla && npm run build -w @finance-inzicht/example-react && npm run build -w @finance-inzicht/example-angular",
+    "build:packages": "npm run build -w @finance-design/tokens && npm run build -w @finance-design/styles && npm run build -w @finance-design/design-system && npm run build -w @finance-design/react && npm run build -w @finance-design/angular",
+    "build:examples": "npm run build -w @finance-design/example-vanilla && npm run build -w @finance-design/example-react && npm run build -w @finance-design/example-angular",
     "build": "npm run build:packages && npm run build:examples",
-    "storybook": "npm run build:packages && npm run storybook -w @finance-inzicht/storybook",
-    "build-storybook": "npm run build:packages && npm run build -w @finance-inzicht/storybook",
+    "storybook": "npm run build:packages && npm run storybook -w @finance-design/storybook",
+    "build-storybook": "npm run build:packages && npm run build -w @finance-design/storybook",
     "typecheck": "tsc -b --pretty false",
     "lint": "eslint packages storybook examples tests scripts vitest.config.ts",
     "format": "prettier --write packages storybook examples tests scripts docs README.md package.json '*.json'",
@@ -27,6 +27,7 @@
     "test:a11y": "npm run build:packages && vitest run tests/accessibility.test.ts",
     "verify:stories": "node scripts/verify-story-coverage.mjs",
     "analyze": "npm run build:packages && node scripts/analyze-bundles.mjs",
+    "release:verify": "node scripts/verify-release.mjs",
     "check": "npm run typecheck && npm run lint && npm run verify:stories && npm run test && npm run build && npm run build-storybook && npm run analyze"
   },
   "devDependencies": {

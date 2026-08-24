@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit';
-import type { DsTableColumn } from '@finance-inzicht/design-system';
+import type { DsTableColumn } from '@finance-design/design-system';
 const rows = [
   {
     id: '1',

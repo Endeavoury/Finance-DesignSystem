@@ -3,6 +3,6 @@ dist/
 storybook-static/
 coverage/
 .cache/
+.angular/
 *.tsbuildinfo
 bundle-report.json
-

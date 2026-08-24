@@ -34,5 +34,8 @@ jobs:
       - name: Run complete quality gate
         run: npm run check
 
+      - name: Verify publishable package metadata and contents
+        run: npm run release:verify
+
       - name: Build standalone container
         run: docker build -t finance-design-system:${{ github.sha }} .

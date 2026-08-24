@@ -1,5 +1,5 @@
 {
-  "name": "@finance-inzicht/storybook",
+  "name": "@finance-design/storybook",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -8,9 +8,9 @@
     "build": "storybook build"
   },
   "dependencies": {
-    "@finance-inzicht/design-system": "0.1.0",
-    "@finance-inzicht/styles": "0.1.0",
-    "@finance-inzicht/tokens": "0.1.0",
+    "@finance-design/design-system": "0.1.0",
+    "@finance-design/styles": "0.1.0",
+    "@finance-design/tokens": "0.1.0",
     "lit": "3.3.3"
   },
   "devDependencies": {

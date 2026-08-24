@@ -1,4 +1,4 @@
-import '@finance-inzicht/design-system';
+import '@finance-design/design-system';
 import { afterEach } from 'vitest';
 
 (globalThis as typeof globalThis & { IS_REACT_ACT_ENVIRONMENT: boolean }).IS_REACT_ACT_ENVIRONMENT =

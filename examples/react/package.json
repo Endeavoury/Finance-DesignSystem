@@ -1,5 +1,5 @@
 {
-  "name": "@finance-inzicht/example-react",
+  "name": "@finance-design/example-react",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -8,8 +8,8 @@
     "build": "tsc -b && vite build"
   },
   "dependencies": {
-    "@finance-inzicht/react": "0.1.0",
-    "@finance-inzicht/styles": "0.1.0",
+    "@finance-design/react": "0.1.0",
+    "@finance-design/styles": "0.1.0",
     "react": "19.2.8",
     "react-dom": "19.2.8"
   },

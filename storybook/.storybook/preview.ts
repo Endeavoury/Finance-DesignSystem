@@ -1,7 +1,7 @@
 import type { Decorator, Preview } from '@storybook/web-components-vite';
 import { html } from 'lit';
-import '@finance-inzicht/design-system';
-import '@finance-inzicht/design-system/styles.css';
+import '@finance-design/design-system';
+import '@finance-design/design-system/styles.css';
 
 const withTheme: Decorator = (story, context) => {
   const theme = String(context.globals['theme'] ?? 'system');

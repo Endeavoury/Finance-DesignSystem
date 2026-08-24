@@ -1,7 +1,13 @@
 {
-  "name": "@finance-inzicht/tokens",
+  "name": "@finance-design/tokens",
   "version": "0.1.0",
+  "description": "Semantic design tokens for Finance Design products.",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Endeavoury/Finance-DesignSystem.git",
+    "directory": "packages/tokens"
+  },
   "type": "module",
   "sideEffects": [
     "**/*.css"
@@ -21,6 +27,7 @@
     "build": "tsc -b && cp src/tokens.css dist/tokens.css"
   },
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "registry": "https://npm.pkg.github.com"
   }
 }

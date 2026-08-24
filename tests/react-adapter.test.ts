@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { act } from 'react';
 import { createRoot } from 'react-dom/client';
-import { Button, Input } from '@finance-inzicht/react';
+import { Button, Input } from '@finance-design/react';
 import { describe, expect, it, vi } from 'vitest';
 
 describe('React adapter', () => {

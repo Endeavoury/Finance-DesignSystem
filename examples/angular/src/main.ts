@@ -1,6 +1,6 @@
 import { Component, CUSTOM_ELEMENTS_SCHEMA, signal } from '@angular/core';
 import { bootstrapApplication } from '@angular/platform-browser';
-import '@finance-inzicht/design-system';
+import '@finance-design/design-system';
 @Component({
   selector: 'app-root',
   standalone: true,

@@ -1,4 +1,4 @@
-@import '@finance-inzicht/tokens/tokens.css';
+@import '@finance-design/tokens/tokens.css';
 
 :where(html) {
   background: var(--ds-color-bg-canvas);

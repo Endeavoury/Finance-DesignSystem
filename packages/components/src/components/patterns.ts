@@ -1,6 +1,6 @@
 import { css, html, type CSSResultGroup } from 'lit';
 import { property } from 'lit/decorators.js';
-import { foundationStyles, surfaceStyles } from '@finance-inzicht/styles';
+import { foundationStyles, surfaceStyles } from '@finance-design/styles';
 import { DsElement } from '../core/ds-element.js';
 
 export class DsFilterBar extends DsElement {

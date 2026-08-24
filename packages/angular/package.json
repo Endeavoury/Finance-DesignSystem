@@ -1,7 +1,13 @@
 {
-  "name": "@finance-inzicht/angular",
+  "name": "@finance-design/angular",
   "version": "0.1.0",
+  "description": "Thin Angular helpers for the Finance Design Web Components.",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Endeavoury/Finance-DesignSystem.git",
+    "directory": "packages/angular"
+  },
   "type": "module",
   "files": [
     "dist",
@@ -17,7 +23,7 @@
     "build": "tsc -b"
   },
   "dependencies": {
-    "@finance-inzicht/design-system": "0.1.0"
+    "@finance-design/design-system": "0.1.0"
   },
   "peerDependencies": {
     "@angular/core": ">=17"
@@ -26,6 +32,7 @@
     "@angular/core": "22.1.3"
   },
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "registry": "https://npm.pkg.github.com"
   }
 }

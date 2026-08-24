@@ -1,4 +1,4 @@
-# Finance Inzicht Design System
+# Finance Design System
 
 A standalone, framework-independent design system for technical and financial management interfaces. Lit Web Components are the only component implementation; Vanilla JavaScript, React, and Angular consume those same custom elements.
 
@@ -54,19 +54,31 @@ relevant sibling repository; there is no submodule pointer to update.
 
 ## Packages
 
-| Package                          | Purpose                                                       |
-| -------------------------------- | ------------------------------------------------------------- |
-| `@finance-inzicht/tokens`        | Semantic CSS tokens and typed token metadata                  |
-| `@finance-inzicht/styles`        | Opt-in global CSS and shared Lit style foundations            |
-| `@finance-inzicht/design-system` | Web Component classes and registration entry points           |
-| `@finance-inzicht/react`         | Thin typed React adapters around the Web Components           |
-| `@finance-inzicht/angular`       | Angular schema/registration helpers; no visual implementation |
+| Package                         | Purpose                                                       |
+| ------------------------------- | ------------------------------------------------------------- |
+| `@finance-design/tokens`        | Semantic CSS tokens and typed token metadata                  |
+| `@finance-design/styles`        | Opt-in global CSS and shared Lit style foundations            |
+| `@finance-design/design-system` | Web Component classes and registration entry points           |
+| `@finance-design/react`         | Thin typed React adapters around the Web Components           |
+| `@finance-design/angular`       | Angular schema/registration helpers; no visual implementation |
+
+Published packages are hosted by GitHub Packages. Consumers authenticate with
+a token that has `read:packages`, then map the scope in their project or user
+`.npmrc`:
+
+```ini
+@finance-design:registry=https://npm.pkg.github.com
+```
+
+```bash
+npm install @finance-design/design-system
+```
 
 ## Usage
 
 ```ts
-import '@finance-inzicht/design-system';
-import '@finance-inzicht/design-system/styles.css';
+import '@finance-design/design-system';
+import '@finance-design/design-system/styles.css';
 ```
 
 ```html
@@ -78,8 +90,8 @@ import '@finance-inzicht/design-system/styles.css';
 Register only a group when bundle size matters:
 
 ```ts
-import '@finance-inzicht/design-system/button';
-import '@finance-inzicht/design-system/forms';
+import '@finance-design/design-system/button';
+import '@finance-design/design-system/forms';
 ```
 
 The global stylesheet is intentionally opt-in. It installs tokens, theme defaults, typography, page colors, a small box-sizing normalization, and a few documented layout helpers. It does not restyle arbitrary buttons, inputs, headings, or links.

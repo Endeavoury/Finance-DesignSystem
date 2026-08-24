@@ -1,5 +1,5 @@
 {
-  "name": "@finance-inzicht/example-vanilla",
+  "name": "@finance-design/example-vanilla",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -8,8 +8,8 @@
     "build": "vite build"
   },
   "dependencies": {
-    "@finance-inzicht/design-system": "0.1.0",
-    "@finance-inzicht/styles": "0.1.0"
+    "@finance-design/design-system": "0.1.0",
+    "@finance-design/styles": "0.1.0"
   },
   "devDependencies": {
     "vite": "8.2.2",
