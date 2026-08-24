@@ -1,6 +1,6 @@
 import { css, html, nothing, type CSSResultGroup } from 'lit';
 import { property } from 'lit/decorators.js';
-import { foundationStyles, spinnerStyles } from '@finance-design/styles';
+import { foundationStyles, spinnerStyles } from '@endeavoury/finance-design-styles';
 import { DsElement, type DsDensity } from '../core/ds-element.js';
 
 export interface DsTableColumn<Row extends Record<string, unknown> = Record<string, unknown>> {

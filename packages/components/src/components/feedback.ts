@@ -1,6 +1,6 @@
 import { css, html, nothing, type CSSResultGroup } from 'lit';
 import { property } from 'lit/decorators.js';
-import { foundationStyles, spinnerStyles, surfaceStyles } from '@finance-design/styles';
+import { foundationStyles, spinnerStyles, surfaceStyles } from '@endeavoury/finance-design-styles';
 import { DsElement, type DsTone } from '../core/ds-element.js';
 
 export class DsAlert extends DsElement {

@@ -11,9 +11,9 @@ await mkdir(temporary, { recursive: true });
 await mkdir(outputDirectory, { recursive: true });
 
 const entries = {
-  button: `import '@finance-design/design-system/button';`,
-  forms: `import '@finance-design/design-system/forms';`,
-  full: `import '@finance-design/design-system';`,
+  button: `import '@endeavoury/finance-design/button';`,
+  forms: `import '@endeavoury/finance-design/forms';`,
+  full: `import '@endeavoury/finance-design';`,
 };
 const budgets = {
   button: { rawBytes: 45000, gzipBytes: 12000 },

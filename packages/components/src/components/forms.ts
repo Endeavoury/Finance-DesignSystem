@@ -1,6 +1,6 @@
 import { css, html, nothing, type CSSResultGroup } from 'lit';
 import { property, query } from 'lit/decorators.js';
-import { formFoundationStyles, foundationStyles } from '@finance-design/styles';
+import { formFoundationStyles, foundationStyles } from '@endeavoury/finance-design-styles';
 import { DsElement, type DsSize } from '../core/ds-element.js';
 
 export interface DsValueChangeDetail {

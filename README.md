@@ -68,31 +68,31 @@ relevant sibling repository; there is no submodule pointer to update.
 
 ## Packages
 
-| Package                         | Purpose                                                       |
-| ------------------------------- | ------------------------------------------------------------- |
-| `@finance-design/tokens`        | Semantic CSS tokens and typed token metadata                  |
-| `@finance-design/styles`        | Opt-in global CSS and shared Lit style foundations            |
-| `@finance-design/design-system` | Web Component classes and registration entry points           |
-| `@finance-design/react`         | Thin typed React adapters around the Web Components           |
-| `@finance-design/angular`       | Angular schema/registration helpers; no visual implementation |
+| Package                              | Purpose                                                       |
+| ------------------------------------ | ------------------------------------------------------------- |
+| `@endeavoury/finance-design-tokens`  | Semantic CSS tokens and typed token metadata                  |
+| `@endeavoury/finance-design-styles`  | Opt-in global CSS and shared Lit style foundations            |
+| `@endeavoury/finance-design`         | Web Component classes and registration entry points           |
+| `@endeavoury/finance-design-react`   | Thin typed React adapters around the Web Components           |
+| `@endeavoury/finance-design-angular` | Angular schema/registration helpers; no visual implementation |
 
 Published packages are hosted by GitHub Packages. Consumers authenticate with
 a token that has `read:packages`, then map the scope in their project or user
 `.npmrc`:
 
 ```ini
-@finance-design:registry=https://npm.pkg.github.com
+@endeavoury:registry=https://npm.pkg.github.com
 ```
 
 ```bash
-npm install @finance-design/design-system
+npm install @endeavoury/finance-design
 ```
 
 ## Usage
 
 ```ts
-import '@finance-design/design-system';
-import '@finance-design/design-system/styles.css';
+import '@endeavoury/finance-design';
+import '@endeavoury/finance-design/styles.css';
 ```
 
 ```html
@@ -104,8 +104,8 @@ import '@finance-design/design-system/styles.css';
 Register only a group when bundle size matters:
 
 ```ts
-import '@finance-design/design-system/button';
-import '@finance-design/design-system/forms';
+import '@endeavoury/finance-design/button';
+import '@endeavoury/finance-design/forms';
 ```
 
 The global stylesheet is intentionally opt-in. It installs tokens, theme defaults, typography, page colors, a small box-sizing normalization, and a few documented layout helpers. It does not restyle arbitrary buttons, inputs, headings, or links.

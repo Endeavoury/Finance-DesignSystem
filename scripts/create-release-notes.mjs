@@ -23,7 +23,7 @@ const notes = `## npm packages
 
 ${packages.map(({ name }) => `- \`${name}@${version}\``).join('\n')}
 
-Configure \`@finance-design:registry=https://npm.pkg.github.com\`, authenticate with \`read:packages\`, and install the packages with npm.
+Configure \`@endeavoury:registry=https://npm.pkg.github.com\`, authenticate with \`read:packages\`, and install the packages with npm.
 
 ## Storybook container
 

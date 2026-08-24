@@ -2,7 +2,7 @@
 
 ## Token layers
 
-`@finance-design/tokens/tokens.css` defines primitive scales and semantic aliases. Components consume semantic variables such as `--ds-color-bg-surface`, never theme-specific raw colors. Light and dark themes assign the same semantic names.
+`@endeavoury/finance-design-tokens/tokens.css` defines primitive scales and semantic aliases. Components consume semantic variables such as `--ds-color-bg-surface`, never theme-specific raw colors. Light and dark themes assign the same semantic names.
 
 Set `data-ds-theme="light"` or `data-ds-theme="dark"` on `html` or any application subtree. `data-ds-theme="system"` follows `prefers-color-scheme`. CSS custom properties inherit across Shadow DOM, so nested theme previews and application-level overrides remain possible.
 
@@ -14,7 +14,7 @@ This avoids embedding the global stylesheet or a large copied reset in every com
 
 ## Global stylesheet
 
-Importing `@finance-design/design-system/styles.css` is optional (the same file is also available from `@finance-design/styles/global.css`). It affects:
+Importing `@endeavoury/finance-design/styles.css` is optional (the same file is also available from `@endeavoury/finance-design-styles/global.css`). It affects:
 
 - design-system token variables and `color-scheme`;
 - `box-sizing` for the consuming document;

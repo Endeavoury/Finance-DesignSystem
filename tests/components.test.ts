@@ -6,7 +6,7 @@ import type {
   DsInput,
   DsSelect,
   DsSidebarItem,
-} from '@finance-design/design-system/classes';
+} from '@endeavoury/finance-design/classes';
 
 const mount = async <T extends HTMLElement>(element: T): Promise<T> => {
   document.body.append(element);

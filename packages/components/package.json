@@ -1,5 +1,5 @@
 {
-  "name": "@finance-design/design-system",
+  "name": "@endeavoury/finance-design",
   "version": "0.1.0",
   "description": "Framework-independent Finance Design Web Components built with Lit.",
   "license": "MIT",
@@ -64,8 +64,8 @@
     "build": "tsc -b && cp ../styles/src/global.css dist/styles.css"
   },
   "dependencies": {
-    "@finance-design/styles": "0.1.0",
-    "@finance-design/tokens": "0.1.0",
+    "@endeavoury/finance-design-styles": "0.1.0",
+    "@endeavoury/finance-design-tokens": "0.1.0",
     "lit": "3.3.3",
     "tslib": "2.8.1"
   },

@@ -1,6 +1,6 @@
 # Versioning and publishing
 
-The five public `@finance-design/*` packages use one synchronized semantic version. During the pre-1.0 phase, breaking API changes increment the minor version. After 1.0, breaking changes increment major, additive changes minor, and fixes patch.
+The five public `@endeavoury/finance-design*` packages use one synchronized semantic version. During the pre-1.0 phase, breaking API changes increment the minor version. After 1.0, breaking changes increment major, additive changes minor, and fixes patch.
 
 Packages are published to GitHub Packages and linked to
 `Endeavoury/Finance-DesignSystem` through their `repository` metadata. GitHub
@@ -8,24 +8,18 @@ Packages requires a scoped npm name and authenticated package access.
 
 ## One-time repository setup
 
-The `@finance-design` namespace belongs to the separate GitHub account
-`finance-design`, while the source repository belongs to `Endeavoury`.
-Consequently, the repository's automatic `GITHUB_TOKEN` cannot publish this
-scope by itself.
+The source repository and all packages belong to the `Endeavoury` GitHub
+account. The release workflow therefore publishes both npm packages and the
+Storybook container with the repository's automatic `GITHUB_TOKEN`; no
+separate account or publishing secret is required.
 
-1. Grant the `finance-design` GitHub account write access to
-   `Endeavoury/Finance-DesignSystem`.
-2. Create a classic personal access token for that account with
-   `read:packages` and `write:packages`.
-3. Add it to the design-system repository as the Actions secret
-   `FINANCE_DESIGN_PACKAGES_TOKEN`.
-4. Ensure repository Actions settings allow workflows to write packages and
+1. Ensure repository Actions settings allow workflows to write packages and
    repository contents.
-5. After the first release, set npm and container package visibility and
+2. After the first release, set npm and container package visibility and
    inherited repository access as required in GitHub Packages.
 
-Do not commit the token to `.npmrc`. The committed file only maps the package
-scope to the registry; GitHub Actions injects authentication at runtime.
+The committed `.npmrc` only maps the `@endeavoury` scope to GitHub Packages. It
+contains no credentials; GitHub Actions injects authentication at runtime.
 
 ## Release checklist
 
@@ -46,11 +40,11 @@ quality gate, verifies that the tag and package versions match, and inspects
 each tarball with `npm pack --dry-run`. It then publishes in this dependency
 order:
 
-1. `@finance-design/tokens`
-2. `@finance-design/styles`
-3. `@finance-design/design-system`
-4. `@finance-design/react`
-5. `@finance-design/angular`
+1. `@endeavoury/finance-design-tokens`
+2. `@endeavoury/finance-design-styles`
+3. `@endeavoury/finance-design`
+4. `@endeavoury/finance-design-react`
+5. `@endeavoury/finance-design-angular`
 
 The same workflow builds the standalone Storybook image and publishes it as:
 
@@ -92,14 +86,14 @@ Workspace dependencies use exact matching versions so a release is reproducible.
 Add the registry mapping to the consuming project's `.npmrc`:
 
 ```ini
-@finance-design:registry=https://npm.pkg.github.com
+@endeavoury:registry=https://npm.pkg.github.com
 ```
 
 Authenticate with a classic personal access token that has `read:packages`,
 then install normally:
 
 ```bash
-npm install @finance-design/design-system
+npm install @endeavoury/finance-design
 ```
 
 The Finance Inzicht sibling workspace intentionally uses local `file:`

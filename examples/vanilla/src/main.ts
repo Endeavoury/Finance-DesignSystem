@@ -1,9 +1,9 @@
-import '@finance-design/design-system/styles.css';
-import '@finance-design/design-system/button';
-import '@finance-design/design-system/forms';
-import '@finance-design/design-system/display';
-import '@finance-design/design-system/feedback';
-import '@finance-design/design-system/layout';
+import '@endeavoury/finance-design/styles.css';
+import '@endeavoury/finance-design/button';
+import '@endeavoury/finance-design/forms';
+import '@endeavoury/finance-design/display';
+import '@endeavoury/finance-design/feedback';
+import '@endeavoury/finance-design/layout';
 
 document.querySelector('main')!.innerHTML = `
   <ds-container size="narrow">

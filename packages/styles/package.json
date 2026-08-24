@@ -1,5 +1,5 @@
 {
-  "name": "@finance-design/styles",
+  "name": "@endeavoury/finance-design-styles",
   "version": "0.1.0",
   "description": "Shared styling foundations and opt-in global styles for Finance Design.",
   "license": "MIT",
@@ -27,7 +27,7 @@
     "build": "tsc -b && cp src/global.css dist/global.css"
   },
   "dependencies": {
-    "@finance-design/tokens": "0.1.0",
+    "@endeavoury/finance-design-tokens": "0.1.0",
     "lit": "3.3.3"
   },
   "publishConfig": {

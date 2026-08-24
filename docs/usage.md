@@ -5,18 +5,18 @@
 The full entry point registers all custom elements:
 
 ```ts
-import '@finance-design/design-system';
-import '@finance-design/design-system/styles.css';
+import '@endeavoury/finance-design';
+import '@endeavoury/finance-design/styles.css';
 ```
 
-Group entry points (`button`, `forms`, `display`, `feedback`, `data-table`, `layout`, `navigation`, and `patterns`) register only related elements. `@finance-design/design-system/classes` exports the classes without registering them, which is useful for controlled registries and testing.
+Group entry points (`button`, `forms`, `display`, `feedback`, `data-table`, `layout`, `navigation`, and `patterns`) register only related elements. `@endeavoury/finance-design/classes` exports the classes without registering them, which is useful for controlled registries and testing.
 
 ## Attributes, properties, slots, and events
 
 Use attributes for simple serializable values and properties for structured values:
 
 ```ts
-import '@finance-design/design-system/data-table';
+import '@endeavoury/finance-design/data-table';
 
 const table = document.querySelector('ds-data-table');
 table.columns = [{ key: 'name', label: 'Name', sortable: true }];
@@ -42,7 +42,7 @@ All design-system custom events use the `ds-` prefix, bubble, cross Shadow DOM b
 The optional React package wraps the existing element classes with `@lit/react`. It adds JSX property and typed custom-event ergonomics; it does not render a second implementation.
 
 ```tsx
-import { Button, Input } from '@finance-design/react';
+import { Button, Input } from '@endeavoury/finance-design-react';
 
 export function Editor() {
   return <Input label="Name" onDsChange={(event) => console.log(event.detail.value)} />;
@@ -54,8 +54,8 @@ export function Editor() {
 Import the design-system registration once and add the exported schema to a standalone component or NgModule that uses the elements:
 
 ```ts
-import '@finance-design/design-system';
-import { FINANCE_DESIGN_CUSTOM_ELEMENTS_SCHEMA } from '@finance-design/angular';
+import '@endeavoury/finance-design';
+import { FINANCE_DESIGN_CUSTOM_ELEMENTS_SCHEMA } from '@endeavoury/finance-design-angular';
 
 @Component({
   standalone: true,

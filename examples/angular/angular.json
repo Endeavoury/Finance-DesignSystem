@@ -11,7 +11,7 @@
           "options": {
             "browser": "src/main.ts",
             "tsConfig": "tsconfig.app.json",
-            "styles": ["@finance-design/design-system/styles.css"],
+            "styles": ["@endeavoury/finance-design/styles.css"],
             "outputPath": "dist"
           }
         },

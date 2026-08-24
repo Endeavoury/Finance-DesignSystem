@@ -1,6 +1,6 @@
 import { css, html, nothing, type CSSResultGroup } from 'lit';
 import { property } from 'lit/decorators.js';
-import { foundationStyles } from '@finance-design/styles';
+import { foundationStyles } from '@endeavoury/finance-design-styles';
 import { DsElement } from '../core/ds-element.js';
 
 export interface DsActivateDetail {

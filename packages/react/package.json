@@ -1,5 +1,5 @@
 {
-  "name": "@finance-design/react",
+  "name": "@endeavoury/finance-design-react",
   "version": "0.1.0",
   "description": "Thin React adapters for the Finance Design Web Components.",
   "license": "MIT",
@@ -23,7 +23,7 @@
     "build": "tsc -b"
   },
   "dependencies": {
-    "@finance-design/design-system": "0.1.0",
+    "@endeavoury/finance-design": "0.1.0",
     "@lit/react": "1.0.8"
   },
   "peerDependencies": {

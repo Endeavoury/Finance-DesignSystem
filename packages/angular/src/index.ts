@@ -1,5 +1,5 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import '@finance-design/design-system';
+import '@endeavoury/finance-design';
 
 export const FINANCE_DESIGN_CUSTOM_ELEMENTS_SCHEMA = CUSTOM_ELEMENTS_SCHEMA;
 export const DESIGN_SYSTEM_SCHEMAS = [FINANCE_DESIGN_CUSTOM_ELEMENTS_SCHEMA] as const;
