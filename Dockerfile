@@ -1,7 +1,7 @@
 FROM node:26.5.0-alpine AS build
 WORKDIR /design-system
 
-COPY design-system/ ./
+COPY . ./
 RUN npm ci
 RUN npm run build-storybook
 
