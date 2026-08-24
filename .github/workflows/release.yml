@@ -1,0 +1,169 @@
+name: Release design system
+
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write
+  packages: write
+  attestations: write
+  id-token: write
+
+concurrency:
+  group: release-${{ github.ref_name }}
+  cancel-in-progress: false
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ghcr.io/endeavoury/finance-design-system-storybook
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out tagged source
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node.js and GitHub Packages
+        uses: actions/setup-node@v4
+        with:
+          node-version: 26.5.0
+          cache: npm
+          registry-url: https://npm.pkg.github.com
+          scope: '@finance-design'
+          always-auth: true
+
+      - name: Require npm publishing token
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.FINANCE_DESIGN_PACKAGES_TOKEN }}
+        run: |
+          if [ -z "$NODE_AUTH_TOKEN" ]; then
+            echo "FINANCE_DESIGN_PACKAGES_TOKEN is required to publish @finance-design packages."
+            exit 1
+          fi
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run complete quality gate
+        run: npm run check
+
+      - name: Verify release tag and package contents
+        run: npm run release:verify -- "$GITHUB_REF_NAME"
+
+      - name: Read release version
+        id: version
+        run: echo "version=${GITHUB_REF_NAME#v}" >> "$GITHUB_OUTPUT"
+
+      - name: Pack npm release assets
+        run: |
+          mkdir -p release-assets
+          npm pack --workspace @finance-design/tokens --pack-destination release-assets
+          npm pack --workspace @finance-design/styles --pack-destination release-assets
+          npm pack --workspace @finance-design/design-system --pack-destination release-assets
+          npm pack --workspace @finance-design/react --pack-destination release-assets
+          npm pack --workspace @finance-design/angular --pack-destination release-assets
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@65b78e6e13532edd9afa3aa52ac7964289d1a9c1
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Generate Storybook image metadata
+        id: metadata
+        uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
+        with:
+          images: ${{ env.IMAGE_NAME }}
+          flavor: latest=false
+          tags: |
+            type=semver,pattern={{version}}
+            type=semver,pattern=v{{version}}
+            type=sha,prefix=sha-
+            type=raw,value=latest
+          labels: |
+            org.opencontainers.image.title=Finance Design Storybook
+            org.opencontainers.image.description=Standalone Storybook for the Finance Design Web Component system
+
+      - name: Build and publish Storybook image
+        id: image
+        uses: docker/build-push-action@f2a1d5e99d037542a71f64918e516c093c6f3fc4
+        with:
+          context: .
+          push: true
+          platforms: linux/amd64
+          tags: ${{ steps.metadata.outputs.tags }}
+          labels: ${{ steps.metadata.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Attest Storybook image provenance
+        uses: actions/attest@v4
+        with:
+          subject-name: ${{ env.IMAGE_NAME }}
+          subject-digest: ${{ steps.image.outputs.digest }}
+          push-to-registry: true
+
+      - name: Export Storybook image release asset
+        run: |
+          docker pull "${IMAGE_NAME}:${{ steps.version.outputs.version }}"
+          docker save "${IMAGE_NAME}:${{ steps.version.outputs.version }}" \
+            | gzip -9 > "release-assets/finance-design-storybook-${{ steps.version.outputs.version }}-linux-amd64.tar.gz"
+          printf '%s\n' '${{ steps.image.outputs.digest }}' \
+            > "release-assets/finance-design-storybook-${{ steps.version.outputs.version }}.digest"
+
+      - name: Generate release notes and manifest
+        run: >-
+          node scripts/create-release-notes.mjs
+          "${{ steps.version.outputs.version }}"
+          "$IMAGE_NAME"
+          "${{ steps.image.outputs.digest }}"
+          release-assets
+
+      - name: Generate release checksums
+        working-directory: release-assets
+        run: >-
+          sha256sum
+          *.tgz
+          *.tar.gz
+          *.digest
+          release-manifest.json
+          > SHA256SUMS
+
+      - name: Attest downloadable release assets
+        uses: actions/attest@v4
+        with:
+          subject-path: release-assets/*
+
+      - name: Publish npm packages to GitHub Packages
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.FINANCE_DESIGN_PACKAGES_TOKEN }}
+        run: npm run release:publish
+
+      - name: Create or update GitHub Release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          assets=(
+            release-assets/*.tgz
+            release-assets/*.tar.gz
+            release-assets/*.digest
+            release-assets/SHA256SUMS
+            release-assets/release-manifest.json
+          )
+
+          if gh release view "$GITHUB_REF_NAME" >/dev/null 2>&1; then
+            gh release upload "$GITHUB_REF_NAME" "${assets[@]}" --clobber
+            gh release edit "$GITHUB_REF_NAME" \
+              --title "Finance Design ${{ steps.version.outputs.version }}" \
+              --notes-file release-assets/release-notes.md
+          else
+            gh release create "$GITHUB_REF_NAME" "${assets[@]}" \
+              --verify-tag \
+              --title "Finance Design ${{ steps.version.outputs.version }}" \
+              --notes-file release-assets/release-notes.md
+          fi

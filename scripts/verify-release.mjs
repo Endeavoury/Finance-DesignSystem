@@ -1,34 +1,23 @@
-import { readFile } from 'node:fs/promises';
 import { spawnSync } from 'node:child_process';
-
-const packages = [
-  ['@finance-design/tokens', 'packages/tokens/package.json'],
-  ['@finance-design/styles', 'packages/styles/package.json'],
-  ['@finance-design/design-system', 'packages/components/package.json'],
-  ['@finance-design/react', 'packages/react/package.json'],
-  ['@finance-design/angular', 'packages/angular/package.json'],
-];
+import { loadReleasePackages, registry, releasePackages } from './release-config.mjs';
 
 const releaseTag = process.argv[2];
-const manifests = await Promise.all(
-  packages.map(async ([expectedName, manifestPath]) => {
-    const manifest = JSON.parse(await readFile(manifestPath, 'utf8'));
+const packages = await loadReleasePackages();
+const manifests = packages.map(({ expectedName, manifestPath, manifest }) => {
+  if (manifest.name !== expectedName) {
+    throw new Error(`${manifestPath} must be named ${expectedName}.`);
+  }
 
-    if (manifest.name !== expectedName) {
-      throw new Error(`${manifestPath} must be named ${expectedName}.`);
-    }
+  if (manifest.private === true) {
+    throw new Error(`${expectedName} must be publishable.`);
+  }
 
-    if (manifest.private === true) {
-      throw new Error(`${expectedName} must be publishable.`);
-    }
+  if (manifest.publishConfig?.registry !== registry) {
+    throw new Error(`${expectedName} must publish to GitHub Packages.`);
+  }
 
-    if (manifest.publishConfig?.registry !== 'https://npm.pkg.github.com') {
-      throw new Error(`${expectedName} must publish to GitHub Packages.`);
-    }
-
-    return manifest;
-  }),
-);
+  return manifest;
+});
 
 const versions = new Set(manifests.map(({ version }) => version));
 if (versions.size !== 1) {
@@ -40,7 +29,7 @@ if (releaseTag && releaseTag !== `v${version}`) {
   throw new Error(`Release tag ${releaseTag} does not match package version v${version}.`);
 }
 
-for (const [packageName] of packages) {
+for (const [packageName] of releasePackages) {
   const pack = spawnSync('npm', ['pack', '--dry-run', '--workspace', packageName], {
     encoding: 'utf8',
     stdio: 'inherit',
@@ -51,4 +40,4 @@ for (const [packageName] of packages) {
   }
 }
 
-console.log(`Release v${version} is ready for ${packages.length} packages.`);
+console.log(`Release v${version} is ready for ${releasePackages.length} packages.`);

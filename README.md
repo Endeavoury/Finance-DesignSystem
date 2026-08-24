@@ -35,6 +35,20 @@ Run the complete quality gate with:
 npm run check
 ```
 
+## Releases
+
+Pushing a version tag such as `v0.1.0` runs the release pipeline. A successful
+run publishes all five npm packages to GitHub Packages, publishes the Storybook
+container to GHCR, and creates a GitHub Release with checksummed npm tarballs
+and a loadable Linux AMD64 Docker archive.
+
+```bash
+docker pull ghcr.io/endeavoury/finance-design-system-storybook:0.1.0
+```
+
+See [Versioning and publishing](docs/publishing.md) for the one-time package
+token setup, release procedure, image tags, and artifact verification.
+
 ## Finance Inzicht integration
 
 Finance Inzicht consumes this repository as a sibling checkout. Package

@@ -6,3 +6,4 @@ coverage/
 .angular/
 *.tsbuildinfo
 bundle-report.json
+release-assets/
