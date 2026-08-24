@@ -30,28 +30,20 @@ npm run check
 
 ## Finance Inzicht integration
 
-Finance Inzicht tracks this repository as a Git submodule. This keeps package
-history, releases, and CI independent while retaining a single local workspace
-for application and design-system development.
+Finance Inzicht consumes this repository as a sibling checkout. Package
+history, releases, CI, and working trees remain fully independent while a
+shared parent directory lets local tools and Codex inspect both codebases.
 
-Clone the application and this repository together with:
-
-```bash
-git clone --recurse-submodules git@github.com:Endeavoury/Finance-Inzicht.git
-cd Finance-Inzicht
-docker compose up --build
+```text
+Finance-Inzicht/
+├── application/  → Endeavoury/Finance-Inzicht
+└── design/       → Endeavoury/Finance-DesignSystem
 ```
 
-For an existing Finance Inzicht checkout:
-
-```bash
-git submodule update --init --recursive
-```
-
-Changes below `design-system/` are committed and pushed from inside that
-directory. The application repository then commits the updated submodule
-revision. This layout lets tools such as Codex inspect and edit both repositories
-in one workspace without coupling their Git histories.
+The application repository provides `scripts/setup-workspace.sh`, which clones
+or updates this repository in the expected `design/` directory and prepares
+both Node workspaces. Changes are committed and pushed directly from the
+relevant sibling repository; there is no submodule pointer to update.
 
 ## Packages
 
