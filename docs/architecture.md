@@ -2,9 +2,137 @@
 
 ## Decision summary
 
+The architecture has three layers with a one-way dependency direction:
+
+1. **Design system in Penpot** defines the visual language, semantic tokens, component anatomy, states, responsive behavior, and accessibility intent.
+2. **Web Components** implement that contract once as standards-based `ds-*` custom elements. This is the only visual implementation.
+3. **Framework integrations** expose the same elements to Vanilla JavaScript, React, and Angular without duplicating markup, behavior, or styling.
+
 The design system is an independent npm workspace in its own `Finance-DesignSystem` repository. It has no application imports and its build does not read application source. Finance Inzicht consumes published packages in deployments and sibling workspace packages during local development; the product is also used as inspiration for mock Storybook screens.
 
 The implementation uses **Lit 3 and standards-based custom elements**. Lit was selected because it keeps the shipped contract as Web Components while adding typed reactive properties, declarative templates, Shadow DOM, small runtime cost, and a maintained React adapter. React and Angular remain consumers; there are no framework-specific visual implementations.
+
+## Layered architecture
+
+```mermaid
+flowchart TB
+  subgraph L1["1. Design system — Penpot"]
+    foundations["Foundations\ncolor · type · spacing · motion"]
+    penpotComponents["Components and patterns\nanatomy · variants · states"]
+    specifications["Specifications\nresponsive · interaction · accessibility"]
+  end
+
+  subgraph H["Reviewed design-to-code handoff"]
+    tokenContract["Semantic token contract"]
+    componentContract["Component API contract"]
+  end
+
+  subgraph L2["2. Web Component implementation"]
+    tokens["@endeavoury/finance-design-tokens"]
+    styles["@endeavoury/finance-design-styles"]
+    elements["@endeavoury/finance-design\nLit + ds-* custom elements"]
+  end
+
+  subgraph L3["3. Consumer integrations"]
+    vanilla["Vanilla HTML / JavaScript\ndirect custom-element API"]
+    react["React\ntyped @lit/react wrappers"]
+    angular["Angular\nregistration + schema helper"]
+  end
+
+  foundations --> tokenContract
+  penpotComponents --> componentContract
+  specifications --> componentContract
+  tokenContract --> tokens
+  componentContract --> elements
+  tokens --> styles --> elements
+  elements --> vanilla
+  elements --> react
+  elements --> angular
+```
+
+Dependencies only point downward. Penpot does not contain runtime behavior, Web Components do not depend on a consuming framework, and integrations must not introduce their own visual implementation.
+
+### Layer 1: Penpot design system
+
+Penpot is the design and collaboration surface. It owns what a component should look like and how its variants, states, layout, and interaction are intended to work. The Penpot libraries should be organized into:
+
+- **Foundations:** primitive palettes and scales for color, typography, spacing, radius, elevation, motion, breakpoints, icons, and density.
+- **Semantic tokens:** purpose-based names such as `color.bg.surface` and `color.text.primary`, with light and dark theme values. These map to code variables such as `--ds-color-bg-surface` and `--ds-color-text-primary`.
+- **Components:** reusable Penpot components with variants and states matching the public `ds-*` elements.
+- **Patterns and screens:** compositions used to validate workflows and responsive behavior; these do not become a separate component implementation.
+- **Specifications:** anatomy, content guidance, keyboard behavior, accessibility annotations, and responsive rules used during implementation and review.
+
+Penpot and code are complementary sources of truth: Penpot owns design intent, while the versioned packages own executable behavior and public APIs. A design change is not released to consumers until its token or component contract is implemented, exercised in Storybook, and reviewed. Until an automated token pipeline is introduced, token changes are deliberately transcribed into the token package and reviewed in the same pull request as their component impact.
+
+### Layer 2: Web Components
+
+The Web Component layer turns the design contract into browser-native custom elements. Lit is an implementation aid; the public contract remains standard HTML elements, properties, attributes, slots, CSS custom properties, `::part()` hooks, and DOM events.
+
+This layer owns:
+
+- token assets and theme values;
+- component markup, behavior, accessibility, and responsive styling;
+- stable `ds-*` tags and `ds-*` custom events;
+- grouped registration entrypoints and class-only imports;
+- the Storybook reference implementation and component tests.
+
+It does not own product data, routing, API calls, authentication, or framework-specific state management.
+
+### Layer 3: Vanilla, React, and Angular integration
+
+All consumers use the exact same registered custom elements:
+
+- **Vanilla HTML/JavaScript** is the baseline integration. It imports a registration entrypoint, sets attributes or properties, and listens for DOM events.
+- **React** uses optional typed `@lit/react` wrappers. The wrappers improve JSX property and custom-event ergonomics but render the same `ds-*` elements.
+- **Angular** uses a registration helper plus `CUSTOM_ELEMENTS_SCHEMA`. Angular property and event bindings target the native element contract directly.
+
+Framework adapters may translate framework conventions into the custom-element API. They may not fork styles, markup, validation, or interaction behavior. A missing capability is first added to the Web Component and then exposed through each adapter that needs additional typing or binding support.
+
+## Design-to-release workflow
+
+```mermaid
+sequenceDiagram
+  actor Designer
+  participant Penpot
+  participant Contract as Design contract
+  participant WC as Web Components
+  participant Storybook
+  participant Packages as npm packages
+  participant Apps as Vanilla / React / Angular
+
+  Designer->>Penpot: Create or change foundation, component, or pattern
+  Penpot->>Contract: Specify semantic tokens, states, behavior, and a11y
+  Contract->>WC: Implement tokens and the ds-* public API
+  WC->>Storybook: Render real components in all states and themes
+  Storybook-->>Designer: Visual and interaction review
+  Designer-->>WC: Approve or request adjustments
+  WC->>Packages: Test, version, and publish one implementation
+  Packages->>Apps: Consume directly or through thin adapters
+```
+
+The handoff is a review loop, not a blind export. Generated values are useful input, but component behavior, naming, accessibility, and backwards compatibility still require implementation review.
+
+## Runtime composition
+
+```mermaid
+flowchart LR
+  app["Product application"]
+  framework["Framework state and routing"]
+  adapter["Optional framework adapter"]
+  wc["ds-* custom element"]
+  shadow["Shadow DOM + native controls"]
+  theme["Semantic CSS custom properties"]
+
+  app --> framework
+  framework -->|"properties / events / slots"| adapter
+  adapter --> wc
+  framework -->|"Vanilla or direct element use"| wc
+  theme -->|"inherited through host"| wc
+  wc --> shadow
+  wc -->|"composed ds-* events"| framework
+```
+
+At runtime, product applications own data and orchestration. Components receive values through attributes and properties, accept content through slots, and send user intent back through composed events. Semantic CSS custom properties carry themes across the Shadow DOM boundary.
 
 ## Current application stack
 
@@ -30,6 +158,8 @@ design-system/
 ```
 
 Each workspace can build independently. Public packages use the `@endeavoury/finance-design*` family and one synchronized semantic version. Package identity does not affect the stable `ds-*` custom-element names.
+
+Penpot remains outside the npm workspace because it is a design-authoring service rather than a runtime package. Links, exports, and handoff conventions can be recorded in repository documentation without coupling package builds to Penpot availability.
 
 ## Component and Shadow DOM strategy
 
@@ -71,6 +201,18 @@ Each workspace can build independently. Public packages use the `@endeavoury/fin
 - **Vanilla:** import the full package or an individual registration path, then author native HTML.
 - **React:** optional wrappers from `@endeavoury/finance-design-react` use `@lit/react/createComponent`; wrappers map typed custom events and complex properties to the same custom elements.
 - **Angular:** import the registration helper once and add `CUSTOM_ELEMENTS_SCHEMA`; property and event bindings target native custom-element APIs. Form-associated controls work with native forms; a future ControlValueAccessor package is optional and not part of the visual source of truth.
+
+### Integration dependency matrix
+
+| Layer/package    | May depend on                                          | Must not depend on                       |
+| ---------------- | ------------------------------------------------------ | ---------------------------------------- |
+| Penpot library   | Design foundations and shared component specifications | Lit, React, Angular, or application code |
+| `tokens`         | Reviewed semantic design values                        | Components, adapters, or applications    |
+| `styles`         | `tokens`                                               | Framework adapters or applications       |
+| `components`     | `tokens`, `styles`, Lit, browser standards             | React, Angular, or application code      |
+| `react`          | `components`, React, `@lit/react`                      | Angular or product behavior              |
+| `angular`        | `components`, Angular integration types                | React or product behavior                |
+| Vanilla consumer | `components` and optional global styles                | React or Angular adapters                |
 
 ## Testing strategy
 

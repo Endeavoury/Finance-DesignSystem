@@ -6,6 +6,26 @@ A standalone, framework-independent design system for technical and financial ma
 
 This repository is independent of the Finance Inzicht application. It has no application imports, API clients, authentication, or financial business logic.
 
+## Architecture at a glance
+
+The design system follows a three-layer architecture: Penpot defines the design language and component specifications, Lit Web Components provide the single framework-independent implementation, and thin integrations make those elements ergonomic in Vanilla JavaScript, React, and Angular.
+
+```mermaid
+flowchart LR
+  penpot["1. Penpot\nfoundations · tokens · components"]
+  webcomponents["2. Web Components\nLit · ds-* elements · Storybook"]
+  vanilla["3. Vanilla"]
+  react["3. React"]
+  angular["3. Angular"]
+
+  penpot -->|"reviewed design contract"| webcomponents
+  webcomponents --> vanilla
+  webcomponents --> react
+  webcomponents --> angular
+```
+
+Dependencies flow from design intent toward consumers. Framework integrations never reimplement visual behavior. See [Design system architecture](docs/architecture.md) for layer responsibilities, handoff workflow, runtime composition, and dependency rules.
+
 ## Quick start
 
 ```bash
