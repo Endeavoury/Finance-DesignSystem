@@ -1,6 +1,6 @@
 {
   "name": "@endeavoury/kanosis-angular",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Thin Angular helpers for the Kanosis Web Components.",
   "license": "MIT",
   "repository": {
@@ -23,7 +23,7 @@
     "build": "tsc -b"
   },
   "dependencies": {
-    "@endeavoury/kanosis": "1.0.0"
+    "@endeavoury/kanosis": "1.0.1"
   },
   "peerDependencies": {
     "@angular/core": ">=17"

@@ -1,6 +1,6 @@
 {
   "name": "@endeavoury/kanosis-react",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Thin React adapters for the Kanosis Web Components.",
   "license": "MIT",
   "repository": {
@@ -23,7 +23,7 @@
     "build": "tsc -b"
   },
   "dependencies": {
-    "@endeavoury/kanosis": "1.0.0",
+    "@endeavoury/kanosis": "1.0.1",
     "@lit/react": "1.0.8"
   },
   "peerDependencies": {
