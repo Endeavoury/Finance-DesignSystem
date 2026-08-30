@@ -19,7 +19,7 @@ const semantic = [
 ];
 const dataVisualization = Array.from({ length: 8 }, (_, index) => `data-${index + 1}`);
 const meta: Meta = {
-  title: 'Foundations/Colors',
+  title: 'Foundation/Colors',
   tags: ['autodocs'],
   parameters: { layout: 'fullscreen' },
 };
@@ -100,8 +100,8 @@ export const DataVisualization: StoryObj = {
       </style>
       <h1>Data visualization</h1>
       <p>
-        A theme-aware categorical palette for charts. Preserve the sequence so the same series has
-        a stable visual identity across products.
+        A theme-aware categorical palette for charts. Preserve the sequence so the same series has a
+        stable visual identity across products.
       </p>
       <div class="palette">
         ${dataVisualization.map(

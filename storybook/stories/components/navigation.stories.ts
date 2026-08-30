@@ -46,3 +46,32 @@ export const ApplicationShell: StoryObj = {
       ></ds-app-shell>
     </div>`,
 };
+
+export const Breadcrumbs: StoryObj = {
+  render: () =>
+    html`<ds-breadcrumbs label="Current location">
+      <ds-breadcrumb href="#dashboard">Dashboard</ds-breadcrumb>
+      <ds-breadcrumb href="#accounts">Accounts</ds-breadcrumb>
+      <ds-breadcrumb current>Daily account</ds-breadcrumb>
+    </ds-breadcrumbs>`,
+};
+
+export const Pagination: StoryObj = {
+  render: () => html`<ds-pagination page="6" pages="24"></ds-pagination>`,
+};
+
+export const List: StoryObj = {
+  render: () =>
+    html`<ds-list label="Connected accounts" divided>
+      <ds-list-item value="daily" supporting-text="NL12 BANK 3456 7890 12" selected>
+        <ds-avatar slot="leading" initials="DA" size="small"></ds-avatar>
+        Daily account
+        <ds-badge slot="trailing">€ 4,285</ds-badge>
+      </ds-list-item>
+      <ds-list-item value="savings" supporting-text="NL98 BANK 7654 3210 98">
+        <ds-avatar slot="leading" initials="SA" size="small"></ds-avatar>
+        Savings
+        <ds-badge slot="trailing">€ 12,940</ds-badge>
+      </ds-list-item>
+    </ds-list>`,
+};

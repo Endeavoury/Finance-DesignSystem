@@ -410,3 +410,53 @@ export class DsMetric extends DsElement {
     </article>`;
   }
 }
+
+export interface DsDescriptionItem {
+  term: string;
+  value: string;
+}
+
+export class DsDescriptionList extends DsElement {
+  static override styles: CSSResultGroup = [
+    foundationStyles,
+    css`
+      :host { display: block; }
+      dl { display: grid; grid-template-columns: repeat(var(--ds-description-columns, 2), minmax(0, 1fr)); gap: var(--ds-space-4); margin: 0; }
+      div { min-width: 0; padding: var(--ds-space-3); border: 1px solid var(--ds-color-border-subtle); border-radius: var(--ds-radius-md); background: var(--ds-color-bg-surface-subtle); }
+      dt { color: var(--ds-color-text-muted); font-size: var(--ds-font-size-xs); font-weight: var(--ds-font-weight-semibold); letter-spacing: var(--ds-letter-spacing-wide); text-transform: uppercase; }
+      dd { margin: var(--ds-space-1) 0 0; color: var(--ds-color-text-primary); font-weight: var(--ds-font-weight-medium); overflow-wrap: anywhere; }
+      @media (max-width: 36rem) { dl { grid-template-columns: 1fr; } }
+    `,
+  ];
+  @property({ attribute: false }) items: DsDescriptionItem[] = [];
+  @property({ type: Number, reflect: true }) columns = 2;
+  protected override render() {
+    return html`<dl part="list" style=${`--ds-description-columns:${Math.max(1, Math.min(this.columns, 4))}`}>
+      ${this.items.map((item) => html`<div part="item"><dt part="term">${item.term}</dt><dd part="value">${item.value}</dd></div>`)}
+    </dl>`;
+  }
+}
+
+export class DsCodeBlock extends DsElement {
+  static override styles: CSSResultGroup = [
+    foundationStyles,
+    css`
+      :host { display: block; min-width: 0; }
+      figure { margin: 0; overflow: hidden; border: 1px solid var(--ds-color-border-default); border-radius: var(--ds-radius-lg); background: var(--ds-color-bg-inverse, #07141f); color: var(--ds-color-text-inverse); }
+      figcaption { display: flex; justify-content: space-between; gap: var(--ds-space-3); padding: var(--ds-space-2) var(--ds-space-4); border-bottom: 1px solid color-mix(in srgb, currentColor 16%, transparent); color: color-mix(in srgb, currentColor 72%, transparent); font-size: var(--ds-font-size-xs); }
+      pre { max-width: 100%; margin: 0; padding: var(--ds-space-4); overflow: auto; font-family: var(--ds-font-mono); font-size: var(--ds-font-size-sm); line-height: var(--ds-line-height-normal); tab-size: 2; }
+      :host([wrap]) pre { white-space: pre-wrap; overflow-wrap: anywhere; }
+      pre:focus-visible { outline: 2px solid var(--ds-color-focus); outline-offset: -2px; }
+    `,
+  ];
+  @property() label = '';
+  @property() language = '';
+  @property({ type: Boolean, reflect: true }) wrap = false;
+  protected override render() {
+    const accessibleLabel = this.label || (this.language ? `${this.language} code` : 'Code');
+    return html`<figure part="block">
+      ${this.label || this.language ? html`<figcaption part="caption"><span>${this.label}</span><span>${this.language}</span></figcaption>` : nothing}
+      <pre part="content" tabindex="0" aria-label=${accessibleLabel}><code><slot></slot></code></pre>
+    </figure>`;
+  }
+}

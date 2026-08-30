@@ -108,3 +108,56 @@ export const NativeFormSubmission: StoryObj = {
       >
     </form>`,
 };
+
+export const DropZone: StoryObj = {
+  render: () =>
+    html`<ds-drop-zone
+      label="Choose or drop CAMT files"
+      hint="XML or ZIP · up to 10 files"
+      accept=".xml,.zip,application/xml,application/zip"
+      max-files="10"
+      multiple
+      ><ds-icon slot="icon" name="upload"></ds-icon
+    ></ds-drop-zone>`,
+};
+
+export const Textarea: StoryObj = {
+  render: () =>
+    html`<ds-textarea
+      label="Internal note"
+      placeholder="Add context for this transaction"
+      helpText="Visible only to your finance team"
+      maxlength="500"
+    ></ds-textarea>`,
+};
+
+export const Switch: StoryObj = {
+  render: () =>
+    html`<ds-stack>
+      <ds-switch checked helpText="Receive an email after every successful import"
+        >Import notifications</ds-switch
+      >
+      <ds-switch disabled>Managed by your organization</ds-switch>
+    </ds-stack>`,
+};
+
+export const Range: StoryObj = {
+  render: () =>
+    html`<ds-range
+      label="Forecast confidence"
+      value="72"
+      min="0"
+      max="100"
+      show-value
+      helpText="Adjust the confidence threshold"
+    ></ds-range>`,
+};
+
+export const RadioGroup: StoryObj = {
+  render: () =>
+    html`<ds-radio-group label="Export format" value="csv" required>
+      <ds-radio value="csv">CSV spreadsheet</ds-radio>
+      <ds-radio value="camt">CAMT XML</ds-radio>
+      <ds-radio value="pdf" disabled>PDF report (coming soon)</ds-radio>
+    </ds-radio-group>`,
+};

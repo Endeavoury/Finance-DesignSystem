@@ -1,10 +1,10 @@
-# Finance Design System
+# Endeavoury Design System
 
-A standalone, framework-independent design system for technical and financial management interfaces. Lit Web Components are the only component implementation; Vanilla JavaScript, React, and Angular consume those same custom elements.
+A standalone, framework-independent design system shared by Finance-Inzicht and Ontarchon. Lit Web Components are the only component implementation; Vanilla JavaScript, React, and Angular consume those same custom elements. The existing `@endeavoury/finance-design*` package names remain stable for compatibility, but the component contracts and semantic tokens are product-neutral.
 
 ![Finance Inzicht application and design-system example](docs/images/finance-workspace-example.png)
 
-This repository is independent of the Finance Inzicht application. It has no application imports, API clients, authentication, or financial business logic.
+This repository is independent of both product applications. It has no application imports, API clients, authentication, financial business logic, or MDM domain logic.
 
 ## Architecture at a glance
 
@@ -55,6 +55,14 @@ Run the complete quality gate with:
 npm run check
 ```
 
+Products without a JavaScript bundler can use the self-contained browser build:
+
+```bash
+npm run build:browser
+```
+
+This emits `packages/components/dist/browser/design-system.js` alongside the shared stylesheet in `packages/components/dist/styles.css`. It contains the same registered `ds-*` elements used by Angular and React consumers.
+
 ## Releases
 
 Pushing a version tag such as `v0.1.0` runs the release pipeline. A successful
@@ -69,16 +77,20 @@ docker pull ghcr.io/endeavoury/finance-design-system-storybook:0.1.0
 See [Versioning and publishing](docs/publishing.md) for the one-time package
 token setup, release procedure, image tags, and artifact verification.
 
-## Finance Inzicht integration
+## Product integrations
 
-Finance Inzicht consumes this repository as a sibling checkout. Package
-history, releases, CI, and working trees remain fully independent while a
-shared parent directory lets local tools and Codex inspect both codebases.
+Finance-Inzicht and Ontarchon consume this repository as a sibling checkout. Package history, releases, CI, and working trees remain fully independent while a shared parent directory lets local tools inspect all codebases. Ontarchon additionally passes this checkout as the named `design_system` Docker build context so its images remain reproducible without copying component source.
 
 ```text
 Finance-Inzicht/
 ├── application/  → Endeavoury/Finance-Inzicht
 └── design/       → Endeavoury/Finance-DesignSystem
+
+MDM/
+└── projects/
+    ├── studio/    → Angular consumer
+    ├── nexus/     → Angular consumer
+    └── website/   → Vanilla browser-bundle consumer
 ```
 
 The application repository provides `scripts/setup-workspace.sh`, which clones
@@ -135,6 +147,8 @@ The global stylesheet is intentionally opt-in. It installs tokens, theme default
 - [Architecture](docs/architecture.md)
 - [Current-product UI inventory](docs/ui-inventory.md)
 - [Component roadmap and gap analysis](docs/component-roadmap.md)
+- [Material and Bootstrap capability benchmark](docs/component-parity.md)
+- [Design system review](docs/design-review.md)
 - [Using components and framework adapters](docs/usage.md)
 - [Theming and styling](docs/theming-and-styling.md)
 - [Development and testing](docs/development.md)

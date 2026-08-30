@@ -22,7 +22,17 @@ export type DsIconName =
   | 'info'
   | 'menu'
   | 'wallet'
-  | 'chart';
+  | 'chart'
+  | 'database'
+  | 'network'
+  | 'book'
+  | 'history'
+  | 'code'
+  | 'globe'
+  | 'sign-out'
+  | 'edit'
+  | 'trash'
+  | 'arrow-right';
 const paths: Record<DsIconName, TemplateResult> = {
   plus: svg`<path d="M12 5v14M5 12h14" />`,
   search: svg`<circle cx="11" cy="11" r="7" /><path d="m20 20-4-4" />`,
@@ -51,6 +61,16 @@ const paths: Record<DsIconName, TemplateResult> = {
     d="M3 6h16a2 2 0 0 1 2 2v10H5a2 2 0 0 1-2-2Zm0 0 3-3h12v3m-1 5h4v4h-4a2 2 0 1 1 0-4Z"
   />`,
   chart: svg`<path d="M4 20V10m6 10V4m6 16v-7m4 7H2" />`,
+  database: svg`<ellipse cx="12" cy="5" rx="8" ry="3" /><path d="M4 5v7c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 12v7c0 1.7 3.6 3 8 3s8-1.3 8-3v-7" />`,
+  network: svg`<circle cx="12" cy="5" r="2.5" /><circle cx="5" cy="18" r="2.5" /><circle cx="19" cy="18" r="2.5" /><path d="m10.8 7.2-4.6 8.6m7-8.6 4.6 8.6M7.5 18h9" />`,
+  book: svg`<path d="M4 4.5A3.5 3.5 0 0 1 7.5 4H12v16H7.5A3.5 3.5 0 0 0 4 23Zm16 0A3.5 3.5 0 0 0 16.5 4H12v16h4.5a3.5 3.5 0 0 1 3.5 3Z" />`,
+  history: svg`<path d="M3 12a9 9 0 1 0 3-6.7L3 8m0-5v5h5M12 7v5l3 2" />`,
+  code: svg`<path d="m8 7-5 5 5 5m8-10 5 5-5 5m-5 3 2-16" />`,
+  globe: svg`<circle cx="12" cy="12" r="9" /><path d="M3 12h18M12 3c3 3.4 3 14.6 0 18M12 3c-3 3.4-3 14.6 0 18" />`,
+  'sign-out': svg`<path d="M10 4H5a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h5m5-4 4-4-4-4m4 4H9" />`,
+  edit: svg`<path d="M4 20h4L19 9l-4-4L4 16v4Zm9-13 4 4M14 5l2-2 4 4-2 2" />`,
+  trash: svg`<path d="M4 7h16M9 7V4h6v3m3 0-1 14H7L6 7m4 4v6m4-6v6" />`,
+  'arrow-right': svg`<path d="M5 12h14m-5-5 5 5-5 5" />`,
 };
 
 export class DsIcon extends DsElement {

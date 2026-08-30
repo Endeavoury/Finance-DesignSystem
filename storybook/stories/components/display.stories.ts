@@ -78,3 +78,18 @@ export const LongMetricContent: StoryObj = {
       ></ds-metric>
     </div>`,
 };
+
+export const StructuredMetadata: StoryObj = {
+  render: () => html`<ds-description-list .items=${[
+      { term: 'Authoritative Node', value: 'Commercial master data' },
+      { term: 'Object URI', value: 'https://customer.example/id/customer/42' },
+      { term: 'Schema version', value: '2.4.0' },
+      { term: 'Steward', value: 'Data Governance' },
+    ]}></ds-description-list>`,
+};
+
+export const CodeBlock: StoryObj = {
+  render: () => html`<ds-code-block label="Canonical relationship" language="YAML">source: Customer
+target: Country
+cardinality: ManyToOne</ds-code-block>`,
+};

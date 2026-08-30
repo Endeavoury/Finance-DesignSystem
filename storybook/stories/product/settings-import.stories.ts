@@ -7,7 +7,7 @@ const types = [
   { label: 'Investment account', value: 'investment' },
 ];
 const meta: Meta = {
-  title: 'Current Product/Settings & Import',
+  title: 'Patterns/Product/Settings & Import',
   parameters: { layout: 'fullscreen' },
   tags: ['autodocs'],
 };

@@ -36,6 +36,12 @@ export const LoadingDisabledAndWidth: StoryObj = {
       ><ds-button full-width>Full-width action</ds-button></ds-stack
     >`,
 };
+export const LinkButton: StoryObj = {
+  render: () =>
+    html`<ds-button href="/documentation" variant="secondary" target="_blank"
+      ><ds-icon slot="prefix" name="book"></ds-icon>Open documentation</ds-button
+    >`,
+};
 export const IconButtonAndGroup: StoryObj = {
   render: () =>
     html`<ds-inline

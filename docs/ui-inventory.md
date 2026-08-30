@@ -1,4 +1,18 @@
-# Current Product UI Inventory
+# Shared Product UI Inventory
+
+This inventory covers Finance-Inzicht and the Ontarchon product family. It is
+the decision record for whether a visual or interaction belongs in the shared
+library or remains a domain composition.
+
+## Cross-product surfaces
+
+| Product | Shared patterns in production | Intentional domain-owned patterns |
+| --- | --- | --- |
+| Finance-Inzicht | shell, sidebar, page headers, buttons, form controls, filters, metrics, cards, alerts, loading/empty states, upload and detail sidebar | financial charts, spending calendar, transaction expansion and period analysis |
+| Ontarchon Studio | shell, sidebar, breadcrumbs, headers, panels, forms, tables, tabs, metrics, badges, icons and tree navigation | metadata-driven form assembly, record history mapping and graph canvas |
+| Ontarchon Nexus | Studio vocabulary plus federated tree navigation and global search controls | Node discovery, cross-Node routing and portfolio aggregation |
+| Ontarchon Website | browser bundle, buttons, icon buttons, cards, panels, status and code blocks | branded constellation animation, logo and editorial page composition |
+| Ontarchon Node | none; deliberately headless | API, persistence, migration and semantic generation |
 
 ## Product areas
 

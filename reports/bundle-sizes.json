@@ -1,31 +1,87 @@
 {
-  "generatedAt": "2026-08-24T16:59:26.212Z",
+  "generatedAt": "2026-08-29T21:42:33.439Z",
   "budgets": {
     "button": {
       "rawBytes": 45000,
       "gzipBytes": 12000
     },
     "forms": {
-      "rawBytes": 60000,
-      "gzipBytes": 14000
+      "rawBytes": 70000,
+      "gzipBytes": 16500
+    },
+    "secondaryForms": {
+      "rawBytes": 55000,
+      "gzipBytes": 14500
+    },
+    "interaction": {
+      "rawBytes": 45000,
+      "gzipBytes": 12500
+    },
+    "overlays": {
+      "rawBytes": 55000,
+      "gzipBytes": 15000
+    },
+    "upload": {
+      "rawBytes": 40000,
+      "gzipBytes": 11500
+    },
+    "feedback": {
+      "rawBytes": 55000,
+      "gzipBytes": 14500
+    },
+    "navigation": {
+      "rawBytes": 65000,
+      "gzipBytes": 16500
+    },
+    "tree": {
+      "rawBytes": 45000,
+      "gzipBytes": 12500
     },
     "full": {
-      "rawBytes": 130000,
-      "gzipBytes": 22000
+      "rawBytes": 210000,
+      "gzipBytes": 40000
     }
   },
   "bundles": {
     "button": {
-      "rawBytes": 34883,
-      "gzipBytes": 10679
+      "rawBytes": 37047,
+      "gzipBytes": 11311
     },
     "forms": {
-      "rawBytes": 40347,
-      "gzipBytes": 11229
+      "rawBytes": 59060,
+      "gzipBytes": 13510
+    },
+    "secondaryForms": {
+      "rawBytes": 41844,
+      "gzipBytes": 11470
+    },
+    "interaction": {
+      "rawBytes": 34700,
+      "gzipBytes": 10744
+    },
+    "overlays": {
+      "rawBytes": 40306,
+      "gzipBytes": 11627
+    },
+    "upload": {
+      "rawBytes": 30093,
+      "gzipBytes": 9871
+    },
+    "feedback": {
+      "rawBytes": 39772,
+      "gzipBytes": 11136
+    },
+    "navigation": {
+      "rawBytes": 46329,
+      "gzipBytes": 12930
+    },
+    "tree": {
+      "rawBytes": 27592,
+      "gzipBytes": 9379
     },
     "full": {
-      "rawBytes": 104621,
-      "gzipBytes": 21235
+      "rawBytes": 193641,
+      "gzipBytes": 34981
     }
   },
   "sharedControlFoundationOccurrences": 1,

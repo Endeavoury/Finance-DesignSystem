@@ -40,40 +40,43 @@ export const PageHeader: StoryObj = {
 };
 
 export const DetailSidebar: StoryObj = {
-  render: () => html`<div style="min-height:42rem;padding:2rem">
-    <ds-page-header
-      eyebrow="Dashboard"
-      heading="Financial overview"
-      description="Select an insight to inspect its matching ledger entries."
-    ></ds-page-header>
-    <ds-detail-sidebar open heading="Groceries" close-label="Close insight details">
-      <ds-stack slot="summary" gap="2">
-        <span style="color:var(--ds-color-text-muted)">Selected insight</span>
-        <strong style="font-size:1.75rem">€842.31</strong>
-        <span>Food · 14 transactions</span>
-      </ds-stack>
-      <ds-stack gap="3">
-        <strong>Ledger entries</strong>
-        ${['Market Square', 'Fresh Foods', 'Corner Shop'].map(
-          (name, index) => html`<ds-card>
-            <ds-inline justify="between" wrap="false">
-              <span><strong>${name}</strong><br /><small>August ${18 - index}, 2026</small></span>
-              <strong>−€${[64.23, 42.9, 18.75][index]}</strong>
-            </ds-inline>
-          </ds-card>`,
+  render: () =>
+    html`<div style="min-height:42rem;padding:2rem">
+      <ds-page-header
+        eyebrow="Dashboard"
+        heading="Financial overview"
+        description="Select an insight to inspect its matching ledger entries."
+      ></ds-page-header>
+      <ds-detail-sidebar open heading="Groceries" close-label="Close insight details">
+        <ds-stack slot="summary" gap="2">
+          <span style="color:var(--ds-color-text-muted)">Selected insight</span>
+          <strong style="font-size:1.75rem">€842.31</strong>
+          <span>Food · 14 transactions</span>
+        </ds-stack>
+        <ds-stack gap="3">
+          <strong>Ledger entries</strong>
+          ${['Market Square', 'Fresh Foods', 'Corner Shop'].map(
+          (name, index) =>
+            html`<ds-card>
+              <ds-inline justify="between" wrap="false">
+                <span><strong>${name}</strong><br /><small>August ${18 - index}, 2026</small></span>
+                <strong>−€${[64.23, 42.9, 18.75][index]}</strong>
+              </ds-inline>
+            </ds-card>`,
         )}
-      </ds-stack>
-      <ds-button slot="footer" variant="secondary" full-width>View full ledger</ds-button>
-    </ds-detail-sidebar>
-  </div>`,
+        </ds-stack>
+        <ds-button slot="footer" variant="secondary" full-width>View full ledger</ds-button>
+      </ds-detail-sidebar>
+    </div>`,
 };
 
 export const ModalDetailSidebar: StoryObj = {
-  render: () => html`<div style="min-height:42rem;padding:2rem">
-    <ds-page-header heading="Account ledger"></ds-page-header>
-    <ds-detail-sidebar open modal heading="Transaction details">
-      <p slot="summary">A modal drawer blocks interaction with the page until it is closed.</p>
-      <p>Use this variant for focused tasks instead of persistent dashboard context.</p>
-    </ds-detail-sidebar>
-  </div>`,
+  render: () =>
+    html`<div style="min-height:42rem;padding:2rem">
+      <ds-page-header heading="Account ledger"></ds-page-header>
+      <ds-detail-sidebar open modal heading="Transaction details">
+        <p slot="summary">A modal drawer blocks interaction with the page until it is closed.</p>
+        <p>Use this variant for focused tasks instead of persistent dashboard context.</p>
+      </ds-detail-sidebar>
+    </div>`,
 };

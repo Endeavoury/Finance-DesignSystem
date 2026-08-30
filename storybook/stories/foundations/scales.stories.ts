@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit';
-const meta: Meta = { title: 'Foundations/Scales', tags: ['autodocs'] };
+const meta: Meta = { title: 'Foundation/Scales', tags: ['autodocs'] };
 export default meta;
 export const Spacing: StoryObj = {
   render: () =>

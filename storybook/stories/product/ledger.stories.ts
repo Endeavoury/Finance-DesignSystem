@@ -8,7 +8,7 @@ import {
   productStyles,
 } from './product-fixtures.js';
 const meta: Meta = {
-  title: 'Current Product/Ledger',
+  title: 'Patterns/Product/Ledger',
   parameters: { layout: 'fullscreen' },
   tags: ['autodocs'],
 };

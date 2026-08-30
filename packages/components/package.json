@@ -35,6 +35,10 @@
       "types": "./dist/register/forms.d.ts",
       "import": "./dist/register/forms.js"
     },
+    "./secondary-forms": {
+      "types": "./dist/register/secondary-forms.d.ts",
+      "import": "./dist/register/secondary-forms.js"
+    },
     "./display": {
       "types": "./dist/register/display.d.ts",
       "import": "./dist/register/display.js"
@@ -42,6 +46,18 @@
     "./feedback": {
       "types": "./dist/register/feedback.d.ts",
       "import": "./dist/register/feedback.js"
+    },
+    "./interaction": {
+      "types": "./dist/register/interaction.d.ts",
+      "import": "./dist/register/interaction.js"
+    },
+    "./overlays": {
+      "types": "./dist/register/overlays.d.ts",
+      "import": "./dist/register/overlays.js"
+    },
+    "./upload": {
+      "types": "./dist/register/upload.d.ts",
+      "import": "./dist/register/upload.js"
     },
     "./data-table": {
       "types": "./dist/register/data-table.d.ts",
@@ -55,9 +71,17 @@
       "types": "./dist/register/navigation.d.ts",
       "import": "./dist/register/navigation.js"
     },
+    "./navigation-extras": {
+      "types": "./dist/register/navigation-extras.d.ts",
+      "import": "./dist/register/navigation-extras.js"
+    },
     "./patterns": {
       "types": "./dist/register/patterns.d.ts",
       "import": "./dist/register/patterns.js"
+    },
+    "./tree": {
+      "types": "./dist/register/tree.d.ts",
+      "import": "./dist/register/tree.js"
     }
   },
   "scripts": {

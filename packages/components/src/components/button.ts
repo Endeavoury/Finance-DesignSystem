@@ -27,7 +27,7 @@ export class DsButton extends DsElement {
         display: flex;
         width: 100%;
       }
-      button {
+      :is(button, a) {
         display: inline-flex;
         align-items: center;
         justify-content: center;
@@ -42,6 +42,7 @@ export class DsButton extends DsElement {
         font-weight: var(--ds-font-weight-semibold);
         letter-spacing: -0.005em;
         white-space: nowrap;
+        text-decoration: none;
         transition:
           background var(--ds-duration-fast) var(--ds-ease-standard),
           border-color var(--ds-duration-fast) var(--ds-ease-standard),
@@ -49,23 +50,23 @@ export class DsButton extends DsElement {
           color var(--ds-duration-fast) var(--ds-ease-standard),
           transform var(--ds-duration-fast) var(--ds-ease-standard);
       }
-      button:hover:not(:disabled) {
+      :is(button, a):hover:not(:disabled):not([aria-disabled='true']) {
         transform: translateY(-1px);
       }
-      button:active:not(:disabled) {
+      :is(button, a):active:not(:disabled):not([aria-disabled='true']) {
         transform: translateY(1px);
       }
-      :host([size='small']) button {
+      :host([size='small']) :is(button, a) {
         min-height: var(--ds-control-height-sm);
         padding-inline: var(--ds-space-3);
         font-size: var(--ds-font-size-sm);
       }
-      :host([size='large']) button {
+      :host([size='large']) :is(button, a) {
         min-height: var(--ds-control-height-lg);
         padding-inline: var(--ds-space-5);
         font-size: var(--ds-font-size-lg);
       }
-      :host([variant='primary']) button {
+      :host([variant='primary']) :is(button, a) {
         border-color: color-mix(in srgb, var(--ds-color-accent-hover) 68%, transparent);
         background: linear-gradient(
           180deg,
@@ -77,7 +78,7 @@ export class DsButton extends DsElement {
           inset 0 1px 0 rgb(255 255 255 / 18%),
           var(--ds-shadow-accent);
       }
-      :host([variant='primary']) button:hover:not(:disabled) {
+      :host([variant='primary']) :is(button, a):hover:not(:disabled):not([aria-disabled='true']) {
         background: linear-gradient(
           180deg,
           var(--ds-color-accent-hover),
@@ -87,25 +88,25 @@ export class DsButton extends DsElement {
           inset 0 1px 0 rgb(255 255 255 / 22%),
           0 10px 26px color-mix(in srgb, var(--ds-color-accent-primary) 26%, transparent);
       }
-      :host([variant='secondary']) button {
+      :host([variant='secondary']) :is(button, a) {
         background: var(--ds-gradient-surface, var(--ds-color-bg-surface));
         border-color: var(--ds-color-border-default);
         color: var(--ds-color-text-primary);
         box-shadow: var(--ds-shadow-control);
       }
-      :host([variant='secondary']) button:hover:not(:disabled) {
+      :host([variant='secondary']) :is(button, a):hover:not(:disabled):not([aria-disabled='true']) {
         background: var(--ds-color-bg-hover);
         border-color: var(--ds-color-border-strong);
       }
-      :host([variant='ghost']) button {
+      :host([variant='ghost']) :is(button, a) {
         background: transparent;
         color: var(--ds-color-text-secondary);
       }
-      :host([variant='ghost']) button:hover:not(:disabled) {
+      :host([variant='ghost']) :is(button, a):hover:not(:disabled):not([aria-disabled='true']) {
         background: var(--ds-color-bg-hover);
         color: var(--ds-color-text-primary);
       }
-      :host([variant='danger']) button {
+      :host([variant='danger']) :is(button, a) {
         border-color: color-mix(in srgb, var(--ds-color-danger) 70%, black);
         background: linear-gradient(
           180deg,
@@ -115,7 +116,7 @@ export class DsButton extends DsElement {
         color: var(--ds-color-text-inverse);
         box-shadow: 0 8px 20px color-mix(in srgb, var(--ds-color-danger) 20%, transparent);
       }
-      button:disabled {
+      :is(button, a):is(:disabled, [aria-disabled='true']) {
         cursor: not-allowed;
         opacity: 0.5;
       }
@@ -137,6 +138,9 @@ export class DsButton extends DsElement {
   @property({ type: Boolean, reflect: true }) loading = false;
   @property({ type: Boolean, attribute: 'full-width', reflect: true }) fullWidth = false;
   @property() type: 'button' | 'submit' | 'reset' = 'button';
+  @property() href = '';
+  @property() target = '';
+  @property() rel = '';
   readonly internals: ElementInternals;
   constructor() {
     super();
@@ -146,9 +150,25 @@ export class DsButton extends DsElement {
     this.disabled = disabled;
   }
   override click() {
-    this.shadowRoot?.querySelector('button')?.click();
+    this.shadowRoot?.querySelector<HTMLElement>('button, a')?.click();
   }
   protected override render() {
+    const content = html`<span class="prefix" part="prefix"
+        >${this.loading ? html`<span class="spinner" aria-hidden="true"></span>` : html`<slot name="prefix"></slot>`}</span
+      ><span part="label"><slot></slot></span><slot name="suffix"></slot>`;
+    if (this.href) {
+      return html`<a
+        part="button"
+        href=${this.disabled || this.loading ? nothing : this.href}
+        target=${this.target || nothing}
+        rel=${this.rel || (this.target === '_blank' ? 'noopener noreferrer' : nothing)}
+        aria-disabled=${this.disabled || this.loading ? 'true' : nothing}
+        aria-busy=${this.loading ? 'true' : nothing}
+        @click=${(event: Event) => {
+          if (this.disabled || this.loading) event.preventDefault();
+        }}
+      >${content}</a>`;
+    }
     return html`<button
       part="button"
       type="button"
@@ -156,9 +176,7 @@ export class DsButton extends DsElement {
       aria-busy=${this.loading ? 'true' : nothing}
       @click=${() => activateForm(this, this.internals, this.type)}
     >
-      <span class="prefix" part="prefix"
-        >${this.loading ? html`<span class="spinner" aria-hidden="true"></span>` : html`<slot name="prefix"></slot>`}</span
-      ><span part="label"><slot></slot></span><slot name="suffix"></slot>
+      ${content}
     </button>`;
   }
 }

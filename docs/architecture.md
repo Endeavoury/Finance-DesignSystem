@@ -8,7 +8,7 @@ The architecture has three layers with a one-way dependency direction:
 2. **Web Components** implement that contract once as standards-based `ds-*` custom elements. This is the only visual implementation.
 3. **Framework integrations** expose the same elements to Vanilla JavaScript, React, and Angular without duplicating markup, behavior, or styling.
 
-The design system is an independent npm workspace in its own `Finance-DesignSystem` repository. It has no application imports and its build does not read application source. Finance Inzicht consumes published packages in deployments and sibling workspace packages during local development; the product is also used as inspiration for mock Storybook screens.
+The design system is an independent npm workspace in its own `Finance-DesignSystem` repository. It has no application imports and its build does not read application source. Finance-Inzicht and Ontarchon consume the same published packages in deployments and the same sibling workspace packages during local development; product screens are used only as inspiration for mock Storybook compositions.
 
 The implementation uses **Lit 3 and standards-based custom elements**. Lit was selected because it keeps the shipped contract as Web Components while adding typed reactive properties, declarative templates, Shadow DOM, small runtime cost, and a maintained React adapter. React and Angular remain consumers; there are no framework-specific visual implementations.
 

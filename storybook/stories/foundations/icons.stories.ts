@@ -20,8 +20,18 @@ const names = [
   'menu',
   'wallet',
   'chart',
+  'database',
+  'network',
+  'book',
+  'history',
+  'code',
+  'globe',
+  'sign-out',
+  'edit',
+  'trash',
+  'arrow-right',
 ];
-const meta: Meta = { title: 'Foundations/Icons', tags: ['autodocs'] };
+const meta: Meta = { title: 'Foundation/Icons', tags: ['autodocs'] };
 export default meta;
 export const CuratedSet: StoryObj = {
   render: () =>

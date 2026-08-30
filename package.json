@@ -16,6 +16,7 @@
   "scripts": {
     "clean": "node scripts/clean.mjs",
     "build:packages": "npm run build -w @endeavoury/finance-design-tokens && npm run build -w @endeavoury/finance-design-styles && npm run build -w @endeavoury/finance-design && npm run build -w @endeavoury/finance-design-react && npm run build -w @endeavoury/finance-design-angular",
+    "build:browser": "npm run build:packages && node scripts/build-browser.mjs",
     "build:examples": "npm run build -w @endeavoury/finance-design-example-vanilla && npm run build -w @endeavoury/finance-design-example-react && npm run build -w @endeavoury/finance-design-example-angular",
     "build": "npm run build:packages && npm run build:examples",
     "storybook": "npm run build:packages && npm run storybook -w @endeavoury/finance-design-storybook",

@@ -13,12 +13,26 @@ await mkdir(outputDirectory, { recursive: true });
 const entries = {
   button: `import '@endeavoury/finance-design/button';`,
   forms: `import '@endeavoury/finance-design/forms';`,
+  secondaryForms: `import '@endeavoury/finance-design/secondary-forms';`,
+  interaction: `import '@endeavoury/finance-design/interaction';`,
+  overlays: `import '@endeavoury/finance-design/overlays';`,
+  upload: `import '@endeavoury/finance-design/upload';`,
+  feedback: `import '@endeavoury/finance-design/feedback';`,
+  navigation: `import '@endeavoury/finance-design/navigation';`,
+  tree: `import '@endeavoury/finance-design/tree';`,
   full: `import '@endeavoury/finance-design';`,
 };
 const budgets = {
   button: { rawBytes: 45000, gzipBytes: 12000 },
-  forms: { rawBytes: 60000, gzipBytes: 14000 },
-  full: { rawBytes: 130000, gzipBytes: 22000 },
+  forms: { rawBytes: 70000, gzipBytes: 16500 },
+  secondaryForms: { rawBytes: 55000, gzipBytes: 14500 },
+  interaction: { rawBytes: 45000, gzipBytes: 12500 },
+  overlays: { rawBytes: 55000, gzipBytes: 15000 },
+  upload: { rawBytes: 40000, gzipBytes: 11500 },
+  feedback: { rawBytes: 55000, gzipBytes: 14500 },
+  navigation: { rawBytes: 65000, gzipBytes: 16500 },
+  tree: { rawBytes: 45000, gzipBytes: 12500 },
+  full: { rawBytes: 210000, gzipBytes: 40000 },
 };
 const report = { generatedAt: new Date().toISOString(), budgets, bundles: {} };
 

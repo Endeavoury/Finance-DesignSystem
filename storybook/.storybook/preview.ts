@@ -31,6 +31,11 @@ const preview: Preview = {
     },
   },
   parameters: {
+    options: {
+      storySort: {
+        order: ['Introduction', 'Foundation', 'Components', 'Patterns'],
+      },
+    },
     controls: { expanded: true },
     a11y: { test: 'error' },
     viewport: {

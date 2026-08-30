@@ -222,9 +222,9 @@ export class DsPageHeader extends DsElement {
   protected override render() {
     return html`<header class="header" part="header">
       <div class="copy">
-        <p class="eyebrow">${this.eyebrow}</p>
+        ${this.eyebrow ? html`<p class="eyebrow">${this.eyebrow}</p>` : nothing}
         <h1 part="heading">${this.heading}</h1>
-        <p part="description">${this.description}</p>
+        ${this.description ? html`<p part="description">${this.description}</p>` : nothing}
       </div>
       <div class="actions" part="actions"><slot name="actions"></slot></div>
     </header>`;
@@ -360,7 +360,10 @@ export class DsDetailSidebar extends DsElement {
   protected override updated(changed: PropertyValues<this>) {
     if (!changed.has('open')) return;
     if (this.open) {
-      this.returnFocus = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+      this.returnFocus =
+        this.ownerDocument.activeElement instanceof HTMLElement
+          ? this.ownerDocument.activeElement
+          : null;
       this.panel.focus({ preventScroll: true });
     } else {
       this.returnFocus?.focus({ preventScroll: true });
@@ -373,14 +376,47 @@ export class DsDetailSidebar extends DsElement {
   }
 
   private handleKeydown(event: KeyboardEvent) {
-    if (event.key !== 'Escape') return;
-    event.preventDefault();
-    this.close();
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      this.close();
+      return;
+    }
+    if (event.key !== 'Tab' || !this.modal) return;
+    const selector =
+      'button:not(:disabled),a[href],input:not(:disabled),select:not(:disabled),textarea:not(:disabled),[tabindex]:not([tabindex="-1"]),ds-button:not([disabled]),ds-icon-button:not([disabled]),ds-input:not([disabled]),ds-select:not([disabled]),ds-checkbox:not([disabled])';
+    const focusable = [
+      ...this.shadowRoot!.querySelectorAll<HTMLElement>('.close'),
+      ...this.querySelectorAll<HTMLElement>(selector),
+    ].filter((element) => !element.hidden && element.getAttribute('aria-hidden') !== 'true');
+    if (!focusable.length) {
+      event.preventDefault();
+      this.panel.focus();
+      return;
+    }
+    const active =
+      this.shadowRoot?.activeElement instanceof HTMLElement
+        ? this.shadowRoot.activeElement
+        : this.ownerDocument.activeElement;
+    const index = focusable.indexOf(active as HTMLElement);
+    if (
+      index < 0 ||
+      (event.shiftKey && index === 0) ||
+      (!event.shiftKey && index === focusable.length - 1)
+    ) {
+      event.preventDefault();
+      (event.shiftKey ? focusable.at(-1) : focusable[0])?.focus();
+    }
   }
 
   protected override render() {
     return html`<div aria-hidden=${this.open ? 'false' : 'true'} @keydown=${this.handleKeydown}>
-      <button class="backdrop" type="button" tabindex="-1" aria-label=${this.closeLabel} @click=${this.close}></button>
+      <button
+        class="backdrop"
+        type="button"
+        tabindex="-1"
+        aria-label=${this.closeLabel}
+        @click=${this.close}
+      ></button>
       <aside
         part="panel"
         role=${this.modal ? 'dialog' : 'complementary'}
@@ -391,7 +427,15 @@ export class DsDetailSidebar extends DsElement {
       >
         <header part="header">
           <h2 id="detail-sidebar-title" part="heading">${this.heading}</h2>
-          <button class="close" part="close-button" type="button" aria-label=${this.closeLabel} @click=${this.close}>×</button>
+          <button
+            class="close"
+            part="close-button"
+            type="button"
+            aria-label=${this.closeLabel}
+            @click=${this.close}
+          >
+            ×
+          </button>
         </header>
         <section class="summary" part="summary"><slot name="summary"></slot></section>
         <section class="content" part="content"><slot></slot></section>
