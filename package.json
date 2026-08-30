@@ -1,7 +1,7 @@
 {
   "name": "kanosis-workspace",
   "private": true,
-  "version": "0.1.0",
+  "version": "1.0.0",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Endeavoury/Kanosis.git"
@@ -28,6 +28,7 @@
     "test:a11y": "npm run build:packages && vitest run tests/accessibility.test.ts",
     "verify:stories": "node scripts/verify-story-coverage.mjs",
     "analyze": "npm run build:packages && node scripts/analyze-bundles.mjs",
+    "release:version": "node scripts/set-release-version.mjs",
     "release:verify": "node scripts/verify-release.mjs",
     "release:publish": "node scripts/publish-packages.mjs",
     "check": "npm run typecheck && npm run lint && npm run verify:stories && npm run test && npm run build && npm run build-storybook && npm run analyze"

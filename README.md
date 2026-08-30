@@ -65,13 +65,16 @@ This emits `packages/components/dist/browser/design-system.js` alongside the sha
 
 ## Releases
 
-Pushing a version tag such as `v0.1.0` runs the release pipeline. A successful
-run publishes all five npm packages to GitHub Packages, publishes the Storybook
-container to GHCR, and creates a GitHub Release with checksummed npm tarballs
-and a loadable Linux AMD64 Docker archive.
+Releases use semantic versioning and currently start at `1.0.0`. Every commit
+pushed to `main` automatically creates the next patch release. Commits pushed
+to `release/minor` or `release/major` create minor or major releases. A
+successful run synchronizes all workspace versions, publishes all five npm
+packages to GitHub Packages, publishes the Storybook container to GHCR, and
+creates a GitHub Release with checksummed npm tarballs and a loadable Linux
+AMD64 Docker archive.
 
 ```bash
-docker pull ghcr.io/endeavoury/kanosis-storybook:0.1.0
+docker pull ghcr.io/endeavoury/kanosis-storybook:1.0.1
 ```
 
 See [Versioning and publishing](docs/publishing.md) for the one-time package
@@ -100,8 +103,8 @@ relevant sibling repository; there is no submodule pointer to update.
 
 ## Packages
 
-| Package                              | Purpose                                                       |
-| ------------------------------------ | ------------------------------------------------------------- |
+| Package                       | Purpose                                                       |
+| ----------------------------- | ------------------------------------------------------------- |
 | `@endeavoury/kanosis-tokens`  | Semantic CSS tokens and typed token metadata                  |
 | `@endeavoury/kanosis-styles`  | Opt-in global CSS and shared Lit style foundations            |
 | `@endeavoury/kanosis`         | Web Component classes and registration entry points           |

@@ -1,6 +1,44 @@
 # Versioning and publishing
 
-The five public `@endeavoury/kanosis*` packages use one synchronized semantic version. During the pre-1.0 phase, breaking API changes increment the minor version. After 1.0, breaking changes increment major, additive changes minor, and fixes patch.
+The five public `@endeavoury/kanosis*` packages and all private workspaces use
+one synchronized semantic version. The current baseline is `1.0.0`. Fixes use
+patch releases, additive changes use minor releases, and breaking changes use
+major releases.
+
+## Automatic release branches
+
+GitHub Actions selects the semantic increment from the branch receiving the
+commit:
+
+| Branch          | Increment | Example           |
+| --------------- | --------- | ----------------- |
+| `main`          | patch     | `1.0.0` → `1.0.1` |
+| `release/minor` | minor     | `1.0.1` → `1.1.0` |
+| `release/major` | major     | `1.1.0` → `2.0.0` |
+
+Create the release branches from the latest `main` when they are first needed:
+
+```bash
+git switch main
+git pull --ff-only
+git switch -c release/minor
+git push -u origin release/minor
+
+git switch main
+git switch -c release/major
+git push -u origin release/major
+```
+
+Each pushed commit runs the complete quality gate, updates every workspace
+manifest and exact internal dependency, commits the synchronized version,
+creates the matching `v<version>` tag, and publishes the release. The generated
+version commit contains `[skip release]` so it cannot recursively create
+another release. Merge a completed minor or major release branch back into
+`main` before continuing patch releases from the new version line.
+
+The workflow can also be run manually from GitHub Actions with an explicit
+patch, minor, or major increment. Manual runs are intended for controlled
+releases and recovery; normal releases should use the branch policy above.
 
 Packages are published to GitHub Packages and linked to
 `Endeavoury/Kanosis` through their `repository` metadata. GitHub
@@ -15,7 +53,9 @@ separate account or publishing secret is required.
 
 1. Ensure repository Actions settings allow workflows to write packages and
    repository contents.
-2. After the first release, set npm and container package visibility and
+2. Ensure branch protection permits `github-actions[bot]` to push the generated
+   version commit and tag to the three release branches.
+3. After the first release, set npm and container package visibility and
    inherited repository access as required in GitHub Packages.
 
 The committed `.npmrc` only maps the `@endeavoury` scope to GitHub Packages. It
@@ -23,22 +63,16 @@ contains no credentials; GitHub Actions injects authentication at runtime.
 
 ## Release checklist
 
-1. Update the changelog and all five package versions together.
-2. Update exact internal dependency versions to the same release.
-3. Run `npm ci`, `npm run check`, and `npm run release:verify`.
-4. Review the generated bundle report, package dry runs, and Storybook screens.
-5. Commit and push the release changes to `main`.
-6. Create and push a tag whose name is exactly `v<version>`:
+1. Choose `main`, `release/minor`, or `release/major` for the intended change.
+2. Run `npm ci` and `npm run check` locally.
+3. Review the generated bundle report and Storybook screens.
+4. Commit and push the change to the selected branch.
+5. Confirm the GitHub Actions release and merge a minor or major branch back to
+   `main` after publication.
 
-   ```bash
-   git tag v0.1.0
-   git push origin v0.1.0
-   ```
-
-The tag starts `.github/workflows/release.yml`. The workflow runs the complete
-quality gate, verifies that the tag and package versions match, and inspects
-each tarball with `npm pack --dry-run`. It then publishes in this dependency
-order:
+The workflow verifies that the generated tag and package versions match and
+inspects each tarball with `npm pack --dry-run`. It then publishes in this
+dependency order:
 
 1. `@endeavoury/kanosis-tokens`
 2. `@endeavoury/kanosis-styles`
@@ -72,7 +106,7 @@ contains:
 Load the attached image archive without contacting the registry:
 
 ```bash
-gzip -dc kanosis-storybook-0.1.0-linux-amd64.tar.gz | docker load
+gzip -dc kanosis-storybook-1.0.1-linux-amd64.tar.gz | docker load
 ```
 
 The workflow is safe to rerun: published npm versions are detected and
