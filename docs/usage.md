@@ -5,18 +5,18 @@
 The full entry point registers all custom elements:
 
 ```ts
-import '@endeavoury/finance-design';
-import '@endeavoury/finance-design/styles.css';
+import '@endeavoury/kanosis';
+import '@endeavoury/kanosis/styles.css';
 ```
 
-Group entry points (`button`, `forms`, `secondary-forms`, `display`, `feedback`, `interaction`, `overlays`, `upload`, `data-table`, `layout`, `navigation`, `navigation-extras`, and `patterns`) register related elements. The broad `forms` and `navigation` entries include their secondary components; the narrower entries support fine-grained loading. `@endeavoury/finance-design/classes` exports the classes without registering them, which is useful for controlled registries and testing.
+Group entry points (`button`, `forms`, `secondary-forms`, `display`, `feedback`, `interaction`, `overlays`, `upload`, `data-table`, `layout`, `navigation`, `navigation-extras`, and `patterns`) register related elements. The broad `forms` and `navigation` entries include their secondary components; the narrower entries support fine-grained loading. `@endeavoury/kanosis/classes` exports the classes without registering them, which is useful for controlled registries and testing.
 
 ## Attributes, properties, slots, and events
 
 Use attributes for simple serializable values and properties for structured values:
 
 ```ts
-import '@endeavoury/finance-design/data-table';
+import '@endeavoury/kanosis/data-table';
 
 const table = document.querySelector('ds-data-table');
 table.columns = [{ key: 'name', label: 'Name', sortable: true }];
@@ -101,7 +101,7 @@ Breadcrumbs, pagination, and list items use controlled values and typed events. 
 The optional React package wraps the existing element classes with `@lit/react`. It adds JSX property and typed custom-event ergonomics; it does not render a second implementation.
 
 ```tsx
-import { Button, Input } from '@endeavoury/finance-design-react';
+import { Button, Input } from '@endeavoury/kanosis-react';
 
 export function Editor() {
   return <Input label="Name" onDsChange={(event) => console.log(event.detail.value)} />;
@@ -113,12 +113,12 @@ export function Editor() {
 Import the design-system registration once and add the exported schema to a standalone component or NgModule that uses the elements:
 
 ```ts
-import '@endeavoury/finance-design';
-import { FINANCE_DESIGN_CUSTOM_ELEMENTS_SCHEMA } from '@endeavoury/finance-design-angular';
+import '@endeavoury/kanosis';
+import { KANOSIS_CUSTOM_ELEMENTS_SCHEMA } from '@endeavoury/kanosis-angular';
 
 @Component({
   standalone: true,
-  schemas: [FINANCE_DESIGN_CUSTOM_ELEMENTS_SCHEMA],
+  schemas: [KANOSIS_CUSTOM_ELEMENTS_SCHEMA],
   template: `<ds-button (ds-activate)="handle($event)">Save</ds-button>`,
 })
 export class ExampleComponent {}

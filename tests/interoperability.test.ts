@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
-import type { DsDataTable } from '@endeavoury/finance-design/classes';
+import type { DsDataTable } from '@endeavoury/kanosis/classes';
 
 describe('framework-neutral custom element contract', () => {
   it('supports attributes, properties, slots, events, and inherited themes', async () => {

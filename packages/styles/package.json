@@ -1,11 +1,11 @@
 {
-  "name": "@endeavoury/finance-design-styles",
+  "name": "@endeavoury/kanosis-styles",
   "version": "0.1.0",
-  "description": "Shared styling foundations and opt-in global styles for Finance Design.",
+  "description": "Shared styling foundations and opt-in global styles for Kanosis.",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Endeavoury/Finance-DesignSystem.git",
+    "url": "git+https://github.com/Endeavoury/Kanosis.git",
     "directory": "packages/styles"
   },
   "type": "module",
@@ -27,7 +27,7 @@
     "build": "tsc -b && cp src/global.css dist/global.css"
   },
   "dependencies": {
-    "@endeavoury/finance-design-tokens": "0.1.0",
+    "@endeavoury/kanosis-tokens": "0.1.0",
     "lit": "3.3.3"
   },
   "publishConfig": {

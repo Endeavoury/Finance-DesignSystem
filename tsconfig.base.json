@@ -18,10 +18,10 @@
     "ignoreDeprecations": "6.0",
     "baseUrl": ".",
     "paths": {
-      "@endeavoury/finance-design-tokens": ["packages/tokens/src/index.ts"],
-      "@endeavoury/finance-design-styles": ["packages/styles/src/index.ts"],
-      "@endeavoury/finance-design": ["packages/components/src/index.ts"],
-      "@endeavoury/finance-design/*": ["packages/components/src/*.ts"]
+      "@endeavoury/kanosis-tokens": ["packages/tokens/src/index.ts"],
+      "@endeavoury/kanosis-styles": ["packages/styles/src/index.ts"],
+      "@endeavoury/kanosis": ["packages/components/src/index.ts"],
+      "@endeavoury/kanosis/*": ["packages/components/src/*.ts"]
     }
   }
 }

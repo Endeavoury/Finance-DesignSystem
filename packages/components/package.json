@@ -1,11 +1,11 @@
 {
-  "name": "@endeavoury/finance-design",
+  "name": "@endeavoury/kanosis",
   "version": "0.1.0",
-  "description": "Framework-independent Finance Design Web Components built with Lit.",
+  "description": "Framework-independent Kanosis Web Components built with Lit.",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Endeavoury/Finance-DesignSystem.git",
+    "url": "git+https://github.com/Endeavoury/Kanosis.git",
     "directory": "packages/components"
   },
   "type": "module",
@@ -88,8 +88,8 @@
     "build": "tsc -b && cp ../styles/src/global.css dist/styles.css"
   },
   "dependencies": {
-    "@endeavoury/finance-design-styles": "0.1.0",
-    "@endeavoury/finance-design-tokens": "0.1.0",
+    "@endeavoury/kanosis-styles": "0.1.0",
+    "@endeavoury/kanosis-tokens": "0.1.0",
     "lit": "3.3.3",
     "tslib": "2.8.1"
   },

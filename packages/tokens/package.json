@@ -1,11 +1,11 @@
 {
-  "name": "@endeavoury/finance-design-tokens",
+  "name": "@endeavoury/kanosis-tokens",
   "version": "0.1.0",
-  "description": "Semantic design tokens for Finance Design products.",
+  "description": "Semantic design tokens for Kanosis products.",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Endeavoury/Finance-DesignSystem.git",
+    "url": "git+https://github.com/Endeavoury/Kanosis.git",
     "directory": "packages/tokens"
   },
   "type": "module",

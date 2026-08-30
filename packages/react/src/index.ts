@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { createComponent, type EventName } from '@lit/react';
-import '@endeavoury/finance-design';
+import '@endeavoury/kanosis';
 import {
   DsAlert,
   DsAppShell,
@@ -77,7 +77,7 @@ import {
   type DsTreeActivateDetail,
   type DsToastCloseDetail,
   type DsValueChangeDetail,
-} from '@endeavoury/finance-design';
+} from '@endeavoury/kanosis';
 
 const component = <ElementClass extends HTMLElement>(
   tagName: string,

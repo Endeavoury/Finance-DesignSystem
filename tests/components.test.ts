@@ -10,7 +10,7 @@ import type {
   DsSelect,
   DsSidebarItem,
   DsTabs,
-} from '@endeavoury/finance-design/classes';
+} from '@endeavoury/kanosis/classes';
 
 const mount = async <T extends HTMLElement>(element: T): Promise<T> => {
   document.body.append(element);

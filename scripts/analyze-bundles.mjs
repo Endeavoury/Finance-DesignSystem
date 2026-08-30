@@ -11,16 +11,16 @@ await mkdir(temporary, { recursive: true });
 await mkdir(outputDirectory, { recursive: true });
 
 const entries = {
-  button: `import '@endeavoury/finance-design/button';`,
-  forms: `import '@endeavoury/finance-design/forms';`,
-  secondaryForms: `import '@endeavoury/finance-design/secondary-forms';`,
-  interaction: `import '@endeavoury/finance-design/interaction';`,
-  overlays: `import '@endeavoury/finance-design/overlays';`,
-  upload: `import '@endeavoury/finance-design/upload';`,
-  feedback: `import '@endeavoury/finance-design/feedback';`,
-  navigation: `import '@endeavoury/finance-design/navigation';`,
-  tree: `import '@endeavoury/finance-design/tree';`,
-  full: `import '@endeavoury/finance-design';`,
+  button: `import '@endeavoury/kanosis/button';`,
+  forms: `import '@endeavoury/kanosis/forms';`,
+  secondaryForms: `import '@endeavoury/kanosis/secondary-forms';`,
+  interaction: `import '@endeavoury/kanosis/interaction';`,
+  overlays: `import '@endeavoury/kanosis/overlays';`,
+  upload: `import '@endeavoury/kanosis/upload';`,
+  feedback: `import '@endeavoury/kanosis/feedback';`,
+  navigation: `import '@endeavoury/kanosis/navigation';`,
+  tree: `import '@endeavoury/kanosis/tree';`,
+  full: `import '@endeavoury/kanosis';`,
 };
 const budgets = {
   button: { rawBytes: 45000, gzipBytes: 12000 },

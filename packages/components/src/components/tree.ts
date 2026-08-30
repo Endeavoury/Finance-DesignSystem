@@ -1,6 +1,6 @@
 import { css, html, type CSSResultGroup } from 'lit';
 import { property, state } from 'lit/decorators.js';
-import { foundationStyles } from '@endeavoury/finance-design-styles';
+import { foundationStyles } from '@endeavoury/kanosis-styles';
 import { DsElement } from '../core/ds-element.js';
 
 export interface DsTreeActivateDetail { value: string; }

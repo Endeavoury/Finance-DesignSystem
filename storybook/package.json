@@ -1,5 +1,5 @@
 {
-  "name": "@endeavoury/finance-design-storybook",
+  "name": "@endeavoury/kanosis-storybook",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -8,9 +8,9 @@
     "build": "storybook build"
   },
   "dependencies": {
-    "@endeavoury/finance-design": "0.1.0",
-    "@endeavoury/finance-design-styles": "0.1.0",
-    "@endeavoury/finance-design-tokens": "0.1.0",
+    "@endeavoury/kanosis": "0.1.0",
+    "@endeavoury/kanosis-styles": "0.1.0",
+    "@endeavoury/kanosis-tokens": "0.1.0",
     "lit": "3.3.3"
   },
   "devDependencies": {

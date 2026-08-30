@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit';
 const sidebar = () =>
   html`<ds-sidebar slot="sidebar"
-    ><strong slot="brand" style="font-size:15px">◈ &nbsp;Design System</strong
+    ><strong slot="brand" style="font-size:15px">◈ &nbsp;Kanosis</strong
     ><ds-sidebar-item value="overview" active
       ><ds-icon slot="icon" name="home"></ds-icon>Overview</ds-sidebar-item
     ><ds-sidebar-item value="monthly"

@@ -1,9 +1,9 @@
-import '@endeavoury/finance-design/styles.css';
-import '@endeavoury/finance-design/button';
-import '@endeavoury/finance-design/forms';
-import '@endeavoury/finance-design/display';
-import '@endeavoury/finance-design/feedback';
-import '@endeavoury/finance-design/layout';
+import '@endeavoury/kanosis/styles.css';
+import '@endeavoury/kanosis/button';
+import '@endeavoury/kanosis/forms';
+import '@endeavoury/kanosis/display';
+import '@endeavoury/kanosis/feedback';
+import '@endeavoury/kanosis/layout';
 
 document.querySelector('main')!.innerHTML = `
   <ds-container size="narrow">

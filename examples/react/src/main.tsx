@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { createRoot } from 'react-dom/client';
-import '@endeavoury/finance-design/styles.css';
+import '@endeavoury/kanosis/styles.css';
 import {
   Alert,
   Button,
@@ -10,7 +10,7 @@ import {
   Metric,
   PageHeader,
   Stack,
-} from '@endeavoury/finance-design-react';
+} from '@endeavoury/kanosis-react';
 function App() {
   const [name, setName] = useState('React consumer');
   return (

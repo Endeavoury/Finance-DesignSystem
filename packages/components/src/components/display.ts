@@ -1,6 +1,6 @@
 import { css, html, nothing, type CSSResultGroup } from 'lit';
 import { property, state } from 'lit/decorators.js';
-import { foundationStyles, surfaceStyles } from '@endeavoury/finance-design-styles';
+import { foundationStyles, surfaceStyles } from '@endeavoury/kanosis-styles';
 import { DsElement, type DsTone } from '../core/ds-element.js';
 
 export class DsBadge extends DsElement {

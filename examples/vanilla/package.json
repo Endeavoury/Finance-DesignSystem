@@ -1,5 +1,5 @@
 {
-  "name": "@endeavoury/finance-design-example-vanilla",
+  "name": "@endeavoury/kanosis-example-vanilla",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -8,8 +8,8 @@
     "build": "vite build"
   },
   "dependencies": {
-    "@endeavoury/finance-design": "0.1.0",
-    "@endeavoury/finance-design-styles": "0.1.0"
+    "@endeavoury/kanosis": "0.1.0",
+    "@endeavoury/kanosis-styles": "0.1.0"
   },
   "devDependencies": {
     "vite": "8.2.2",

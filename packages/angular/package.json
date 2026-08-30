@@ -1,11 +1,11 @@
 {
-  "name": "@endeavoury/finance-design-angular",
+  "name": "@endeavoury/kanosis-angular",
   "version": "0.1.0",
-  "description": "Thin Angular helpers for the Finance Design Web Components.",
+  "description": "Thin Angular helpers for the Kanosis Web Components.",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Endeavoury/Finance-DesignSystem.git",
+    "url": "git+https://github.com/Endeavoury/Kanosis.git",
     "directory": "packages/angular"
   },
   "type": "module",
@@ -23,7 +23,7 @@
     "build": "tsc -b"
   },
   "dependencies": {
-    "@endeavoury/finance-design": "0.1.0"
+    "@endeavoury/kanosis": "0.1.0"
   },
   "peerDependencies": {
     "@angular/core": ">=17"

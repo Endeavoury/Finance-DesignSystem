@@ -1,4 +1,4 @@
-name: Release design system
+name: Release Kanosis
 
 on:
   push:
@@ -16,7 +16,7 @@ concurrency:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: ghcr.io/endeavoury/finance-design-system-storybook
+  IMAGE_NAME: ghcr.io/endeavoury/kanosis-storybook
 
 jobs:
   release:
@@ -52,11 +52,11 @@ jobs:
       - name: Pack npm release assets
         run: |
           mkdir -p release-assets
-          npm pack --workspace @endeavoury/finance-design-tokens --pack-destination release-assets
-          npm pack --workspace @endeavoury/finance-design-styles --pack-destination release-assets
-          npm pack --workspace @endeavoury/finance-design --pack-destination release-assets
-          npm pack --workspace @endeavoury/finance-design-react --pack-destination release-assets
-          npm pack --workspace @endeavoury/finance-design-angular --pack-destination release-assets
+          npm pack --workspace @endeavoury/kanosis-tokens --pack-destination release-assets
+          npm pack --workspace @endeavoury/kanosis-styles --pack-destination release-assets
+          npm pack --workspace @endeavoury/kanosis --pack-destination release-assets
+          npm pack --workspace @endeavoury/kanosis-react --pack-destination release-assets
+          npm pack --workspace @endeavoury/kanosis-angular --pack-destination release-assets
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@8d2750c68a42422c14e847fe6c8ac0403b4cbd6f
@@ -80,8 +80,8 @@ jobs:
             type=sha,prefix=sha-
             type=raw,value=latest
           labels: |
-            org.opencontainers.image.title=Finance Design Storybook
-            org.opencontainers.image.description=Standalone Storybook for the Finance Design Web Component system
+            org.opencontainers.image.title=Kanosis Storybook
+            org.opencontainers.image.description=Standalone Storybook for the Kanosis Web Component system
 
       - name: Build and publish Storybook image
         id: image
@@ -106,9 +106,9 @@ jobs:
         run: |
           docker pull "${IMAGE_NAME}:${{ steps.version.outputs.version }}"
           docker save "${IMAGE_NAME}:${{ steps.version.outputs.version }}" \
-            | gzip -9 > "release-assets/finance-design-storybook-${{ steps.version.outputs.version }}-linux-amd64.tar.gz"
+            | gzip -9 > "release-assets/kanosis-storybook-${{ steps.version.outputs.version }}-linux-amd64.tar.gz"
           printf '%s\n' '${{ steps.image.outputs.digest }}' \
-            > "release-assets/finance-design-storybook-${{ steps.version.outputs.version }}.digest"
+            > "release-assets/kanosis-storybook-${{ steps.version.outputs.version }}.digest"
 
       - name: Generate release notes and manifest
         run: >-
@@ -153,11 +153,11 @@ jobs:
           if gh release view "$GITHUB_REF_NAME" >/dev/null 2>&1; then
             gh release upload "$GITHUB_REF_NAME" "${assets[@]}" --clobber
             gh release edit "$GITHUB_REF_NAME" \
-              --title "Finance Design ${{ steps.version.outputs.version }}" \
+              --title "Kanosis ${{ steps.version.outputs.version }}" \
               --notes-file release-assets/release-notes.md
           else
             gh release create "$GITHUB_REF_NAME" "${assets[@]}" \
               --verify-tag \
-              --title "Finance Design ${{ steps.version.outputs.version }}" \
+              --title "Kanosis ${{ steps.version.outputs.version }}" \
               --notes-file release-assets/release-notes.md
           fi

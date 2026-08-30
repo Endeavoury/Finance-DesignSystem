@@ -1,5 +1,5 @@
 {
-  "name": "@endeavoury/finance-design-example-react",
+  "name": "@endeavoury/kanosis-example-react",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -8,8 +8,8 @@
     "build": "tsc -b && vite build"
   },
   "dependencies": {
-    "@endeavoury/finance-design-react": "0.1.0",
-    "@endeavoury/finance-design-styles": "0.1.0",
+    "@endeavoury/kanosis-react": "0.1.0",
+    "@endeavoury/kanosis-styles": "0.1.0",
     "react": "19.2.8",
     "react-dom": "19.2.8"
   },

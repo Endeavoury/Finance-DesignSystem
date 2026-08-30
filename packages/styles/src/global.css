@@ -1,4 +1,4 @@
-@import '@endeavoury/finance-design-tokens/tokens.css';
+@import '@endeavoury/kanosis-tokens/tokens.css';
 
 :where(html) {
   background: var(--ds-color-bg-canvas);

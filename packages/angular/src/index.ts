@@ -1,8 +1,8 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import '@endeavoury/finance-design';
+import '@endeavoury/kanosis';
 
-export const FINANCE_DESIGN_CUSTOM_ELEMENTS_SCHEMA = CUSTOM_ELEMENTS_SCHEMA;
-export const DESIGN_SYSTEM_SCHEMAS = [FINANCE_DESIGN_CUSTOM_ELEMENTS_SCHEMA] as const;
+export const KANOSIS_CUSTOM_ELEMENTS_SCHEMA = CUSTOM_ELEMENTS_SCHEMA;
+export const DESIGN_SYSTEM_SCHEMAS = [KANOSIS_CUSTOM_ELEMENTS_SCHEMA] as const;
 export function registerDesignSystem(): void {
   // Importing this package registers the same Web Components used by every consumer.
 }

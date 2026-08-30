@@ -1,6 +1,6 @@
 import { css, html, nothing, type CSSResultGroup } from 'lit';
 import { property, query, queryAssignedElements, state } from 'lit/decorators.js';
-import { formFoundationStyles, foundationStyles } from '@endeavoury/finance-design-styles';
+import { formFoundationStyles, foundationStyles } from '@endeavoury/kanosis-styles';
 import { DsElement } from '../core/ds-element.js';
 import type { DsCheckedChangeDetail, DsValueChangeDetail } from './forms.js';
 

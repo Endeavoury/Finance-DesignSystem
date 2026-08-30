@@ -1,6 +1,6 @@
 import { css, html, nothing, type CSSResultGroup } from 'lit';
 import { property, query } from 'lit/decorators.js';
-import { foundationStyles, spinnerStyles } from '@endeavoury/finance-design-styles';
+import { foundationStyles, spinnerStyles } from '@endeavoury/kanosis-styles';
 import { DsElement } from '../core/ds-element.js';
 
 export interface DsFilesDetail {

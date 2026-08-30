@@ -2,7 +2,7 @@ import * as React from 'react';
 import { act } from 'react';
 import { createRoot } from 'react-dom/client';
 import { fireEvent } from '@testing-library/dom';
-import { Button, DescriptionList, Input, ThemeToggle, Tree, TreeItem } from '@endeavoury/finance-design-react';
+import { Button, DescriptionList, Input, ThemeToggle, Tree, TreeItem } from '@endeavoury/kanosis-react';
 import { describe, expect, it, vi } from 'vitest';
 
 describe('React adapter', () => {

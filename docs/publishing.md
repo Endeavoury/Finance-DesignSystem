@@ -1,9 +1,9 @@
 # Versioning and publishing
 
-The five public `@endeavoury/finance-design*` packages use one synchronized semantic version. During the pre-1.0 phase, breaking API changes increment the minor version. After 1.0, breaking changes increment major, additive changes minor, and fixes patch.
+The five public `@endeavoury/kanosis*` packages use one synchronized semantic version. During the pre-1.0 phase, breaking API changes increment the minor version. After 1.0, breaking changes increment major, additive changes minor, and fixes patch.
 
 Packages are published to GitHub Packages and linked to
-`Endeavoury/Finance-DesignSystem` through their `repository` metadata. GitHub
+`Endeavoury/Kanosis` through their `repository` metadata. GitHub
 Packages requires a scoped npm name and authenticated package access.
 
 ## One-time repository setup
@@ -40,19 +40,19 @@ quality gate, verifies that the tag and package versions match, and inspects
 each tarball with `npm pack --dry-run`. It then publishes in this dependency
 order:
 
-1. `@endeavoury/finance-design-tokens`
-2. `@endeavoury/finance-design-styles`
-3. `@endeavoury/finance-design`
-4. `@endeavoury/finance-design-react`
-5. `@endeavoury/finance-design-angular`
+1. `@endeavoury/kanosis-tokens`
+2. `@endeavoury/kanosis-styles`
+3. `@endeavoury/kanosis`
+4. `@endeavoury/kanosis-react`
+5. `@endeavoury/kanosis-angular`
 
 The same workflow builds the standalone Storybook image and publishes it as:
 
 ```text
-ghcr.io/endeavoury/finance-design-system-storybook:<version>
-ghcr.io/endeavoury/finance-design-system-storybook:v<version>
-ghcr.io/endeavoury/finance-design-system-storybook:sha-<commit>
-ghcr.io/endeavoury/finance-design-system-storybook:latest
+ghcr.io/endeavoury/kanosis-storybook:<version>
+ghcr.io/endeavoury/kanosis-storybook:v<version>
+ghcr.io/endeavoury/kanosis-storybook:sha-<commit>
+ghcr.io/endeavoury/kanosis-storybook:latest
 ```
 
 The image is limited to `linux/amd64` so the registry image and downloadable
@@ -64,7 +64,7 @@ After npm and container publication succeed, CI creates the GitHub Release. It
 contains:
 
 - one `.tgz` tarball for each npm package;
-- a loadable `finance-design-storybook-<version>-linux-amd64.tar.gz` image;
+- a loadable `kanosis-storybook-<version>-linux-amd64.tar.gz` image;
 - the immutable GHCR digest;
 - `release-manifest.json` with package and image references;
 - `SHA256SUMS` for every downloadable artifact.
@@ -72,7 +72,7 @@ contains:
 Load the attached image archive without contacting the registry:
 
 ```bash
-gzip -dc finance-design-storybook-0.1.0-linux-amd64.tar.gz | docker load
+gzip -dc kanosis-storybook-0.1.0-linux-amd64.tar.gz | docker load
 ```
 
 The workflow is safe to rerun: published npm versions are detected and
@@ -93,7 +93,7 @@ Authenticate with a classic personal access token that has `read:packages`,
 then install normally:
 
 ```bash
-npm install @endeavoury/finance-design
+npm install @endeavoury/kanosis
 ```
 
 The Finance Inzicht sibling workspace intentionally uses local `file:`

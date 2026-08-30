@@ -1,10 +1,10 @@
 {
-  "name": "finance-design-workspace",
+  "name": "kanosis-workspace",
   "private": true,
   "version": "0.1.0",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Endeavoury/Finance-DesignSystem.git"
+    "url": "git+https://github.com/Endeavoury/Kanosis.git"
   },
   "type": "module",
   "packageManager": "npm@12.0.2",
@@ -15,12 +15,12 @@
   ],
   "scripts": {
     "clean": "node scripts/clean.mjs",
-    "build:packages": "npm run build -w @endeavoury/finance-design-tokens && npm run build -w @endeavoury/finance-design-styles && npm run build -w @endeavoury/finance-design && npm run build -w @endeavoury/finance-design-react && npm run build -w @endeavoury/finance-design-angular",
+    "build:packages": "npm run build -w @endeavoury/kanosis-tokens && npm run build -w @endeavoury/kanosis-styles && npm run build -w @endeavoury/kanosis && npm run build -w @endeavoury/kanosis-react && npm run build -w @endeavoury/kanosis-angular",
     "build:browser": "npm run build:packages && node scripts/build-browser.mjs",
-    "build:examples": "npm run build -w @endeavoury/finance-design-example-vanilla && npm run build -w @endeavoury/finance-design-example-react && npm run build -w @endeavoury/finance-design-example-angular",
+    "build:examples": "npm run build -w @endeavoury/kanosis-example-vanilla && npm run build -w @endeavoury/kanosis-example-react && npm run build -w @endeavoury/kanosis-example-angular",
     "build": "npm run build:packages && npm run build:examples",
-    "storybook": "npm run build:packages && npm run storybook -w @endeavoury/finance-design-storybook",
-    "build-storybook": "npm run build:packages && npm run build -w @endeavoury/finance-design-storybook",
+    "storybook": "npm run build:packages && npm run storybook -w @endeavoury/kanosis-storybook",
+    "build-storybook": "npm run build:packages && npm run build -w @endeavoury/kanosis-storybook",
     "typecheck": "tsc -b --pretty false",
     "lint": "eslint packages storybook examples tests scripts vitest.config.ts",
     "format": "prettier --write packages storybook examples tests scripts docs README.md package.json '*.json'",

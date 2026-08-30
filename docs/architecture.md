@@ -8,7 +8,7 @@ The architecture has three layers with a one-way dependency direction:
 2. **Web Components** implement that contract once as standards-based `ds-*` custom elements. This is the only visual implementation.
 3. **Framework integrations** expose the same elements to Vanilla JavaScript, React, and Angular without duplicating markup, behavior, or styling.
 
-The design system is an independent npm workspace in its own `Finance-DesignSystem` repository. It has no application imports and its build does not read application source. Finance-Inzicht and Ontarchon consume the same published packages in deployments and the same sibling workspace packages during local development; product screens are used only as inspiration for mock Storybook compositions.
+The design system is an independent npm workspace in its own `Kanosis` repository. It has no application imports and its build does not read application source. Finance-Inzicht and Ontarchon consume the same published packages in deployments and the same sibling workspace packages during local development; product screens are used only as inspiration for mock Storybook compositions.
 
 The implementation uses **Lit 3 and standards-based custom elements**. Lit was selected because it keeps the shipped contract as Web Components while adding typed reactive properties, declarative templates, Shadow DOM, small runtime cost, and a maintained React adapter. React and Angular remain consumers; there are no framework-specific visual implementations.
 
@@ -28,9 +28,9 @@ flowchart TB
   end
 
   subgraph L2["2. Web Component implementation"]
-    tokens["@endeavoury/finance-design-tokens"]
-    styles["@endeavoury/finance-design-styles"]
-    elements["@endeavoury/finance-design\nLit + ds-* custom elements"]
+    tokens["@endeavoury/kanosis-tokens"]
+    styles["@endeavoury/kanosis-styles"]
+    elements["@endeavoury/kanosis\nLit + ds-* custom elements"]
   end
 
   subgraph L3["3. Consumer integrations"]
@@ -157,7 +157,7 @@ design-system/
 └── docs/             architecture, audit, usage, contribution, publishing
 ```
 
-Each workspace can build independently. Public packages use the `@endeavoury/finance-design*` family and one synchronized semantic version. Package identity does not affect the stable `ds-*` custom-element names.
+Each workspace can build independently. Public packages use the `@endeavoury/kanosis*` family and one synchronized semantic version. Package identity does not affect the stable `ds-*` custom-element names.
 
 Penpot remains outside the npm workspace because it is a design-authoring service rather than a runtime package. Links, exports, and handoff conventions can be recorded in repository documentation without coupling package builds to Penpot availability.
 
@@ -178,12 +178,12 @@ Penpot remains outside the npm workspace because it is a design-authoring servic
 - Components compose small shared modules (`host`, typography, control, focus, form, surface, visually-hidden) with component-specific styles.
 - Lit reuses `CSSResult.styleSheet` objects with `adoptedStyleSheets` in capable browsers and provides its style-element fallback otherwise.
 - The distributed ESM build preserves shared imports. Shared foundations are not copied into every component module; a consumer bundler can emit one shared chunk.
-- `@endeavoury/finance-design-styles/global.css` is opt-in. It sets tokens and conservative `html/body` typography/canvas defaults plus `[hidden]`; it does not restyle arbitrary buttons, inputs, tables, or application classes.
+- `@endeavoury/kanosis-styles/global.css` is opt-in. It sets tokens and conservative `html/body` typography/canvas defaults plus `[hidden]`; it does not restyle arbitrary buttons, inputs, tables, or application classes.
 
 ## Build and package contract
 
 - TypeScript project references emit ESM, declarations, declaration maps, and source maps.
-- `@endeavoury/finance-design` exports a full registration entrypoint and grouped paths such as `/button`, `/forms`, and `/data-table`.
+- `@endeavoury/kanosis` exports a full registration entrypoint and grouped paths such as `/button`, `/forms`, and `/data-table`.
 - Class-only modules remain side-effect free; registration entrypoints perform guarded `customElements.define()` calls.
 - CSS and token metadata have explicit package exports. Published packages contain only `dist`, CSS assets, README, and license metadata.
 - Bundle analysis builds representative full and per-component consumers with Rollup, reports raw/gzip size, and checks that shared foundation markers occur once.
@@ -199,7 +199,7 @@ Penpot remains outside the npm workspace because it is a design-authoring servic
 ## Framework integration
 
 - **Vanilla:** import the full package or an individual registration path, then author native HTML.
-- **React:** optional wrappers from `@endeavoury/finance-design-react` use `@lit/react/createComponent`; wrappers map typed custom events and complex properties to the same custom elements.
+- **React:** optional wrappers from `@endeavoury/kanosis-react` use `@lit/react/createComponent`; wrappers map typed custom events and complex properties to the same custom elements.
 - **Angular:** import the registration helper once and add `CUSTOM_ELEMENTS_SCHEMA`; property and event bindings target native custom-element APIs. Form-associated controls work with native forms; a future ControlValueAccessor package is optional and not part of the visual source of truth.
 
 ### Integration dependency matrix

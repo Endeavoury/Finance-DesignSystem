@@ -3,7 +3,7 @@ import { create } from 'storybook/theming/create';
 addons.setConfig({
   theme: create({
     base: 'dark',
-    brandTitle: 'Finance Inzicht · Design System',
+    brandTitle: 'Kanosis',
     brandUrl: '/',
     colorPrimary: '#2f91dc',
     colorSecondary: '#62b2ec',

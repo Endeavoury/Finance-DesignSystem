@@ -1,5 +1,5 @@
 import { html } from 'lit';
-import type { DsTableColumn } from '@endeavoury/finance-design';
+import type { DsTableColumn } from '@endeavoury/kanosis';
 
 export const productStyles = html`<style>
   .product {

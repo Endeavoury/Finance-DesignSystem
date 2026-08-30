@@ -1,6 +1,6 @@
 import { css, html, type CSSResultGroup, type PropertyValues } from 'lit';
 import { property, queryAssignedElements, state } from 'lit/decorators.js';
-import { foundationStyles, surfaceStyles } from '@endeavoury/finance-design-styles';
+import { foundationStyles, surfaceStyles } from '@endeavoury/kanosis-styles';
 import { DsElement } from '../core/ds-element.js';
 
 export type DsTheme = 'light' | 'dark';

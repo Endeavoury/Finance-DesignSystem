@@ -17,7 +17,7 @@ if (packages.some(({ version: packageVersion }) => packageVersion !== version)) 
 
 const imageReference = `${imageName}:${version}`;
 const immutableImageReference = `${imageName}@${imageDigest}`;
-const imageArchive = `finance-design-storybook-${version}-linux-amd64.tar.gz`;
+const imageArchive = `kanosis-storybook-${version}-linux-amd64.tar.gz`;
 
 const notes = `## npm packages
 
