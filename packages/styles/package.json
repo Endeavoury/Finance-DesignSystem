@@ -1,6 +1,6 @@
 {
   "name": "@endeavoury/kanosis-styles",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Shared styling foundations and opt-in global styles for Kanosis.",
   "license": "MIT",
   "repository": {
@@ -27,7 +27,7 @@
     "build": "tsc -b && cp src/global.css dist/global.css"
   },
   "dependencies": {
-    "@endeavoury/kanosis-tokens": "1.0.1",
+    "@endeavoury/kanosis-tokens": "1.0.2",
     "lit": "3.3.3"
   },
   "publishConfig": {

@@ -1,6 +1,6 @@
 {
   "name": "@endeavoury/kanosis-example-vanilla",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "private": true,
   "type": "module",
   "scripts": {
@@ -8,8 +8,8 @@
     "build": "vite build"
   },
   "dependencies": {
-    "@endeavoury/kanosis": "1.0.1",
-    "@endeavoury/kanosis-styles": "1.0.1"
+    "@endeavoury/kanosis": "1.0.2",
+    "@endeavoury/kanosis-styles": "1.0.2"
   },
   "devDependencies": {
     "vite": "8.2.2",
