@@ -39,6 +39,34 @@ export const PageHeader: StoryObj = {
     >`,
 };
 
+export const PaneWorkspace: StoryObj = {
+  parameters: { layout: 'fullscreen' },
+  render: () => html`<div style="height:100dvh;min-width:0;min-height:0;overflow:hidden">
+    <ds-pane-group>
+      <ds-pane position="left" style="--ds-pane-size:16rem">
+        <ds-pane-header><strong style="display:block;padding:1rem">Navigation</strong></ds-pane-header>
+        <ds-scrollable-pane style="padding:1rem">
+          <ds-stack gap="2">
+            ${Array.from({ length: 24 }, (_, index) => box(`Navigation item ${index + 1}`))}
+          </ds-stack>
+        </ds-scrollable-pane>
+      </ds-pane>
+      <ds-pane position="center">
+        <ds-pane-header><strong style="display:block;padding:1rem">Workspace toolbar</strong></ds-pane-header>
+        <ds-pane-content scrollable style="padding:1rem">
+          <ds-stack>${Array.from({ length: 30 }, (_, index) => box(`Content row ${index + 1}`))}</ds-stack>
+        </ds-pane-content>
+      </ds-pane>
+      <ds-inspector-pane>
+        <ds-pane-header><strong style="display:block;padding:1rem">Inspector</strong></ds-pane-header>
+        <ds-scrollable-pane style="padding:1rem">
+          ${Array.from({ length: 12 }, (_, index) => box(`Property ${index + 1}`))}
+        </ds-scrollable-pane>
+      </ds-inspector-pane>
+    </ds-pane-group>
+  </div>`,
+};
+
 export const DetailSidebar: StoryObj = {
   render: () =>
     html`<div style="min-height:42rem;padding:2rem">

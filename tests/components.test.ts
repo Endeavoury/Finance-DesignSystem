@@ -6,6 +6,9 @@ import type {
   DsInput,
   DsMenu,
   DsPagination,
+  DsPane,
+  DsPaneContent,
+  DsPaneGroup,
   DsRadioGroup,
   DsSelect,
   DsSidebarItem,
@@ -176,6 +179,27 @@ describe('data and navigation', () => {
 });
 
 describe('display foundations', () => {
+  it('composes fixed pane groups with explicit positions and scroll ownership', async () => {
+    const group = (await mount(document.createElement('ds-pane-group'))) as DsPaneGroup;
+    const left = document.createElement('ds-pane') as DsPane;
+    const center = document.createElement('ds-pane') as DsPane;
+    const content = document.createElement('ds-pane-content') as DsPaneContent;
+    left.position = 'left';
+    center.position = 'center';
+    content.scrollable = true;
+    center.append(content);
+    group.append(left, center);
+    await Promise.all([left.updateComplete, center.updateComplete, content.updateComplete]);
+
+    expect(group.orientation).toBe('horizontal');
+    expect(left.getAttribute('position')).toBe('left');
+    expect(center.getAttribute('position')).toBe('center');
+    expect(content.hasAttribute('scrollable')).toBe(true);
+    left.collapsed = true;
+    await left.updateComplete;
+    expect(left.hasAttribute('collapsed')).toBe(true);
+  });
+
   it('creates icon geometry in the SVG namespace', async () => {
     const icon = await mount(document.createElement('ds-icon'));
     icon.name = 'refresh';

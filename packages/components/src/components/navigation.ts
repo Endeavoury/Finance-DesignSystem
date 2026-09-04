@@ -144,8 +144,11 @@ export class DsSidebar extends DsElement {
       :host {
         display: flex;
         flex-direction: column;
-        width: 15.25rem;
+        width: var(--ds-shell-sidebar-width);
+        min-width: 0;
+        min-height: 0;
         height: 100%;
+        overflow: hidden;
         padding: 1.125rem;
         border-right: 1px solid var(--ds-color-border-subtle);
         background: linear-gradient(
@@ -156,22 +159,30 @@ export class DsSidebar extends DsElement {
         box-shadow: inset -1px 0 0
           color-mix(in srgb, var(--ds-color-border-highlight) 52%, transparent);
       }
+      :host([collapsed]) {
+        display: none;
+      }
       .brand {
         padding: var(--ds-space-2) var(--ds-space-2) var(--ds-space-8);
       }
       nav {
-        display: grid;
+        display: flex;
+        min-height: 0;
+        flex: 1 1 auto;
+        flex-direction: column;
         gap: 0.1875rem;
+        overflow-y: auto;
+        overscroll-behavior: contain;
+        scrollbar-gutter: stable;
+        scrollbar-width: thin;
+        scrollbar-color: var(--ds-color-border-strong) transparent;
       }
       .footer {
-        margin-top: auto;
+        flex: 0 0 auto;
         padding-top: var(--ds-space-4);
       }
       @media (max-width: 680px) {
         :host {
-          position: fixed;
-          z-index: var(--ds-z-sticky);
-          inset: auto 0 0;
           width: auto;
           height: auto;
           padding: var(--ds-space-2) max(var(--ds-space-2), env(safe-area-inset-right))
@@ -188,8 +199,17 @@ export class DsSidebar extends DsElement {
         }
         nav {
           display: flex;
+          flex-direction: row;
           justify-content: space-around;
           gap: var(--ds-space-1);
+          overflow-x: auto;
+          overflow-y: hidden;
+          overscroll-behavior-inline: contain;
+          scrollbar-gutter: auto;
+          scrollbar-width: none;
+        }
+        nav::-webkit-scrollbar {
+          display: none;
         }
         ::slotted(ds-sidebar-item) {
           flex: 1;
@@ -200,6 +220,7 @@ export class DsSidebar extends DsElement {
     `,
   ];
   @property() label = 'Primary navigation';
+  @property({ type: Boolean, reflect: true }) collapsed = false;
   protected override render() {
     return html`<div class="brand" part="brand"><slot name="brand"></slot></div>
       <nav part="navigation" aria-label=${this.label}><slot></slot></nav>
@@ -214,7 +235,11 @@ export class DsAppShell extends DsElement {
       :host {
         display: grid;
         grid-template-columns: auto minmax(0, 1fr);
-        min-height: 100dvh;
+        width: 100%;
+        height: 100dvh;
+        min-width: 0;
+        min-height: 0;
+        overflow: hidden;
         background:
           radial-gradient(
             circle at 76% -12%,
@@ -224,17 +249,23 @@ export class DsAppShell extends DsElement {
           var(--ds-color-bg-canvas);
       }
       .sidebar {
-        position: sticky;
-        top: 0;
-        height: 100dvh;
+        z-index: var(--ds-z-navigation);
+        min-width: 0;
+        min-height: 0;
+        height: 100%;
+        overflow: hidden;
       }
       .workspace {
+        display: grid;
+        grid-template-rows: auto minmax(0, 1fr);
         min-width: 0;
+        min-height: 0;
+        overflow: hidden;
       }
       .header {
-        position: sticky;
-        top: 0;
-        z-index: var(--ds-z-sticky);
+        position: relative;
+        z-index: var(--ds-z-pane-header);
+        min-width: 0;
         min-height: 4.5rem;
         border-bottom: 1px solid var(--ds-color-border-subtle);
         background: color-mix(in srgb, var(--ds-color-bg-surface-subtle) 86%, transparent);
@@ -243,21 +274,49 @@ export class DsAppShell extends DsElement {
       }
       .main {
         min-width: 0;
+        min-height: 0;
+        overflow-x: hidden;
+        overflow-y: auto;
+        overscroll-behavior: contain;
+        scrollbar-gutter: stable;
+        scrollbar-width: thin;
+        scrollbar-color: var(--ds-color-border-strong) transparent;
+        -webkit-overflow-scrolling: touch;
         padding: var(--ds-space-8);
+      }
+      .main::-webkit-scrollbar {
+        width: 0.75rem;
+        height: 0.75rem;
+      }
+      .main::-webkit-scrollbar-thumb {
+        border: 0.1875rem solid transparent;
+        border-radius: var(--ds-radius-round);
+        background: var(--ds-color-border-strong);
+        background-clip: padding-box;
       }
       @media (max-width: 680px) {
         :host {
-          display: block;
+          position: relative;
+          grid-template-columns: minmax(0, 1fr);
         }
         .sidebar {
-          position: static;
-          height: 0;
+          position: absolute;
+          z-index: var(--ds-z-navigation);
+          inset: auto 0 0;
+          height: auto;
         }
         .header {
           min-height: 4rem;
         }
         .main {
           padding: var(--ds-space-4) var(--ds-space-3) calc(5rem + env(safe-area-inset-bottom));
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          transition: none !important;
         }
       }
     `,

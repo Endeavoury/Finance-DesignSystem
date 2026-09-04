@@ -151,8 +151,17 @@
   --ds-icon-sm: 0.875rem;
   --ds-icon-md: 1rem;
   --ds-icon-lg: 1.25rem;
-  --ds-z-sticky: 100;
+  --ds-shell-sidebar-width: 15.25rem;
+  --ds-pane-sidebar-width: 18rem;
+  --ds-pane-inspector-width: 22rem;
+  --ds-z-base: 0;
+  --ds-z-pane: 10;
+  --ds-z-pane-header: 20;
+  --ds-z-navigation: 100;
+  --ds-z-sticky: 200;
+  --ds-z-dropdown: 400;
   --ds-z-overlay: 500;
+  --ds-z-modal: 600;
   --ds-z-toast: 700;
 }
 

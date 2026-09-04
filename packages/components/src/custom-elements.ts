@@ -42,7 +42,13 @@ import type {
   DsDetailSidebar,
   DsGrid,
   DsInline,
+  DsInspectorPane,
+  DsPane,
+  DsPaneContent,
+  DsPaneGroup,
+  DsPaneHeader,
   DsPageHeader,
+  DsScrollablePane,
   DsStack,
 } from './components/layout.js';
 import type { DsAppShell, DsSidebar, DsSidebarItem } from './components/navigation.js';
@@ -104,6 +110,12 @@ declare global {
     'ds-container': DsContainer;
     'ds-page-header': DsPageHeader;
     'ds-detail-sidebar': DsDetailSidebar;
+    'ds-pane-group': DsPaneGroup;
+    'ds-pane': DsPane;
+    'ds-scrollable-pane': DsScrollablePane;
+    'ds-pane-header': DsPaneHeader;
+    'ds-pane-content': DsPaneContent;
+    'ds-inspector-pane': DsInspectorPane;
     'ds-app-shell': DsAppShell;
     'ds-sidebar': DsSidebar;
     'ds-sidebar-item': DsSidebarItem;

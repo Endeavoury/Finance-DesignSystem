@@ -28,6 +28,7 @@ import {
   DsIcon,
   DsIconButton,
   DsInline,
+  DsInspectorPane,
   DsInput,
   DsKpiGrid,
   DsLoadingState,
@@ -37,6 +38,10 @@ import {
   DsMenuItem,
   DsMetric,
   DsPageHeader,
+  DsPane,
+  DsPaneContent,
+  DsPaneGroup,
+  DsPaneHeader,
   DsPanel,
   DsPagination,
   DsRadio,
@@ -46,6 +51,7 @@ import {
   DsSelect,
   DsSidebar,
   DsSidebarItem,
+  DsScrollablePane,
   DsStack,
   DsStatusBadge,
   DsSwitch,
@@ -253,6 +259,12 @@ export const Inline = component('ds-inline', DsInline);
 export const Grid = component('ds-grid', DsGrid);
 export const Container = component('ds-container', DsContainer);
 export const PageHeader = component('ds-page-header', DsPageHeader);
+export const PaneGroup = component('ds-pane-group', DsPaneGroup);
+export const Pane = component('ds-pane', DsPane);
+export const ScrollablePane = component('ds-scrollable-pane', DsScrollablePane);
+export const PaneHeader = component('ds-pane-header', DsPaneHeader);
+export const PaneContent = component('ds-pane-content', DsPaneContent);
+export const InspectorPane = component('ds-inspector-pane', DsInspectorPane);
 export const DetailSidebar = createComponent({
   tagName: 'ds-detail-sidebar',
   elementClass: DsDetailSidebar,
