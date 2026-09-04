@@ -28,6 +28,7 @@
     "test:a11y": "npm run build:packages && vitest run tests/accessibility.test.ts",
     "verify:stories": "node scripts/verify-story-coverage.mjs",
     "verify:components": "node scripts/verify-component-contract.mjs",
+    "components:list": "node scripts/list-components.mjs",
     "analyze": "npm run build:packages && node scripts/analyze-bundles.mjs",
     "release:version": "node scripts/set-release-version.mjs",
     "release:verify": "node scripts/verify-release.mjs",

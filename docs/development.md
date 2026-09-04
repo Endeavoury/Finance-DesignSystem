@@ -39,6 +39,8 @@ Every registered custom element must have all of the following:
 
 Run `npm run verify:components` to enforce this contract locally and in CI.
 
+Agents and other tooling can discover the complete public catalog with `npm run components:list -- --json`; see the [AI component guide](ai-component-guide.md) for the recommended inspection order.
+
 ## Adding a component
 
 1. Classify it as primitive, component, pattern, or application business feature. Business features do not belong here.
