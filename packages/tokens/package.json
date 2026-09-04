@@ -1,6 +1,6 @@
 {
   "name": "@endeavoury/kanosis-tokens",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Semantic design tokens for Kanosis products.",
   "license": "MIT",
   "repository": {
