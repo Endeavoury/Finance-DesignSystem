@@ -10,4 +10,8 @@ import './register/layout.js';
 import './register/navigation.js';
 import './register/patterns.js';
 import './register/tree.js';
+import './register/enterprise.js';
+import './register/enterprise-p1.js';
+import './register/enterprise-p2.js';
+import './register/enterprise-p3.js';
 export * from './classes.js';

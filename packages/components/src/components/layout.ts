@@ -40,16 +40,18 @@ const paneFoundation = css`
 
 const scrollablePane = css`
   :host {
-    overflow: auto;
+    overflow-x: hidden;
+    overflow-y: auto;
     overscroll-behavior: contain;
     scrollbar-gutter: stable;
     scrollbar-width: thin;
     scrollbar-color: var(--ds-color-border-strong) transparent;
     -webkit-overflow-scrolling: touch;
+    touch-action: pan-y pinch-zoom;
   }
   :host::-webkit-scrollbar {
-    width: 0.75rem;
-    height: 0.75rem;
+    width: var(--ds-scrollbar-size);
+    height: var(--ds-scrollbar-size);
   }
   :host::-webkit-scrollbar-thumb {
     border: 0.1875rem solid transparent;
@@ -67,6 +69,7 @@ export class DsPaneGroup extends DsElement {
       :host {
         position: relative;
         display: flex;
+        flex: 1 1 auto;
         width: 100%;
         height: 100%;
         overflow: hidden;
@@ -96,6 +99,8 @@ export class DsPane extends DsElement {
         display: flex;
         flex: 1 1 0;
         flex-direction: column;
+        width: 100%;
+        height: 100%;
         overflow: hidden;
         background: var(--ds-color-bg-canvas);
       }
@@ -119,13 +124,22 @@ export class DsPane extends DsElement {
         flex: 0 0 var(--ds-pane-size, auto);
         border-top: 1px solid var(--ds-color-border-subtle);
       }
+      :host([position='left']),
+      :host([position='right']) {
+        width: auto;
+        max-width: 100%;
+      }
+      :host([position='top']),
+      :host([position='bottom']) {
+        height: auto;
+        max-height: 100%;
+      }
       :host([collapsed]) {
         display: none;
       }
     `,
   ];
-  @property({ reflect: true }) position: 'left' | 'center' | 'right' | 'top' | 'bottom' =
-    'center';
+  @property({ reflect: true }) position: 'left' | 'center' | 'right' | 'top' | 'bottom' = 'center';
   @property({ type: Boolean, reflect: true }) collapsed = false;
   protected override render() {
     return html`<slot></slot>`;
@@ -180,12 +194,24 @@ export class DsPaneContent extends DsElement {
         overflow: hidden;
       }
       :host([scrollable]) {
-        overflow: auto;
+        overflow-x: hidden;
+        overflow-y: auto;
         overscroll-behavior: contain;
         scrollbar-gutter: stable;
         scrollbar-width: thin;
         scrollbar-color: var(--ds-color-border-strong) transparent;
         -webkit-overflow-scrolling: touch;
+        touch-action: pan-y pinch-zoom;
+      }
+      :host([scrollable])::-webkit-scrollbar {
+        width: var(--ds-scrollbar-size);
+        height: var(--ds-scrollbar-size);
+      }
+      :host([scrollable])::-webkit-scrollbar-thumb {
+        border: 0.1875rem solid transparent;
+        border-radius: var(--ds-radius-round);
+        background: var(--ds-color-border-strong);
+        background-clip: padding-box;
       }
     `,
   ];
@@ -201,6 +227,7 @@ export class DsInspectorPane extends DsElement {
     paneFoundation,
     css`
       :host {
+        position: relative;
         z-index: var(--ds-z-pane);
         display: flex;
         flex: 0 0 var(--ds-pane-size, var(--ds-pane-inspector-width));
@@ -216,14 +243,23 @@ export class DsInspectorPane extends DsElement {
       @media (max-width: 800px) {
         :host {
           position: absolute;
-          z-index: var(--ds-z-overlay);
+          z-index: var(--ds-z-drawer);
           inset: 0 0 0 auto;
           width: min(var(--ds-pane-size, var(--ds-pane-inspector-width)), 100%);
           max-width: 100%;
           transform: translateX(0);
           transition:
             transform var(--ds-duration-normal) var(--ds-ease-standard),
-            opacity var(--ds-duration-fast) var(--ds-ease-standard);
+            opacity var(--ds-duration-fast) var(--ds-ease-standard),
+            visibility 0s linear 0s;
+        }
+        :host([collapsed]) {
+          display: flex;
+          visibility: hidden;
+          opacity: 0;
+          pointer-events: none;
+          transform: translateX(100%);
+          transition-delay: 0s, 0s, var(--ds-duration-normal);
         }
       }
       @media (prefers-reduced-motion: reduce) {

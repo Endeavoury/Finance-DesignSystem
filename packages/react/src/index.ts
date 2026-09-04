@@ -15,6 +15,7 @@ import {
   DsCheckbox,
   DsContainer,
   DsDataTable,
+  DsDataGrid,
   DsDescriptionList,
   DsDetailSidebar,
   DsDialog,
@@ -23,6 +24,7 @@ import {
   DsDrawer,
   DsEmptyState,
   DsFilterBar,
+  DsFilterBuilder,
   DsFormField,
   DsGrid,
   DsIcon,
@@ -38,6 +40,47 @@ import {
   DsMenuItem,
   DsMetric,
   DsPageHeader,
+  DsColumnManager,
+  DsBulkActions,
+  DsSavedView,
+  DsCombobox,
+  DsValidationSummary,
+  DsViewToolbar,
+  DsBanner,
+  DsCommandPalette,
+  DsContextMenu,
+  DsDetailList,
+  DsGlobalSearch,
+  DsNavigationGroup,
+  DsNotificationCenter,
+  DsQuickActions,
+  DsRecordHeader,
+  DsTenantSwitcher,
+  DsUserMenu,
+  DsWorkspaceTabs,
+  DsActivityFeed,
+  DsApprovalFlow,
+  DsChangeSummary,
+  DsDatePicker,
+  DsFieldArray,
+  DsFileUpload,
+  DsFormSection,
+  DsJobStatus,
+  DsStepper,
+  DsTaskList,
+  DsTimePicker,
+  DsTimeline,
+  DsAuditLog,
+  DsPermissionMatrix,
+  DsRoleBadge,
+  DsDiffViewer,
+  DsCodeEditor,
+  DsJsonEditor,
+  DsMaintenanceNotice,
+  DsHelpPanel,
+  DsTour,
+  DsCoachmark,
+  DsCompareView,
   DsPane,
   DsPaneContent,
   DsPaneGroup,
@@ -254,6 +297,17 @@ export const DataTable = createComponent({
     onDsRowSelect: 'ds-row-select' as EventName<CustomEvent<DsRowSelectDetail>>,
   },
 });
+export const DataGrid = createComponent({
+  tagName: 'ds-data-grid',
+  elementClass: DsDataGrid,
+  react: React,
+  events: {
+    onDsSort: 'ds-sort' as EventName<
+      CustomEvent<{ key: string; direction: 'ascending' | 'descending' }>
+    >,
+    onDsRowSelect: 'ds-row-select' as EventName<CustomEvent<unknown>>,
+  },
+});
 export const Stack = component('ds-stack', DsStack);
 export const Inline = component('ds-inline', DsInline);
 export const Grid = component('ds-grid', DsGrid);
@@ -299,7 +353,174 @@ export const ListItem = createComponent({
   },
 });
 export const FilterBar = component('ds-filter-bar', DsFilterBar);
+export const FilterBuilder = createComponent({
+  tagName: 'ds-filter-builder',
+  elementClass: DsFilterBuilder,
+  react: React,
+  events: { onDsFilterChange: 'ds-filter-change' as EventName<CustomEvent<unknown>> },
+});
+export const ViewToolbar = createComponent({
+  tagName: 'ds-view-toolbar',
+  elementClass: DsViewToolbar,
+  react: React,
+  events: { onDsQueryChange: 'ds-query-change' as EventName<CustomEvent<{ query: string }>> },
+});
+export const ColumnManager = createComponent({
+  tagName: 'ds-column-manager',
+  elementClass: DsColumnManager,
+  react: React,
+  events: { onDsColumnsChange: 'ds-columns-change' as EventName<CustomEvent<unknown>> },
+});
+export const BulkActions = createComponent({
+  tagName: 'ds-bulk-actions',
+  elementClass: DsBulkActions,
+  react: React,
+  events: { onDsClearSelection: 'ds-clear-selection' as EventName<CustomEvent<void>> },
+});
+export const SavedView = createComponent({
+  tagName: 'ds-saved-view',
+  elementClass: DsSavedView,
+  react: React,
+  events: {
+    onDsViewChange: 'ds-view-change' as EventName<CustomEvent<{ id: string }>>,
+    onDsViewSave: 'ds-view-save' as EventName<CustomEvent<void>>,
+    onDsViewDelete: 'ds-view-delete' as EventName<CustomEvent<{ id: string }>>,
+  },
+});
+export const Combobox = createComponent({
+  tagName: 'ds-combobox',
+  elementClass: DsCombobox,
+  react: React,
+  events: {
+    onDsComboboxInput: 'ds-combobox-input' as EventName<CustomEvent<{ value: string }>>,
+    onDsChange: 'ds-change' as EventName<CustomEvent<{ value: string }>>,
+  },
+});
+export const ValidationSummary = component('ds-validation-summary', DsValidationSummary);
+export const CommandPalette = createComponent({
+  tagName: 'ds-command-palette',
+  elementClass: DsCommandPalette,
+  react: React,
+  events: { onDsCommandSelect: 'ds-command-select' as EventName<CustomEvent<{ id: string }>> },
+});
+export const GlobalSearch = createComponent({
+  tagName: 'ds-global-search',
+  elementClass: DsGlobalSearch,
+  react: React,
+  events: { onDsSearchSubmit: 'ds-search-submit' as EventName<CustomEvent<{ query: string }>> },
+});
+export const TenantSwitcher = createComponent({
+  tagName: 'ds-tenant-switcher',
+  elementClass: DsTenantSwitcher,
+  react: React,
+  events: { onDsTenantChange: 'ds-tenant-change' as EventName<CustomEvent<{ id: string }>> },
+});
+export const UserMenu = component('ds-user-menu', DsUserMenu);
+export const WorkspaceTabs = createComponent({
+  tagName: 'ds-workspace-tabs',
+  elementClass: DsWorkspaceTabs,
+  react: React,
+  events: {
+    onDsTabChange: 'ds-tab-change' as EventName<CustomEvent<{ id: string }>>,
+    onDsTabClose: 'ds-tab-close' as EventName<CustomEvent<{ id: string }>>,
+  },
+});
+export const NavigationGroup = component('ds-navigation-group', DsNavigationGroup);
+export const ContextMenu = component('ds-context-menu', DsContextMenu);
+export const QuickActions = component('ds-quick-actions', DsQuickActions);
+export const RecordHeader = component('ds-record-header', DsRecordHeader);
+export const DetailList = component('ds-detail-list', DsDetailList);
+export const NotificationCenter = createComponent({
+  tagName: 'ds-notification-center',
+  elementClass: DsNotificationCenter,
+  react: React,
+  events: {
+    onDsNotificationRead: 'ds-notification-read' as EventName<CustomEvent<{ id: string }>>,
+  },
+});
+export const Banner = createComponent({
+  tagName: 'ds-banner',
+  elementClass: DsBanner,
+  react: React,
+  events: { onDsDismiss: 'ds-dismiss' as EventName<CustomEvent<void>> },
+});
 export const KpiGrid = component('ds-kpi-grid', DsKpiGrid);
+export const FormSection = component('ds-form-section', DsFormSection);
+export const FieldArray = createComponent({
+  tagName: 'ds-field-array',
+  elementClass: DsFieldArray,
+  react: React,
+  events: { onDsItemsChange: 'ds-items-change' as EventName<CustomEvent<unknown>> },
+});
+export const DatePicker = createComponent({
+  tagName: 'ds-date-picker',
+  elementClass: DsDatePicker,
+  react: React,
+  events: { onDsChange: 'ds-change' as EventName<CustomEvent<{ value: string }>> },
+});
+export const TimePicker = createComponent({
+  tagName: 'ds-time-picker',
+  elementClass: DsTimePicker,
+  react: React,
+  events: { onDsChange: 'ds-change' as EventName<CustomEvent<{ value: string }>> },
+});
+export const FileUpload = createComponent({
+  tagName: 'ds-file-upload',
+  elementClass: DsFileUpload,
+  react: React,
+  events: {
+    onDsFiles: 'ds-files' as EventName<CustomEvent<unknown>>,
+    onDsFileReject: 'ds-file-reject' as EventName<CustomEvent<unknown>>,
+  },
+});
+export const Stepper = createComponent({
+  tagName: 'ds-stepper',
+  elementClass: DsStepper,
+  react: React,
+  events: { onDsStepChange: 'ds-step-change' as EventName<CustomEvent<{ id: string }>> },
+});
+export const ApprovalFlow = component('ds-approval-flow', DsApprovalFlow);
+export const TaskList = createComponent({
+  tagName: 'ds-task-list',
+  elementClass: DsTaskList,
+  react: React,
+  events: { onDsTaskChange: 'ds-task-change' as EventName<CustomEvent<unknown>> },
+});
+export const Timeline = component('ds-timeline', DsTimeline);
+export const ActivityFeed = component('ds-activity-feed', DsActivityFeed);
+export const JobStatus = component('ds-job-status', DsJobStatus);
+export const ChangeSummary = component('ds-change-summary', DsChangeSummary);
+export const AuditLog = component('ds-audit-log', DsAuditLog);
+export const PermissionMatrix = createComponent({
+  tagName: 'ds-permission-matrix',
+  elementClass: DsPermissionMatrix,
+  react: React,
+  events: { onDsPermissionChange: 'ds-permission-change' as EventName<CustomEvent<unknown>> },
+});
+export const RoleBadge = component('ds-role-badge', DsRoleBadge);
+export const DiffViewer = component('ds-diff-viewer', DsDiffViewer);
+export const CodeEditor = createComponent({
+  tagName: 'ds-code-editor',
+  elementClass: DsCodeEditor,
+  react: React,
+  events: { onDsInput: 'ds-input' as EventName<CustomEvent<{ value: string }>> },
+});
+export const JsonEditor = createComponent({
+  tagName: 'ds-json-editor',
+  elementClass: DsJsonEditor,
+  react: React,
+  events: { onDsInput: 'ds-input' as EventName<CustomEvent<{ value: string }>> },
+});
+export const MaintenanceNotice = component('ds-maintenance-notice', DsMaintenanceNotice);
+export const HelpPanel = component('ds-help-panel', DsHelpPanel);
+export const Tour = createComponent({
+  tagName: 'ds-tour',
+  elementClass: DsTour,
+  react: React,
+  events: { onDsTourChange: 'ds-tour-change' as EventName<CustomEvent<{ index: number }>> },
+});
+export const Coachmark = component('ds-coachmark', DsCoachmark);
+export const CompareView = component('ds-compare-view', DsCompareView);
 export const Tree = component('ds-tree', DsTree);
 export const TreeItem = createComponent({
   tagName: 'ds-tree-item',

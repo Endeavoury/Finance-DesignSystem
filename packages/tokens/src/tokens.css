@@ -154,13 +154,17 @@
   --ds-shell-sidebar-width: 15.25rem;
   --ds-pane-sidebar-width: 18rem;
   --ds-pane-inspector-width: 22rem;
+  --ds-scrollbar-size: 0.75rem;
   --ds-z-base: 0;
+  --ds-z-shell: 0;
   --ds-z-pane: 10;
   --ds-z-pane-header: 20;
   --ds-z-navigation: 100;
   --ds-z-sticky: 200;
   --ds-z-dropdown: 400;
+  --ds-z-popover: 400;
   --ds-z-overlay: 500;
+  --ds-z-drawer: 500;
   --ds-z-modal: 600;
   --ds-z-toast: 700;
 }

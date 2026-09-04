@@ -24,27 +24,25 @@ export const SidebarItems: StoryObj = {
 };
 export const ApplicationShell: StoryObj = {
   render: () =>
-    html`<div style="margin:-24px">
-      <ds-app-shell
-        >${sidebar()}<ds-inline slot="header" justify="between" style="height:72px;padding:0 24px"
-          ><strong>Overview</strong
-          ><ds-inline
-            ><ds-icon-button label="Refresh"><ds-icon name="refresh"></ds-icon></ds-icon-button
-            ><ds-avatar name="Design Preview"></ds-avatar></ds-inline></ds-inline
-        ><ds-page-header
-          eyebrow="Operations"
-          heading="System overview"
-          description="Responsive shell built entirely from custom elements."
-        ></ds-page-header>
-        <div style="margin-top:16px">
-          <ds-kpi-grid
-            ><ds-metric label="Online" value="24" tone="success"></ds-metric
-            ><ds-metric label="Warnings" value="2" tone="warning"></ds-metric
-            ><ds-metric label="Offline" value="1" tone="danger"></ds-metric
-            ><ds-metric label="Updates" value="6" tone="accent"></ds-metric
-          ></ds-kpi-grid></div
-      ></ds-app-shell>
-    </div>`,
+    html`<ds-app-shell
+      >${sidebar()}<ds-inline slot="header" justify="between" style="height:72px;padding:0 24px"
+        ><strong>Overview</strong
+        ><ds-inline
+          ><ds-icon-button label="Refresh"><ds-icon name="refresh"></ds-icon></ds-icon-button
+          ><ds-avatar name="Design Preview"></ds-avatar></ds-inline></ds-inline
+      ><ds-page-header
+        eyebrow="Operations"
+        heading="System overview"
+        description="Responsive shell built entirely from custom elements."
+      ></ds-page-header>
+      <div style="margin-top:16px">
+        <ds-kpi-grid
+          ><ds-metric label="Online" value="24" tone="success"></ds-metric
+          ><ds-metric label="Warnings" value="2" tone="warning"></ds-metric
+          ><ds-metric label="Offline" value="1" tone="danger"></ds-metric
+          ><ds-metric label="Updates" value="6" tone="accent"></ds-metric
+        ></ds-kpi-grid></div
+    ></ds-app-shell>`,
 };
 
 export const Breadcrumbs: StoryObj = {

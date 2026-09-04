@@ -3,8 +3,11 @@ import type { DsTableColumn } from '@endeavoury/kanosis';
 
 export const productStyles = html`<style>
   .product {
-    margin: -24px;
-    min-height: 900px;
+    width: 100%;
+    height: 100dvh;
+    min-width: 0;
+    min-height: 0;
+    overflow: hidden;
   }
   .topbar {
     height: 76px;
@@ -148,9 +151,6 @@ export const productStyles = html`<style>
     .split,
     .settings {
       grid-template-columns: 1fr;
-    }
-    .product {
-      min-height: 1100px;
     }
     .topbar {
       padding: 0 14px;

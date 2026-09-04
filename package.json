@@ -27,11 +27,12 @@
     "test": "npm run build:packages && vitest run",
     "test:a11y": "npm run build:packages && vitest run tests/accessibility.test.ts",
     "verify:stories": "node scripts/verify-story-coverage.mjs",
+    "verify:components": "node scripts/verify-component-contract.mjs",
     "analyze": "npm run build:packages && node scripts/analyze-bundles.mjs",
     "release:version": "node scripts/set-release-version.mjs",
     "release:verify": "node scripts/verify-release.mjs",
     "release:publish": "node scripts/publish-packages.mjs",
-    "check": "npm run typecheck && npm run lint && npm run verify:stories && npm run test && npm run build && npm run build-storybook && npm run analyze"
+    "check": "npm run typecheck && npm run lint && npm run verify:stories && npm run verify:components && npm run test && npm run build && npm run build-storybook && npm run analyze"
   },
   "devDependencies": {
     "@angular/build": "22.1.3",

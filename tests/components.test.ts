@@ -2,6 +2,7 @@ import { fireEvent } from '@testing-library/dom';
 import { describe, expect, it, vi } from 'vitest';
 import type {
   DsCheckbox,
+  DsAppShell,
   DsDataTable,
   DsInput,
   DsMenu,
@@ -14,6 +15,10 @@ import type {
   DsSidebarItem,
   DsTabs,
 } from '@endeavoury/kanosis/classes';
+import { DsBulkActions, DsCombobox, DsFilterBuilder } from '@endeavoury/kanosis/classes';
+import type { DsCommandPalette, DsWorkspaceTabs } from '@endeavoury/kanosis/classes';
+import type { DsDatePicker, DsStepper, DsTaskList } from '@endeavoury/kanosis/classes';
+import type { DsPermissionMatrix, DsJsonEditor, DsDiffViewer } from '@endeavoury/kanosis/classes';
 
 const mount = async <T extends HTMLElement>(element: T): Promise<T> => {
   document.body.append(element);
@@ -179,6 +184,130 @@ describe('data and navigation', () => {
 });
 
 describe('display foundations', () => {
+  it('provides enterprise workflow primitives with composed events', async () => {
+    const filters = (await mount(document.createElement('ds-filter-builder'))) as DsFilterBuilder;
+    filters.fields = [{ key: 'status', label: 'Status' }];
+    const listener = vi.fn();
+    filters.addEventListener('ds-filter-change', listener);
+    await filters.updateComplete;
+    fireEvent.click(filters.shadowRoot!.querySelector('button')!);
+    expect(listener).toHaveBeenCalled();
+    expect(filters.rules).toHaveLength(1);
+
+    const bulk = (await mount(document.createElement('ds-bulk-actions'))) as DsBulkActions;
+    bulk.count = 3;
+    const clear = vi.fn();
+    bulk.addEventListener('ds-clear-selection', clear);
+    await bulk.updateComplete;
+    fireEvent.click([...bulk.shadowRoot!.querySelectorAll('button')].at(-1)!);
+    expect(clear).toHaveBeenCalledOnce();
+
+    const combo = (await mount(document.createElement('ds-combobox'))) as DsCombobox;
+    combo.options = [{ label: 'Platform', value: 'platform' }];
+    await combo.updateComplete;
+    const comboInput = combo.shadowRoot!.querySelector('input')!;
+    comboInput.value = 'Plat';
+    fireEvent.input(comboInput);
+    await combo.updateComplete;
+    expect(combo.shadowRoot!.querySelector('[role="listbox"]')).not.toBeNull();
+  });
+
+  it('supports P1 command and workspace interactions', async () => {
+    const palette = (await mount(document.createElement('ds-command-palette'))) as DsCommandPalette;
+    palette.commands = [{ id: 'create', label: 'Create project' }];
+    palette.open = true;
+    const selected = vi.fn();
+    palette.addEventListener('ds-command-select', selected);
+    await palette.updateComplete;
+    fireEvent.keyDown(palette.shadowRoot!.querySelector('input')!, { key: 'Enter' });
+    expect(selected).toHaveBeenCalledOnce();
+
+    const tabs = (await mount(document.createElement('ds-workspace-tabs'))) as DsWorkspaceTabs;
+    tabs.tabs = [{ id: 'one', label: 'One', closable: true }];
+    tabs.value = 'one';
+    const closed = vi.fn();
+    tabs.addEventListener('ds-tab-close', closed);
+    await tabs.updateComplete;
+    fireEvent.click(tabs.shadowRoot!.querySelector('.close')!);
+    expect(closed).toHaveBeenCalledOnce();
+  });
+
+  it('supports P2 workflow state changes', async () => {
+    const date = (await mount(document.createElement('ds-date-picker'))) as DsDatePicker;
+    const changed = vi.fn();
+    date.addEventListener('ds-change', changed);
+    await date.updateComplete;
+    const control = date.shadowRoot!.querySelector('input')!;
+    control.value = '2026-09-04';
+    fireEvent.change(control);
+    expect(changed).toHaveBeenCalledOnce();
+
+    const stepper = (await mount(document.createElement('ds-stepper'))) as DsStepper;
+    stepper.steps = [
+      { id: 'one', label: 'One' },
+      { id: 'two', label: 'Two' },
+    ];
+    const stepChanged = vi.fn();
+    stepper.addEventListener('ds-step-change', stepChanged);
+    await stepper.updateComplete;
+    fireEvent.click(stepper.shadowRoot!.querySelectorAll('button')[1]!);
+    expect(stepChanged).toHaveBeenCalledOnce();
+
+    const tasks = (await mount(document.createElement('ds-task-list'))) as DsTaskList;
+    tasks.tasks = [{ id: 'task', title: 'Review', completed: false }];
+    const taskChanged = vi.fn();
+    tasks.addEventListener('ds-task-change', taskChanged);
+    await tasks.updateComplete;
+    fireEvent.click(tasks.shadowRoot!.querySelector('input')!);
+    expect(taskChanged).toHaveBeenCalledOnce();
+  });
+
+  it('supports P3 governance and configuration interactions', async () => {
+    const matrix = (await mount(
+      document.createElement('ds-permission-matrix'),
+    )) as DsPermissionMatrix;
+    matrix.roles = [{ id: 'admin', label: 'Admin' }];
+    matrix.permissions = [{ id: 'read', label: 'Read' }];
+    const permissionChanged = vi.fn();
+    matrix.addEventListener('ds-permission-change', permissionChanged);
+    await matrix.updateComplete;
+    fireEvent.click(matrix.shadowRoot!.querySelector('input')!);
+    expect(permissionChanged).toHaveBeenCalledOnce();
+
+    const editor = (await mount(document.createElement('ds-json-editor'))) as DsJsonEditor;
+    editor.value = '{"valid":true}';
+    await editor.updateComplete;
+    expect(editor.shadowRoot!.querySelector('[role="alert"]')).toBeNull();
+    editor.value = '{invalid';
+    await editor.updateComplete;
+    expect(editor.shadowRoot!.querySelector('[role="alert"]')).not.toBeNull();
+
+    const diff = (await mount(document.createElement('ds-diff-viewer'))) as DsDiffViewer;
+    diff.lines = [{ type: 'added', text: 'new value' }];
+    await diff.updateComplete;
+    expect(diff.shadowRoot!.querySelector('[data-added]')).not.toBeNull();
+  });
+
+  it('keeps shell chrome outside the scrollable workspace and supports pane mode', async () => {
+    const shell = (await mount(document.createElement('ds-app-shell'))) as DsAppShell;
+    const sidebar = document.createElement('ds-sidebar');
+    sidebar.slot = 'sidebar';
+    const header = document.createElement('div');
+    header.slot = 'header';
+    const inspector = document.createElement('ds-inspector-pane');
+    inspector.slot = 'inspector';
+    shell.append(sidebar, header, inspector);
+    shell.contentMode = 'pane';
+    shell.sidebarCollapsed = true;
+    await shell.updateComplete;
+
+    expect(shell.getAttribute('content-mode')).toBe('pane');
+    expect(shell.hasAttribute('sidebar-collapsed')).toBe(true);
+    expect(shell.shadowRoot!.querySelector('header')?.hasAttribute('hidden')).toBe(false);
+    expect(shell.shadowRoot!.querySelector('.workspace-body')).not.toBeNull();
+    expect(shell.shadowRoot!.querySelector('slot[name="inspector"]')).not.toBeNull();
+  });
+
   it('composes fixed pane groups with explicit positions and scroll ownership', async () => {
     const group = (await mount(document.createElement('ds-pane-group'))) as DsPaneGroup;
     const left = document.createElement('ds-pane') as DsPane;

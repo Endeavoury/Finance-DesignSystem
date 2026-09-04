@@ -53,6 +53,57 @@ import type {
 } from './components/layout.js';
 import type { DsAppShell, DsSidebar, DsSidebarItem } from './components/navigation.js';
 import type {
+  DsBulkActions,
+  DsColumnManager,
+  DsCombobox,
+  DsDataGrid,
+  DsFilterBuilder,
+  DsSavedView,
+  DsValidationSummary,
+  DsViewToolbar,
+} from './components/enterprise.js';
+import type {
+  DsBanner,
+  DsCommandPalette,
+  DsContextMenu,
+  DsDetailList,
+  DsGlobalSearch,
+  DsNavigationGroup,
+  DsNotificationCenter,
+  DsQuickActions,
+  DsRecordHeader,
+  DsTenantSwitcher,
+  DsUserMenu,
+  DsWorkspaceTabs,
+} from './components/enterprise-p1.js';
+import type {
+  DsActivityFeed,
+  DsApprovalFlow,
+  DsChangeSummary,
+  DsDatePicker,
+  DsFieldArray,
+  DsFileUpload,
+  DsFormSection,
+  DsJobStatus,
+  DsStepper,
+  DsTaskList,
+  DsTimePicker,
+  DsTimeline,
+} from './components/enterprise-p2.js';
+import type {
+  DsAuditLog,
+  DsPermissionMatrix,
+  DsRoleBadge,
+  DsDiffViewer,
+  DsCodeEditor,
+  DsJsonEditor,
+  DsMaintenanceNotice,
+  DsHelpPanel,
+  DsTour,
+  DsCoachmark,
+  DsCompareView,
+} from './components/enterprise-p3.js';
+import type {
   DsBreadcrumb,
   DsBreadcrumbs,
   DsList,
@@ -128,6 +179,49 @@ declare global {
     'ds-kpi-grid': DsKpiGrid;
     'ds-tree': DsTree;
     'ds-tree-item': DsTreeItem;
+    'ds-data-grid': DsDataGrid;
+    'ds-filter-builder': DsFilterBuilder;
+    'ds-view-toolbar': DsViewToolbar;
+    'ds-column-manager': DsColumnManager;
+    'ds-bulk-actions': DsBulkActions;
+    'ds-saved-view': DsSavedView;
+    'ds-combobox': DsCombobox;
+    'ds-validation-summary': DsValidationSummary;
+    'ds-command-palette': DsCommandPalette;
+    'ds-global-search': DsGlobalSearch;
+    'ds-tenant-switcher': DsTenantSwitcher;
+    'ds-user-menu': DsUserMenu;
+    'ds-workspace-tabs': DsWorkspaceTabs;
+    'ds-navigation-group': DsNavigationGroup;
+    'ds-context-menu': DsContextMenu;
+    'ds-quick-actions': DsQuickActions;
+    'ds-record-header': DsRecordHeader;
+    'ds-detail-list': DsDetailList;
+    'ds-notification-center': DsNotificationCenter;
+    'ds-banner': DsBanner;
+    'ds-form-section': DsFormSection;
+    'ds-field-array': DsFieldArray;
+    'ds-date-picker': DsDatePicker;
+    'ds-time-picker': DsTimePicker;
+    'ds-file-upload': DsFileUpload;
+    'ds-stepper': DsStepper;
+    'ds-approval-flow': DsApprovalFlow;
+    'ds-task-list': DsTaskList;
+    'ds-timeline': DsTimeline;
+    'ds-activity-feed': DsActivityFeed;
+    'ds-job-status': DsJobStatus;
+    'ds-change-summary': DsChangeSummary;
+    'ds-audit-log': DsAuditLog;
+    'ds-permission-matrix': DsPermissionMatrix;
+    'ds-role-badge': DsRoleBadge;
+    'ds-diff-viewer': DsDiffViewer;
+    'ds-code-editor': DsCodeEditor;
+    'ds-json-editor': DsJsonEditor;
+    'ds-maintenance-notice': DsMaintenanceNotice;
+    'ds-help-panel': DsHelpPanel;
+    'ds-tour': DsTour;
+    'ds-coachmark': DsCoachmark;
+    'ds-compare-view': DsCompareView;
   }
 }
 

@@ -20,6 +20,10 @@ const entries = {
   feedback: `import '@endeavoury/kanosis/feedback';`,
   navigation: `import '@endeavoury/kanosis/navigation';`,
   tree: `import '@endeavoury/kanosis/tree';`,
+  enterprise: `import '@endeavoury/kanosis/enterprise';`,
+  enterpriseP1: `import '@endeavoury/kanosis/enterprise-p1';`,
+  enterpriseP2: `import '@endeavoury/kanosis/enterprise-p2';`,
+  enterpriseP3: `import '@endeavoury/kanosis/enterprise-p3';`,
   full: `import '@endeavoury/kanosis';`,
 };
 const budgets = {
@@ -32,7 +36,11 @@ const budgets = {
   feedback: { rawBytes: 55000, gzipBytes: 14500 },
   navigation: { rawBytes: 65000, gzipBytes: 16500 },
   tree: { rawBytes: 45000, gzipBytes: 12500 },
-  full: { rawBytes: 210000, gzipBytes: 40000 },
+  enterprise: { rawBytes: 70000, gzipBytes: 16000 },
+  enterpriseP1: { rawBytes: 90000, gzipBytes: 22000 },
+  enterpriseP2: { rawBytes: 90000, gzipBytes: 22000 },
+  enterpriseP3: { rawBytes: 90000, gzipBytes: 22000 },
+  full: { rawBytes: 380000, gzipBytes: 70000 },
 };
 const report = { generatedAt: new Date().toISOString(), budgets, bundles: {} };
 

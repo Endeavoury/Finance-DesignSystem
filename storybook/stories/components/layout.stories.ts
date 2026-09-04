@@ -41,30 +41,107 @@ export const PageHeader: StoryObj = {
 
 export const PaneWorkspace: StoryObj = {
   parameters: { layout: 'fullscreen' },
-  render: () => html`<div style="height:100dvh;min-width:0;min-height:0;overflow:hidden">
-    <ds-pane-group>
-      <ds-pane position="left" style="--ds-pane-size:16rem">
-        <ds-pane-header><strong style="display:block;padding:1rem">Navigation</strong></ds-pane-header>
+  render: () =>
+    html`<div style="height:100dvh;min-width:0;min-height:0;overflow:hidden">
+      <ds-pane-group>
+        <ds-pane position="left" style="--ds-pane-size:16rem">
+          <ds-pane-header
+            ><strong style="display:block;padding:1rem">Navigation</strong></ds-pane-header
+          >
+          <ds-scrollable-pane style="padding:1rem">
+            <ds-stack gap="2">
+              ${Array.from({ length: 24 }, (_, index) => box(`Navigation item ${index + 1}`))}
+            </ds-stack>
+          </ds-scrollable-pane>
+        </ds-pane>
+        <ds-pane position="center">
+          <ds-pane-header
+            ><strong style="display:block;padding:1rem">Workspace toolbar</strong></ds-pane-header
+          >
+          <ds-pane-content scrollable style="padding:1rem">
+            <ds-stack
+              >${Array.from({ length: 30 }, (_, index) => box(`Content row ${index + 1}`))}</ds-stack
+            >
+          </ds-pane-content>
+        </ds-pane>
+        <ds-inspector-pane>
+          <ds-pane-header
+            ><strong style="display:block;padding:1rem">Inspector</strong></ds-pane-header
+          >
+          <ds-scrollable-pane style="padding:1rem">
+            ${Array.from({ length: 12 }, (_, index) => box(`Property ${index + 1}`))}
+          </ds-scrollable-pane>
+        </ds-inspector-pane>
+      </ds-pane-group>
+    </div>`,
+};
+
+export const ShellPaneWorkspace: StoryObj = {
+  parameters: { layout: 'fullscreen' },
+  render: () =>
+    html`<ds-app-shell content-mode="pane">
+      <ds-sidebar slot="sidebar" label="Workspace navigation">
+        <strong slot="brand">Pane workspace</strong>
+        ${Array.from(
+        { length: 28 },
+        (_, index) =>
+          html`<ds-sidebar-item value=${`item-${index + 1}`} ?active=${index === 0}>
+            <ds-icon slot="icon" name="table"></ds-icon>Item ${index + 1}
+          </ds-sidebar-item>`,
+      )}
+        <ds-status-badge slot="footer" tone="success">Connected</ds-status-badge>
+      </ds-sidebar>
+      <ds-inline slot="header" justify="between" style="height:100%;padding:0 1rem">
+        <strong>Fixed workspace toolbar</strong>
+        <ds-icon-button label="Open commands"><ds-icon name="search"></ds-icon></ds-icon-button>
+      </ds-inline>
+      <ds-pane-group orientation="vertical">
+        <ds-pane position="top" style="--ds-pane-size:3.25rem">
+          <ds-pane-header
+            ><span style="display:block;padding:1rem">Fixed tabs</span></ds-pane-header
+          >
+        </ds-pane>
+        <ds-pane position="center">
+          <ds-pane-content scrollable style="padding:1rem">
+            <ds-stack
+              >${Array.from({ length: 32 }, (_, index) => box(`Content row ${index + 1}`))}</ds-stack
+            >
+          </ds-pane-content>
+        </ds-pane>
+        <ds-pane position="bottom" style="--ds-pane-size:3rem">
+          <span style="display:block;padding:.875rem 1rem">Fixed status bar</span>
+        </ds-pane>
+      </ds-pane-group>
+      <ds-inspector-pane slot="inspector">
+        <ds-pane-header
+          ><strong style="display:block;padding:1rem">Inspector</strong></ds-pane-header
+        >
         <ds-scrollable-pane style="padding:1rem">
-          <ds-stack gap="2">
-            ${Array.from({ length: 24 }, (_, index) => box(`Navigation item ${index + 1}`))}
-          </ds-stack>
-        </ds-scrollable-pane>
-      </ds-pane>
-      <ds-pane position="center">
-        <ds-pane-header><strong style="display:block;padding:1rem">Workspace toolbar</strong></ds-pane-header>
-        <ds-pane-content scrollable style="padding:1rem">
-          <ds-stack>${Array.from({ length: 30 }, (_, index) => box(`Content row ${index + 1}`))}</ds-stack>
-        </ds-pane-content>
-      </ds-pane>
-      <ds-inspector-pane>
-        <ds-pane-header><strong style="display:block;padding:1rem">Inspector</strong></ds-pane-header>
-        <ds-scrollable-pane style="padding:1rem">
-          ${Array.from({ length: 12 }, (_, index) => box(`Property ${index + 1}`))}
+          <ds-stack gap="2"
+            >${Array.from({ length: 18 }, (_, index) => box(`Property ${index + 1}`))}</ds-stack
+          >
         </ds-scrollable-pane>
       </ds-inspector-pane>
-    </ds-pane-group>
-  </div>`,
+    </ds-app-shell>`,
+};
+
+export const CollapsedShellPanes: StoryObj = {
+  parameters: { layout: 'fullscreen' },
+  render: () =>
+    html`<ds-app-shell content-mode="pane" sidebar-collapsed>
+      <ds-sidebar slot="sidebar" collapsed><strong slot="brand">Navigation</strong></ds-sidebar>
+      <ds-pane-group>
+        <ds-pane position="center">
+          <ds-pane-header
+            ><strong style="display:block;padding:1rem">Workspace only</strong></ds-pane-header
+          >
+          <ds-pane-content scrollable style="padding:1rem"
+            >${box('Side panes are collapsed')}</ds-pane-content
+          >
+        </ds-pane>
+      </ds-pane-group>
+      <ds-inspector-pane slot="inspector" collapsed></ds-inspector-pane>
+    </ds-app-shell>`,
 };
 
 export const DetailSidebar: StoryObj = {
@@ -84,14 +161,16 @@ export const DetailSidebar: StoryObj = {
         <ds-stack gap="3">
           <strong>Ledger entries</strong>
           ${['Market Square', 'Fresh Foods', 'Corner Shop'].map(
-          (name, index) =>
-            html`<ds-card>
-              <ds-inline justify="between" wrap="false">
-                <span><strong>${name}</strong><br /><small>August ${18 - index}, 2026</small></span>
-                <strong>−€${[64.23, 42.9, 18.75][index]}</strong>
-              </ds-inline>
-            </ds-card>`,
-        )}
+            (name, index) =>
+              html`<ds-card>
+                <ds-inline justify="between" wrap="false">
+                  <span
+                    ><strong>${name}</strong><br /><small>August ${18 - index}, 2026</small></span
+                  >
+                  <strong>−€${[64.23, 42.9, 18.75][index]}</strong>
+                </ds-inline>
+              </ds-card>`,
+          )}
         </ds-stack>
         <ds-button slot="footer" variant="secondary" full-width>View full ledger</ds-button>
       </ds-detail-sidebar>

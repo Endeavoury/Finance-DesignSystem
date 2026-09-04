@@ -1,5 +1,5 @@
 import { css, html, nothing, type CSSResultGroup } from 'lit';
-import { property } from 'lit/decorators.js';
+import { property, state } from 'lit/decorators.js';
 import { foundationStyles } from '@endeavoury/kanosis-styles';
 import { DsElement } from '../core/ds-element.js';
 
@@ -177,6 +177,16 @@ export class DsSidebar extends DsElement {
         scrollbar-width: thin;
         scrollbar-color: var(--ds-color-border-strong) transparent;
       }
+      nav::-webkit-scrollbar {
+        width: var(--ds-scrollbar-size);
+        height: var(--ds-scrollbar-size);
+      }
+      nav::-webkit-scrollbar-thumb {
+        border: 0.1875rem solid transparent;
+        border-radius: var(--ds-radius-round);
+        background: var(--ds-color-border-strong);
+        background-clip: padding-box;
+      }
       .footer {
         flex: 0 0 auto;
         padding-top: var(--ds-space-4);
@@ -233,8 +243,10 @@ export class DsAppShell extends DsElement {
     foundationStyles,
     css`
       :host {
+        position: relative;
+        z-index: var(--ds-z-shell);
         display: grid;
-        grid-template-columns: auto minmax(0, 1fr);
+        grid-template-columns: var(--ds-shell-sidebar-width) minmax(0, 1fr);
         width: 100%;
         height: 100dvh;
         min-width: 0;
@@ -254,6 +266,26 @@ export class DsAppShell extends DsElement {
         min-height: 0;
         height: 100%;
         overflow: hidden;
+        transition:
+          transform var(--ds-duration-normal) var(--ds-ease-emphasized),
+          opacity var(--ds-duration-fast) var(--ds-ease-standard),
+          visibility 0s linear 0s;
+      }
+      ::slotted([slot='sidebar']) {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        min-height: 0;
+      }
+      :host([sidebar-collapsed]) {
+        grid-template-columns: 0 minmax(0, 1fr);
+      }
+      :host([sidebar-collapsed]) .sidebar {
+        visibility: hidden;
+        opacity: 0;
+        pointer-events: none;
+        transform: translateX(-100%);
+        transition-delay: 0s, 0s, var(--ds-duration-normal);
       }
       .workspace {
         display: grid;
@@ -272,7 +304,11 @@ export class DsAppShell extends DsElement {
         box-shadow: 0 1px 0 color-mix(in srgb, var(--ds-color-border-highlight) 48%, transparent);
         backdrop-filter: blur(22px) saturate(130%);
       }
+      .header[hidden] {
+        display: none;
+      }
       .main {
+        flex: 1 1 0;
         min-width: 0;
         min-height: 0;
         overflow-x: hidden;
@@ -285,14 +321,35 @@ export class DsAppShell extends DsElement {
         padding: var(--ds-space-8);
       }
       .main::-webkit-scrollbar {
-        width: 0.75rem;
-        height: 0.75rem;
+        width: var(--ds-scrollbar-size);
+        height: var(--ds-scrollbar-size);
       }
       .main::-webkit-scrollbar-thumb {
         border: 0.1875rem solid transparent;
         border-radius: var(--ds-radius-round);
         background: var(--ds-color-border-strong);
         background-clip: padding-box;
+      }
+      .workspace-body {
+        position: relative;
+        display: flex;
+        min-width: 0;
+        min-height: 0;
+        overflow: hidden;
+      }
+      slot[name='inspector'] {
+        display: contents;
+      }
+      ::slotted([slot='inspector']) {
+        flex: 0 0 auto;
+        min-width: 0;
+        min-height: 0;
+        max-width: 100%;
+      }
+      :host([content-mode='pane']) .main {
+        padding: 0;
+        overflow: hidden;
+        scrollbar-gutter: auto;
       }
       @media (max-width: 680px) {
         :host {
@@ -305,11 +362,23 @@ export class DsAppShell extends DsElement {
           inset: auto 0 0;
           height: auto;
         }
+        :host([sidebar-collapsed]) .sidebar {
+          transform: translateY(100%);
+        }
         .header {
           min-height: 4rem;
         }
         .main {
           padding: var(--ds-space-4) var(--ds-space-3) calc(5rem + env(safe-area-inset-bottom));
+        }
+        :host([content-mode='pane']) .main {
+          padding: 0 0 calc(5rem + env(safe-area-inset-bottom));
+        }
+        :host([sidebar-collapsed]) .main {
+          padding-bottom: var(--ds-space-4);
+        }
+        :host([content-mode='pane'][sidebar-collapsed]) .main {
+          padding: 0;
         }
       }
       @media (prefers-reduced-motion: reduce) {
@@ -321,11 +390,25 @@ export class DsAppShell extends DsElement {
       }
     `,
   ];
+  @property({ attribute: 'content-mode', reflect: true }) contentMode: 'scroll' | 'pane' = 'scroll';
+  @property({ attribute: 'sidebar-collapsed', type: Boolean, reflect: true }) sidebarCollapsed =
+    false;
+  @state() private hasHeader = false;
+
+  private handleHeaderSlot(event: Event) {
+    this.hasHeader = (event.currentTarget as HTMLSlotElement).assignedElements().length > 0;
+  }
+
   protected override render() {
     return html`<aside class="sidebar" part="sidebar"><slot name="sidebar"></slot></aside>
       <section class="workspace">
-        <header class="header" part="header"><slot name="header"></slot></header>
-        <main class="main" part="main"><slot></slot></main>
+        <header class="header" part="header" ?hidden=${!this.hasHeader}>
+          <slot name="header" @slotchange=${this.handleHeaderSlot}></slot>
+        </header>
+        <div class="workspace-body" part="workspace">
+          <main class="main" part="main"><slot></slot></main>
+          <slot name="inspector"></slot>
+        </div>
       </section>`;
   }
 }

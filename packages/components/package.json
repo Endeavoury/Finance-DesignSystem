@@ -82,6 +82,22 @@
     "./tree": {
       "types": "./dist/register/tree.d.ts",
       "import": "./dist/register/tree.js"
+    },
+    "./enterprise": {
+      "types": "./dist/register/enterprise.d.ts",
+      "import": "./dist/register/enterprise.js"
+    },
+    "./enterprise-p1": {
+      "types": "./dist/register/enterprise-p1.d.ts",
+      "import": "./dist/register/enterprise-p1.js"
+    },
+    "./enterprise-p2": {
+      "types": "./dist/register/enterprise-p2.d.ts",
+      "import": "./dist/register/enterprise-p2.js"
+    },
+    "./enterprise-p3": {
+      "types": "./dist/register/enterprise-p3.d.ts",
+      "import": "./dist/register/enterprise-p3.js"
     }
   },
   "scripts": {

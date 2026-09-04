@@ -5,10 +5,15 @@ import '@endeavoury/kanosis/styles.css';
 
 const withTheme: Decorator = (story, context) => {
   const theme = String(context.globals['theme'] ?? 'system');
+  const fullscreen = context.parameters['layout'] === 'fullscreen';
   document.documentElement.dataset['dsTheme'] = theme;
   return html`<div
     data-ds-theme=${theme}
-    style="min-height:100%;color:var(--ds-color-text-primary);background:var(--ds-color-bg-canvas);padding:1.5rem"
+    style=${
+      fullscreen
+        ? 'width:100%;height:100dvh;min-width:0;min-height:0;overflow:hidden;color:var(--ds-color-text-primary);background:var(--ds-color-bg-canvas)'
+        : 'min-height:100%;color:var(--ds-color-text-primary);background:var(--ds-color-bg-canvas);padding:1.5rem'
+    }
   >
     ${story()}
   </div>`;

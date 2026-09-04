@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-29T21:42:33.439Z",
+  "generatedAt": "2026-09-04T12:21:25.731Z",
   "budgets": {
     "button": {
       "rawBytes": 45000,
@@ -37,9 +37,25 @@
       "rawBytes": 45000,
       "gzipBytes": 12500
     },
+    "enterprise": {
+      "rawBytes": 70000,
+      "gzipBytes": 16000
+    },
+    "enterpriseP1": {
+      "rawBytes": 90000,
+      "gzipBytes": 22000
+    },
+    "enterpriseP2": {
+      "rawBytes": 90000,
+      "gzipBytes": 22000
+    },
+    "enterpriseP3": {
+      "rawBytes": 90000,
+      "gzipBytes": 22000
+    },
     "full": {
-      "rawBytes": 210000,
-      "gzipBytes": 40000
+      "rawBytes": 380000,
+      "gzipBytes": 70000
     }
   },
   "bundles": {
@@ -72,16 +88,32 @@
       "gzipBytes": 11136
     },
     "navigation": {
-      "rawBytes": 46329,
-      "gzipBytes": 12930
+      "rawBytes": 51282,
+      "gzipBytes": 13676
     },
     "tree": {
       "rawBytes": 27592,
       "gzipBytes": 9379
     },
+    "enterprise": {
+      "rawBytes": 47289,
+      "gzipBytes": 12918
+    },
+    "enterpriseP1": {
+      "rawBytes": 45520,
+      "gzipBytes": 12190
+    },
+    "enterpriseP2": {
+      "rawBytes": 64802,
+      "gzipBytes": 15160
+    },
+    "enterpriseP3": {
+      "rawBytes": 39807,
+      "gzipBytes": 11490
+    },
     "full": {
-      "rawBytes": 193641,
-      "gzipBytes": 34981
+      "rawBytes": 280603,
+      "gzipBytes": 47221
     }
   },
   "sharedControlFoundationOccurrences": 1,

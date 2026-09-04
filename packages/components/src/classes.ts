@@ -16,3 +16,7 @@ export * from './components/navigation.js';
 export * from './components/navigation-extras.js';
 export * from './components/patterns.js';
 export * from './components/tree.js';
+export * from './components/enterprise.js';
+export * from './components/enterprise-p1.js';
+export * from './components/enterprise-p2.js';
+export * from './components/enterprise-p3.js';
