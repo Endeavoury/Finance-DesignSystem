@@ -19,6 +19,13 @@ import { DsBulkActions, DsCombobox, DsFilterBuilder } from '@endeavoury/kanosis/
 import type { DsCommandPalette, DsWorkspaceTabs } from '@endeavoury/kanosis/classes';
 import type { DsDatePicker, DsStepper, DsTaskList } from '@endeavoury/kanosis/classes';
 import type { DsPermissionMatrix, DsJsonEditor, DsDiffViewer } from '@endeavoury/kanosis/classes';
+import type {
+  DsChip,
+  DsElement,
+  DsReorderList,
+  DsSegmentedControl,
+  DsSplitButton,
+} from '@endeavoury/kanosis/classes';
 
 const mount = async <T extends HTMLElement>(element: T): Promise<T> => {
   document.body.append(element);
@@ -384,6 +391,107 @@ describe('display foundations', () => {
     await card.updateComplete;
     expect(headerRegion.hidden).toBe(false);
     expect(footerRegion.hidden).toBe(true);
+  });
+});
+
+describe('maturity additions', () => {
+  it('supports roving segmented selection', async () => {
+    const control = document.createElement('ds-segmented-control') as DsSegmentedControl;
+    control.value = 'month';
+    for (const [value, label] of [
+      ['week', 'Week'],
+      ['month', 'Month'],
+      ['year', 'Year'],
+    ]) {
+      const segment = document.createElement('ds-segment');
+      segment.value = value;
+      segment.textContent = label;
+      control.append(segment);
+    }
+    const listener = vi.fn();
+    control.addEventListener('ds-change', listener);
+    await mount(control);
+    await Promise.all([...control.children].map((child) => (child as DsElement).updateComplete));
+    const year = control.children[2] as HTMLElement;
+    fireEvent.click(year.shadowRoot!.querySelector('button')!);
+    expect(control.value).toBe('year');
+    expect(listener).toHaveBeenCalledWith(
+      expect.objectContaining({ detail: { value: 'year' }, bubbles: true, composed: true }),
+    );
+  });
+
+  it('exposes split-button and chip intent as composed events', async () => {
+    const split = (await mount(document.createElement('ds-split-button'))) as DsSplitButton;
+    const activate = vi.fn();
+    split.addEventListener('ds-activate', activate);
+    fireEvent.click(split.shadowRoot!.querySelector('.primary')!);
+    expect(activate).toHaveBeenCalledOnce();
+
+    const chip = (await mount(document.createElement('ds-chip'))) as DsChip;
+    chip.value = 'open';
+    chip.label = 'Open';
+    chip.dismissible = true;
+    await chip.updateComplete;
+    const changed = vi.fn();
+    const dismissed = vi.fn();
+    chip.addEventListener('ds-change', changed);
+    chip.addEventListener('ds-dismiss', dismissed);
+    fireEvent.click(chip.shadowRoot!.querySelector('.select')!);
+    fireEvent.click(chip.shadowRoot!.querySelector('.dismiss')!);
+    expect(changed.mock.calls[0][0].detail).toEqual({ value: 'open', selected: true });
+    expect(dismissed.mock.calls[0][0].detail).toEqual({ value: 'open', reason: 'button' });
+  });
+
+  it('offers a keyboard-operable alternative to drag reordering', async () => {
+    const list = document.createElement('ds-reorder-list') as DsReorderList;
+    for (const value of ['one', 'two', 'three']) {
+      const item = document.createElement('ds-reorder-item');
+      item.value = value;
+      item.label = value;
+      item.textContent = value;
+      list.append(item);
+    }
+    const listener = vi.fn();
+    list.addEventListener('ds-reorder', listener);
+    await mount(list);
+    await Promise.all([...list.children].map((child) => (child as DsElement).updateComplete));
+    const second = list.children[1] as HTMLElement;
+    fireEvent.click(second.shadowRoot!.querySelector('button')!);
+    expect([...list.children].map((item) => (item as HTMLElement).getAttribute('value'))).toEqual([
+      'two',
+      'one',
+      'three',
+    ]);
+    expect(listener.mock.calls[0][0].detail).toMatchObject({
+      value: 'two',
+      fromIndex: 1,
+      toIndex: 0,
+    });
+  });
+
+  it('announces data sorting, loading, and paging while retaining table semantics', async () => {
+    const table = (await mount(document.createElement('ds-data-table'))) as DsDataTable;
+    table.label = 'Projects';
+    table.description = 'Active projects by owner';
+    table.columns = [
+      { key: 'name', label: 'Name', sortable: true, rowHeader: true },
+      { key: 'count', label: 'Count', numeric: true },
+    ];
+    table.rows = [
+      { id: 'a', name: 'Alpha', count: 2 },
+      { id: 'b', name: 'Beta', count: 10 },
+    ];
+    table.pageSize = 1;
+    await table.updateComplete;
+    expect(table.shadowRoot!.querySelector('th[scope="row"]')).not.toBeNull();
+    expect(table.shadowRoot!.querySelector('td.numeric')?.textContent).toContain('2');
+    fireEvent.click(table.shadowRoot!.querySelector('.sort')!);
+    await new Promise((resolve) => globalThis.setTimeout(resolve, 30));
+    expect(table.shadowRoot!.querySelector('[role="status"]')?.textContent).toContain(
+      'Name sorted',
+    );
+    fireEvent.click(table.shadowRoot!.querySelector('[aria-label="Next page"]')!);
+    expect(table.page).toBe(2);
   });
 });
 

@@ -1,6 +1,6 @@
 import { css, html, nothing, type CSSResultGroup, type PropertyValues } from 'lit';
 import { property, query, queryAssignedElements } from 'lit/decorators.js';
-import { foundationStyles } from '@endeavoury/kanosis-styles';
+import { foundationStyles, mediaCompact } from '@endeavoury/kanosis-styles';
 import { DsElement } from '../core/ds-element.js';
 
 export type DsDismissReason = 'button' | 'escape' | 'backdrop' | 'programmatic';
@@ -87,7 +87,7 @@ export class DsDialog extends DsElement {
         justify-content: flex-end;
         gap: var(--ds-space-2);
       }
-      @media (max-width: 560px) {
+      @media ${mediaCompact} {
         dialog {
           width: calc(100vw - 1rem);
           max-height: calc(100dvh - 1rem);
@@ -207,7 +207,7 @@ export class DsDrawer extends DsDialog {
       .frame {
         height: 100%;
       }
-      @media (max-width: 560px) {
+      @media ${mediaCompact} {
         dialog {
           width: min(94vw, var(--ds-drawer-width, 26rem));
           height: 100dvh;

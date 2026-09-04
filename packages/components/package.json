@@ -98,6 +98,10 @@
     "./enterprise-p3": {
       "types": "./dist/register/enterprise-p3.d.ts",
       "import": "./dist/register/enterprise-p3.js"
+    },
+    "./enhancements": {
+      "types": "./dist/register/enhancements.d.ts",
+      "import": "./dist/register/enhancements.js"
     }
   },
   "scripts": {

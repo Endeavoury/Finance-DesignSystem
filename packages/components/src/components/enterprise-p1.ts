@@ -1,6 +1,6 @@
 import { css, html, nothing, type CSSResultGroup } from 'lit';
 import { property, state } from 'lit/decorators.js';
-import { foundationStyles } from '@endeavoury/kanosis-styles';
+import { foundationStyles, mediaCompact } from '@endeavoury/kanosis-styles';
 import { DsElement } from '../core/ds-element.js';
 
 export interface DsCommand {
@@ -561,7 +561,7 @@ export class DsRecordHeader extends DsElement {
         display: flex;
         gap: var(--ds-space-2);
       }
-      @media (max-width: 640px) {
+      @media ${mediaCompact} {
         .header {
           grid-template-columns: 1fr;
           padding: var(--ds-space-4);
@@ -609,7 +609,7 @@ export class DsDetailList extends DsElement {
       dd {
         color: var(--ds-color-text-primary);
       }
-      @media (max-width: 560px) {
+      @media ${mediaCompact} {
         dl {
           grid-template-columns: 1fr;
         }
@@ -648,7 +648,7 @@ export class DsNotificationCenter extends DsElement {
         padding: 0.1rem 0.3rem;
         border-radius: var(--ds-radius-round);
         background: var(--ds-color-danger);
-        color: #fff;
+        color: var(--ds-color-text-inverse);
         font-size: var(--ds-font-size-xs);
         text-align: center;
       }

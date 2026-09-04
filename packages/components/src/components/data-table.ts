@@ -1,6 +1,6 @@
-import { css, html, nothing, type CSSResultGroup } from 'lit';
-import { property } from 'lit/decorators.js';
-import { foundationStyles, spinnerStyles } from '@endeavoury/kanosis-styles';
+import { css, html, nothing, type CSSResultGroup, type PropertyValues } from 'lit';
+import { property, state } from 'lit/decorators.js';
+import { a11yStyles, foundationStyles, spinnerStyles } from '@endeavoury/kanosis-styles';
 import { DsElement, type DsDensity } from '../core/ds-element.js';
 
 export interface DsTableColumn<Row extends Record<string, unknown> = Record<string, unknown>> {
@@ -8,6 +8,8 @@ export interface DsTableColumn<Row extends Record<string, unknown> = Record<stri
   label: string;
   align?: 'start' | 'center' | 'end';
   sortable?: boolean;
+  numeric?: boolean;
+  rowHeader?: boolean;
   width?: string;
   format?: (value: unknown, row: Row) => unknown;
 }
@@ -24,6 +26,7 @@ export interface DsRowSelectDetail<Row = Record<string, unknown>> {
 export class DsDataTable extends DsElement {
   static override styles: CSSResultGroup = [
     foundationStyles,
+    a11yStyles,
     spinnerStyles,
     css`
       :host {
@@ -40,6 +43,10 @@ export class DsDataTable extends DsElement {
         background: var(--ds-gradient-surface, var(--ds-color-bg-surface));
         box-shadow: var(--ds-shadow-panel);
       }
+      .frame:focus-visible {
+        outline: 2px solid var(--ds-color-focus);
+        outline-offset: 2px;
+      }
       table {
         width: 100%;
         min-width: 38rem;
@@ -51,6 +58,13 @@ export class DsDataTable extends DsElement {
         padding: var(--ds-space-3);
         text-align: left;
         font-weight: var(--ds-font-weight-semibold);
+      }
+      .description {
+        display: block;
+        margin-top: var(--ds-space-1);
+        color: var(--ds-color-text-muted);
+        font-size: var(--ds-font-size-sm);
+        font-weight: var(--ds-font-weight-regular);
       }
       th,
       td {
@@ -96,6 +110,10 @@ export class DsDataTable extends DsElement {
       .center {
         text-align: center;
       }
+      .numeric {
+        text-align: right;
+        font-variant-numeric: tabular-nums;
+      }
       .sort {
         display: inline-flex;
         align-items: center;
@@ -134,6 +152,31 @@ export class DsDataTable extends DsElement {
         background: color-mix(in srgb, var(--ds-color-bg-surface) 82%, transparent);
         backdrop-filter: blur(2px);
       }
+      .pagination {
+        position: sticky;
+        left: 0;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: var(--ds-space-2);
+        min-width: 100%;
+        padding: var(--ds-space-2) var(--ds-space-3);
+        border-top: 1px solid var(--ds-color-border-subtle);
+        background: var(--ds-color-bg-surface-subtle);
+      }
+      .pagination button {
+        min-width: var(--ds-target-min);
+        min-height: var(--ds-target-min);
+        border: 1px solid var(--ds-color-border-default);
+        border-radius: var(--ds-shape-control);
+        background: var(--ds-color-bg-surface);
+        color: var(--ds-color-text-primary);
+        cursor: pointer;
+      }
+      .pagination button:disabled {
+        cursor: not-allowed;
+        opacity: var(--ds-opacity-disabled);
+      }
       :host([density='compact']) th,
       :host([density='compact']) td {
         padding: var(--ds-space-2) var(--ds-space-3);
@@ -144,21 +187,55 @@ export class DsDataTable extends DsElement {
   @property({ attribute: false }) columns: DsTableColumn[] = [];
   @property({ attribute: false }) rows: Record<string, unknown>[] = [];
   @property() caption = '';
+  @property() label = 'Data table';
+  @property() description = '';
   @property() emptyMessage = 'No results';
   @property() rowKey = 'id';
   @property() selectedKey = '';
   @property({ type: Boolean }) selectable = false;
   @property({ type: Boolean }) busy = false;
+  @property({ type: Boolean, attribute: 'focusable-overflow' }) focusableOverflow = true;
+  @property({ attribute: 'loading-label' }) loadingLabel = 'Loading data';
+  @property({ type: Number, attribute: 'announcement-delay' }) announcementDelay = 750;
+  @property({ type: Number }) page = 1;
+  @property({ type: Number, attribute: 'page-size' }) pageSize = 0;
+  @property({ type: Number, attribute: 'total-rows' }) totalRows = 0;
   @property({ reflect: true }) density: DsDensity = 'comfortable';
   @property({ attribute: 'sort-key' }) sortKey = '';
   @property({ attribute: 'sort-direction' }) sortDirection: 'ascending' | 'descending' =
     'ascending';
+  @state() private announcement = '';
+  private announcementTimer?: ReturnType<typeof globalThis.setTimeout>;
+
+  override disconnectedCallback() {
+    super.disconnectedCallback();
+    if (this.announcementTimer) globalThis.clearTimeout(this.announcementTimer);
+  }
+
+  protected override updated(changed: PropertyValues<this>) {
+    if (!changed.has('busy')) return;
+    if (this.announcementTimer) globalThis.clearTimeout(this.announcementTimer);
+    if (!this.busy) {
+      if (changed.get('busy') === true) this.announcement = `${this.label} loaded`;
+      return;
+    }
+    this.announcement = '';
+    this.announcementTimer = globalThis.setTimeout(() => {
+      if (this.busy) this.announcement = this.loadingLabel;
+    }, this.announcementDelay);
+  }
+
+  private announce(message: string) {
+    this.announcement = '';
+    globalThis.setTimeout(() => (this.announcement = message), 20);
+  }
   private sort(column: DsTableColumn) {
     if (!column.sortable) return;
     const key = String(column.key);
     this.sortDirection =
       this.sortKey === key && this.sortDirection === 'ascending' ? 'descending' : 'ascending';
     this.sortKey = key;
+    this.announce(`${column.label} sorted ${this.sortDirection}`);
     this.emit<DsSortDetail>('ds-sort', { key, direction: this.sortDirection });
   }
   private sortedRows() {
@@ -185,20 +262,54 @@ export class DsDataTable extends DsElement {
       this.select(row, index);
     }
   }
+  private pageCount() {
+    if (!this.pageSize) return 1;
+    return Math.max(1, Math.ceil((this.totalRows || this.rows.length) / this.pageSize));
+  }
+  private visibleRows(rows: Record<string, unknown>[]) {
+    if (!this.pageSize || this.totalRows > this.rows.length) return rows;
+    const start = (Math.max(1, this.page) - 1) * this.pageSize;
+    return rows.slice(start, start + this.pageSize);
+  }
+  private changePage(page: number) {
+    const next = Math.min(this.pageCount(), Math.max(1, page));
+    if (next === this.page) return;
+    this.page = next;
+    this.announce(`${this.label}, page ${next} of ${this.pageCount()}`);
+    this.emit<{ page: number }>('ds-page-change', { page: next });
+  }
   protected override render() {
-    const rows = this.sortedRows();
-    return html`<div class="frame" part="frame">
-      <table part="table">
+    const rows = this.visibleRows(this.sortedRows());
+    const accessibleLabel = this.caption || this.label;
+    const pageCount = this.pageCount();
+    return html`<div
+      class="frame"
+      part="frame"
+      tabindex=${this.focusableOverflow ? '0' : nothing}
+      aria-label=${this.focusableOverflow ? `${accessibleLabel} scroll area` : nothing}
+    >
+      <table
+        part="table"
+        aria-label=${this.caption ? nothing : accessibleLabel}
+        aria-describedby=${this.description ? 'table-description' : nothing}
+        aria-busy=${String(this.busy)}
+      >
         ${
           this.caption
             ? html`<caption>
-                ${this.caption}
+                ${this.caption}<span id="table-description" class="description"
+                  >${this.description}</span
+                >
               </caption>`
-            : nothing
+            : this.description
+              ? html`<caption class="visually-hidden" id="table-description">
+                  ${this.description}
+                </caption>`
+              : nothing
         }
         <thead>
           <tr>
-            ${this.columns.map((column) => html`<th class=${column.align ?? 'start'} style=${column.width ? `width:${column.width}` : nothing} aria-sort=${this.sortKey === String(column.key) ? this.sortDirection : column.sortable ? 'none' : nothing}>${column.sortable ? html`<button class="sort ${column.align ?? 'start'}" type="button" @click=${() => this.sort(column)}>${column.label}<span class="indicator" aria-hidden="true">${this.sortKey === String(column.key) ? (this.sortDirection === 'ascending' ? '↑' : '↓') : '↕'}</span></button>` : column.label}</th>`)}
+            ${this.columns.map((column) => html`<th class=${column.numeric ? 'numeric' : (column.align ?? 'start')} style=${column.width ? `width:${column.width}` : nothing} aria-sort=${this.sortKey === String(column.key) ? this.sortDirection : column.sortable ? 'none' : nothing}>${column.sortable ? html`<button class="sort ${column.numeric ? 'end' : (column.align ?? 'start')}" type="button" @click=${() => this.sort(column)}>${column.label}<span class="indicator" aria-hidden="true">${this.sortKey === String(column.key) ? (this.sortDirection === 'ascending' ? '↑' : '↓') : '↕'}</span></button>` : column.label}</th>`)}
           </tr>
         </thead>
         <tbody>
@@ -216,7 +327,10 @@ export class DsDataTable extends DsElement {
                       ${this.columns.map((column) => {
                         const value = row[String(column.key)],
                           formatted = column.format?.(value, row) ?? value ?? '—';
-                        return html`<td class=${column.align ?? 'start'}>${formatted}</td>`;
+                        const className = column.numeric ? 'numeric' : (column.align ?? 'start');
+                        return column.rowHeader
+                          ? html`<th scope="row" class=${className}>${formatted}</th>`
+                          : html`<td class=${className}>${formatted}</td>`;
                       })}
                     </tr>`,
                 )
@@ -228,7 +342,37 @@ export class DsDataTable extends DsElement {
           }
         </tbody>
       </table>
-      ${this.busy ? html`<div class="busy" role="status" aria-label="Loading"><span class="spinner"></span></div>` : nothing}
+      ${
+        pageCount > 1
+          ? html`<nav class="pagination" aria-label=${`${accessibleLabel} pagination`}>
+              <button
+                type="button"
+                aria-label="Previous page"
+                ?disabled=${this.page <= 1}
+                @click=${() => this.changePage(this.page - 1)}
+              >
+                ‹
+              </button>
+              <span aria-current="page">Page ${this.page} of ${pageCount}</span>
+              <button
+                type="button"
+                aria-label="Next page"
+                ?disabled=${this.page >= pageCount}
+                @click=${() => this.changePage(this.page + 1)}
+              >
+                ›
+              </button>
+            </nav>`
+          : nothing
+      }
+      ${
+        this.busy
+          ? html`<div class="busy" aria-hidden="true"><span class="spinner"></span></div>`
+          : nothing
+      }
+      <span class="visually-hidden" role="status" aria-live="polite" aria-atomic="true"
+        >${this.announcement}</span
+      >
     </div>`;
   }
 }

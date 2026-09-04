@@ -6,6 +6,11 @@
 
 Set `data-ds-theme="light"` or `data-ds-theme="dark"` on `html` or any application subtree. `data-ds-theme="system"` follows `prefers-color-scheme`. CSS custom properties inherit across Shadow DOM, so nested theme previews and application-level overrides remain possible.
 
+Set `data-ds-contrast="more"` for an explicit high-contrast palette; otherwise
+`prefers-contrast: more` is honored automatically. Forced-colors mode maps semantic roles to system
+colors. Set `data-ds-brand="finance"` or `data-ds-brand="ontology"` to change semantic accent roles
+without forking component styles.
+
 ## Shared Shadow DOM styles
 
 Components use open Shadow DOM. The styles package exports small Lit `CSSResult` foundation modules for host normalization, typography, focus, controls, forms, surfaces, and accessibility. Lit converts these shared modules to constructed stylesheets where the platform supports it, and component modules import the same ESM objects. Each component adds only its unique layout and presentation.
@@ -46,4 +51,8 @@ Slots customize content and composition. Do not target elements inside a shadow 
 
 ## Accessibility preferences
 
-Focus rings are centralized and visible for keyboard users. Reduced-motion media queries collapse transition and animation durations. Semantic state tokens are paired with text/icons rather than serving as the sole carrier of meaning.
+Focus rings are centralized and visible for keyboard users. Reduced-motion media queries collapse
+transition and animation durations. Increased contrast, forced colors, and RTL direction are part of
+the shared foundation. Semantic state tokens are paired with text/icons rather than serving as the
+sole carrier of meaning. See [Foundations and preferences](foundations-and-preferences.md) for the
+required review matrix.

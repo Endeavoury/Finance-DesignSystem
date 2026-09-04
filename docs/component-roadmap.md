@@ -2,7 +2,7 @@
 
 ## Delivery status
 
-The August 2026 cross-product design-system review completed the workflow-focused P1 increment and a broader Material/Bootstrap capability pass. The system now includes 58 registered elements spanning actions, forms, navigation, overlays, feedback, data display, application structure, and layout. Every delivered element has Web Component registration, React adapters, Storybook coverage, and automated quality gates.
+The September 2026 cross-product design-system review completed the maturity backlog and a broader Material/Bootstrap capability pass. The system now includes 118 registered elements spanning actions, forms, navigation, overlays, feedback, data display, application structure, layout, and enterprise workflows. Every delivered element has Web Component registration, React adapters, Storybook coverage, and automated quality gates. Registration and story presence establish discoverability; readiness is assigned only when the evidence in the [component status manifest](component-status.json) satisfies the maturity policy.
 
 ## Gap analysis
 
@@ -32,8 +32,8 @@ The August 2026 cross-product design-system review completed the workflow-focuse
 | Tooltips                       |                         Low | `ds-tooltip`                                                               | Delivered | Supplemental only, never sole label                       |
 | Radio/switch/textarea/range    |           Low in current UI | `ds-radio-group`, `ds-radio`, `ds-switch`, `ds-textarea`, `ds-range`       | Delivered | Form-associated generic controls                          |
 | Breadcrumbs and lists          |                 Not present | `ds-breadcrumbs`, `ds-breadcrumb`, `ds-list`, `ds-list-item`               | Delivered | Hierarchy and flexible collections                        |
-| Hierarchical system navigation |              Ontarchon high | `ds-tree`, `ds-tree-item`                                                   | Delivered | Expandable, keyboard-operable Node navigation             |
-| Structured semantic metadata   |              Ontarchon high | `ds-description-list`, `ds-code-block`                                      | Delivered | URI/schema properties and readable technical artefacts    |
+| Hierarchical system navigation |              Ontarchon high | `ds-tree`, `ds-tree-item`                                                  | Delivered | Expandable, keyboard-operable Node navigation             |
+| Structured semantic metadata   |              Ontarchon high | `ds-description-list`, `ds-code-block`                                     | Delivered | URI/schema properties and readable technical artefacts    |
 | Light/dark preference          |                        High | `ds-theme-toggle`                                                          | Delivered | Persistent document theme with typed change event         |
 
 ## Delivery roadmap
@@ -46,6 +46,9 @@ Foundations, layouts, actions, current form controls, badges/avatar, surfaces/me
 
 Tabs, disclosure, drop zone, progress/skeleton, toast, dialog/drawer, menu, pagination, breadcrumbs, and lists. Description lists remain composable from existing layout and typography primitives until a product screen requires a dedicated API.
 
-### P2 — Generic expansion (partially delivered)
+### P2 — Generic expansion (delivered; maturity work supersedes it)
 
-Tooltip, textarea, radio group, switch, range, and breadcrumbs are delivered. The next meaningful additions are autocomplete/combobox, date/time input patterns, segmented controls, richer data-grid behavior, and formal RTL/high-contrast validation.
+Tooltip, textarea, radio group, switch, range, breadcrumbs, autocomplete/combobox, date/time inputs,
+and richer data-grid behavior are delivered. A segmented control and overflow action bar remain useful
+candidates, but formal component maturity, token integrity, responsive contracts, visual regression,
+RTL, forced-colors, and high-contrast validation now take priority.

@@ -1,0 +1,1191 @@
+{
+  "schemaVersion": 1,
+  "statuses": [
+    "experimental",
+    "ready",
+    "deprecated"
+  ],
+  "generatedFrom": "packages/components/src/register/*.ts",
+  "components": [
+    {
+      "tag": "ds-action-bar",
+      "family": "enhancements",
+      "status": "experimental",
+      "owner": "Kanosis design system",
+      "adoption": "Validate in a product workflow",
+      "accessibilityReview": "automated-composition",
+      "documentation": "storybook:enhancements",
+      "stability": "Breaking changes allowed before beta"
+    },
+    {
+      "tag": "ds-activity-feed",
+      "family": "enterprise-p2",
+      "status": "experimental",
+      "owner": "Kanosis design system",
+      "adoption": "Validate in a product workflow",
+      "accessibilityReview": "pending-component-matrix",
+      "documentation": "storybook:enterprise-p2",
+      "stability": "Breaking changes allowed before beta"
+    },
+    {
+      "tag": "ds-alert",
+      "family": "feedback",
+      "status": "ready",
+      "owner": "Kanosis design system",
+      "adoption": "Shared catalog",
+      "accessibilityReview": "automated-composition",
+      "documentation": "storybook:feedback",
+      "stability": "Semver protected"
+    },
+    {
+      "tag": "ds-app-shell",
+      "family": "navigation",
+      "status": "ready",
+      "owner": "Kanosis design system",
+      "adoption": "Shared catalog",
+      "accessibilityReview": "pending-component-matrix",
+      "documentation": "storybook:navigation",
+      "stability": "Semver protected"
+    },
+    {
+      "tag": "ds-approval-flow",
+      "family": "enterprise-p2",
+      "status": "experimental",
+      "owner": "Kanosis design system",
+      "adoption": "Validate in a product workflow",
+      "accessibilityReview": "pending-component-matrix",
+      "documentation": "storybook:enterprise-p2",
+      "stability": "Breaking changes allowed before beta"
+    },
+    {
+      "tag": "ds-audit-log",
+      "family": "enterprise-p3",
+      "status": "experimental",
+      "owner": "Kanosis design system",
+      "adoption": "Validate in a product workflow",
+      "accessibilityReview": "pending-component-matrix",
+      "documentation": "storybook:enterprise-p3",
+      "stability": "Breaking changes allowed before beta"
+    },
+    {
+      "tag": "ds-avatar",
+      "family": "display",
+      "status": "ready",
+      "owner": "Kanosis design system",
+      "adoption": "Shared catalog",
+      "accessibilityReview": "pending-component-matrix",
+      "documentation": "storybook:display",
+      "stability": "Semver protected"
+    },
+    {
+      "tag": "ds-badge",
+      "family": "display",
+      "status": "ready",
+      "owner": "Kanosis design system",
+      "adoption": "Shared catalog",
+      "accessibilityReview": "pending-component-matrix",
+      "documentation": "storybook:display",
+      "stability": "Semver protected"
+    },
+    {
+      "tag": "ds-banner",
+      "family": "enterprise-p1",
+      "status": "experimental",
+      "owner": "Kanosis design system",
+      "adoption": "Validate in a product workflow",
+      "accessibilityReview": "pending-component-matrix",
+      "documentation": "storybook:enterprise-p1",
+      "stability": "Breaking changes allowed before beta"
+    },
+    {
+      "tag": "ds-brand-mark",
+      "family": "enhancements",
+      "status": "experimental",
+      "owner": "Kanosis design system",
+      "adoption": "Validate in a product workflow",
+      "accessibilityReview": "automated-composition",
+      "documentation": "storybook:enhancements",
+      "stability": "Breaking changes allowed before beta"
+    },
+    {
+      "tag": "ds-breadcrumb",
+      "family": "navigation",
+      "status": "ready",
+      "owner": "Kanosis design system",
+      "adoption": "Shared catalog",
+      "accessibilityReview": "automated-composition",
+      "documentation": "storybook:navigation",
+      "stability": "Semver protected"
+    },
+    {
+      "tag": "ds-breadcrumbs",
+      "family": "navigation",
+      "status": "ready",
+      "owner": "Kanosis design system",
+      "adoption": "Shared catalog",
+      "accessibilityReview": "automated-composition",
+      "documentation": "storybook:navigation",
+      "stability": "Semver protected"
+    },
+    {
+      "tag": "ds-bulk-actions",
+      "family": "enterprise",
+      "status": "experimental",
+      "owner": "Kanosis design system",
+      "adoption": "Validate in a product workflow",
+      "accessibilityReview": "pending-component-matrix",
+      "documentation": "storybook:enterprise",
+      "stability": "Breaking changes allowed before beta"
+    },
+    {
+      "tag": "ds-button",
+      "family": "button",
+      "status": "ready",
+      "owner": "Kanosis design system",
+      "adoption": "Shared catalog",
+      "accessibilityReview": "automated-composition",
+      "documentation": "storybook:button",
+      "stability": "Semver protected"
+    },
+    {
+      "tag": "ds-button-group",
+      "family": "button",
+      "status": "ready",
+      "owner": "Kanosis design system",
+      "adoption": "Shared catalog",
+      "accessibilityReview": "pending-component-matrix",
+      "documentation": "storybook:button",
+      "stability": "Semver protected"
+    },
+    {
+      "tag": "ds-card",
+      "family": "display",
+      "status": "ready",
+      "owner": "Kanosis design system",
+      "adoption": "Shared catalog",
+      "accessibilityReview": "pending-component-matrix",
+      "documentation": "storybook:display",
+      "stability": "Semver protected"
+    },
+    {
+      "tag": "ds-change-summary",
+      "family": "enterprise-p2",
+      "status": "experimental",
+      "owner": "Kanosis design system",
+      "adoption": "Validate in a product workflow",
+      "accessibilityReview": "pending-component-matrix",
+      "documentation": "storybook:enterprise-p2",
+      "stability": "Breaking changes allowed before beta"
+    },
+    {
+      "tag": "ds-checkbox",
+      "family": "forms",
+      "status": "ready",
+      "owner": "Kanosis design system",
+      "adoption": "Shared catalog",
+      "accessibilityReview": "automated-composition",
+      "documentation": "storybook:forms",
+      "stability": "Semver protected"
+    },
+    {
+      "tag": "ds-chip",
+      "family": "enhancements",
+      "status": "experimental",
+      "owner": "Kanosis design system",
+      "adoption": "Validate in a product workflow",
+      "accessibilityReview": "automated-composition",
+      "documentation": "storybook:enhancements",
+      "stability": "Breaking changes allowed before beta"
+    },
+    {
+      "tag": "ds-coachmark",
+      "family": "enterprise-p3",
+      "status": "experimental",
+      "owner": "Kanosis design system",
+      "adoption": "Validate in a product workflow",
+      "accessibilityReview": "pending-component-matrix",
+      "documentation": "storybook:enterprise-p3",
+      "stability": "Breaking changes allowed before beta"
+    },
+    {
+      "tag": "ds-code-block",
+      "family": "display",
+      "status": "ready",
+      "owner": "Kanosis design system",
+      "adoption": "Shared catalog",
+      "accessibilityReview": "automated-composition",
+      "documentation": "storybook:display",
+      "stability": "Semver protected"
+    },
+    {
+      "tag": "ds-code-editor",
+      "family": "enterprise-p3",
+      "status": "experimental",
+      "owner": "Kanosis design system",
+      "adoption": "Validate in a product workflow",
+      "accessibilityReview": "pending-component-matrix",
+      "documentation": "storybook:enterprise-p3",
+      "stability": "Breaking changes allowed before beta"
+    },
+    {
+      "tag": "ds-column-manager",
+      "family": "enterprise",
+      "status": "experimental",
+      "owner": "Kanosis design system",
+      "adoption": "Validate in a product workflow",
+      "accessibilityReview": "pending-component-matrix",
+      "documentation": "storybook:enterprise",
+      "stability": "Breaking changes allowed before beta"
+    },
+    {
+      "tag": "ds-combobox",
+      "family": "enterprise",
+      "status": "experimental",
+      "owner": "Kanosis design system",
+      "adoption": "Validate in a product workflow",
+      "accessibilityReview": "pending-component-matrix",
+      "documentation": "storybook:enterprise",
+      "stability": "Breaking changes allowed before beta"
+    },
+    {
+      "tag": "ds-command-palette",
+      "family": "enterprise-p1",
+      "status": "experimental",
+      "owner": "Kanosis design system",
+      "adoption": "Validate in a product workflow",
+      "accessibilityReview": "pending-component-matrix",
+      "documentation": "storybook:enterprise-p1",
+      "stability": "Breaking changes allowed before beta"
+    },
+    {
+      "tag": "ds-compare-view",
+      "family": "enterprise-p3",
+      "status": "experimental",
+      "owner": "Kanosis design system",
+      "adoption": "Validate in a product workflow",
+      "accessibilityReview": "pending-component-matrix",
+      "documentation": "storybook:enterprise-p3",
+      "stability": "Breaking changes allowed before beta"
+    },
+    {
+      "tag": "ds-container",
+      "family": "layout",
+      "status": "ready",
+      "owner": "Kanosis design system",
+      "adoption": "Shared catalog",
+      "accessibilityReview": "pending-component-matrix",
+      "documentation": "storybook:layout",
+      "stability": "Semver protected"
+    },
+    {
+      "tag": "ds-context-menu",
+      "family": "enterprise-p1",
+      "status": "experimental",
+      "owner": "Kanosis design system",
+      "adoption": "Validate in a product workflow",
+      "accessibilityReview": "pending-component-matrix",
+      "documentation": "storybook:enterprise-p1",
+      "stability": "Breaking changes allowed before beta"
+    },
+    {
+      "tag": "ds-data-grid",
+      "family": "enterprise",
+      "status": "experimental",
+      "owner": "Kanosis design system",
+      "adoption": "Validate in a product workflow",
+      "accessibilityReview": "pending-component-matrix",
+      "documentation": "storybook:enterprise",
+      "stability": "Breaking changes allowed before beta"
+    },
+    {
+      "tag": "ds-data-table",
+      "family": "data-table",
+      "status": "ready",
+      "owner": "Kanosis design system",
+      "adoption": "Shared catalog",
+      "accessibilityReview": "pending-component-matrix",
+      "documentation": "storybook:data-table",
+      "stability": "Semver protected"
+    },
+    {
+      "tag": "ds-date-picker",
+      "family": "enterprise-p2",
+      "status": "experimental",
+      "owner": "Kanosis design system",
+      "adoption": "Validate in a product workflow",
+      "accessibilityReview": "pending-component-matrix",
+      "documentation": "storybook:enterprise-p2",
+      "stability": "Breaking changes allowed before beta"
+    },
+    {
+      "tag": "ds-description-list",
+      "family": "display",
+      "status": "ready",
+      "owner": "Kanosis design system",
+      "adoption": "Shared catalog",
+      "accessibilityReview": "automated-composition",
+      "documentation": "storybook:display",
+      "stability": "Semver protected"
+    },
+    {
+      "tag": "ds-detail-list",
+      "family": "enterprise-p1",
+      "status": "experimental",
+      "owner": "Kanosis design system",
+      "adoption": "Validate in a product workflow",
+      "accessibilityReview": "pending-component-matrix",
+      "documentation": "storybook:enterprise-p1",
+      "stability": "Breaking changes allowed before beta"
+    },
+    {
+      "tag": "ds-detail-sidebar",
+      "family": "layout",
+      "status": "ready",
+      "owner": "Kanosis design system",
+      "adoption": "Shared catalog",
+      "accessibilityReview": "pending-component-matrix",
+      "documentation": "storybook:layout",
+      "stability": "Semver protected"
+    },
+    {
+      "tag": "ds-dialog",
+      "family": "overlays",
+      "status": "ready",
+      "owner": "Kanosis design system",
+      "adoption": "Shared catalog",
+      "accessibilityReview": "automated-composition",
+      "documentation": "storybook:overlays",
+      "stability": "Semver protected"
+    },
+    {
+      "tag": "ds-diff-viewer",
+      "family": "enterprise-p3",
+      "status": "experimental",
+      "owner": "Kanosis design system",
+      "adoption": "Validate in a product workflow",
+      "accessibilityReview": "pending-component-matrix",
+      "documentation": "storybook:enterprise-p3",
+      "stability": "Breaking changes allowed before beta"
+    },
+    {
+      "tag": "ds-disclosure",
+      "family": "interaction",
+      "status": "ready",
+      "owner": "Kanosis design system",
+      "adoption": "Shared catalog",
+      "accessibilityReview": "automated-composition",
+      "documentation": "storybook:interaction",
+      "stability": "Semver protected"
+    },
+    {
+      "tag": "ds-drawer",
+      "family": "overlays",
+      "status": "ready",
+      "owner": "Kanosis design system",
+      "adoption": "Shared catalog",
+      "accessibilityReview": "pending-component-matrix",
+      "documentation": "storybook:overlays",
+      "stability": "Semver protected"
+    },
+    {
+      "tag": "ds-drop-zone",
+      "family": "upload",
+      "status": "ready",
+      "owner": "Kanosis design system",
+      "adoption": "Shared catalog",
+      "accessibilityReview": "automated-composition",
+      "documentation": "storybook:upload",
+      "stability": "Semver protected"
+    },
+    {
+      "tag": "ds-empty-state",
+      "family": "feedback",
+      "status": "ready",
+      "owner": "Kanosis design system",
+      "adoption": "Shared catalog",
+      "accessibilityReview": "automated-composition",
+      "documentation": "storybook:feedback",
+      "stability": "Semver protected"
+    },
+    {
+      "tag": "ds-field-array",
+      "family": "enterprise-p2",
+      "status": "experimental",
+      "owner": "Kanosis design system",
+      "adoption": "Validate in a product workflow",
+      "accessibilityReview": "pending-component-matrix",
+      "documentation": "storybook:enterprise-p2",
+      "stability": "Breaking changes allowed before beta"
+    },
+    {
+      "tag": "ds-file-upload",
+      "family": "enterprise-p2",
+      "status": "experimental",
+      "owner": "Kanosis design system",
+      "adoption": "Validate in a product workflow",
+      "accessibilityReview": "pending-component-matrix",
+      "documentation": "storybook:enterprise-p2",
+      "stability": "Breaking changes allowed before beta"
+    },
+    {
+      "tag": "ds-filter-bar",
+      "family": "patterns",
+      "status": "ready",
+      "owner": "Kanosis design system",
+      "adoption": "Shared catalog",
+      "accessibilityReview": "pending-component-matrix",
+      "documentation": "storybook:patterns",
+      "stability": "Semver protected"
+    },
+    {
+      "tag": "ds-filter-builder",
+      "family": "enterprise",
+      "status": "experimental",
+      "owner": "Kanosis design system",
+      "adoption": "Validate in a product workflow",
+      "accessibilityReview": "pending-component-matrix",
+      "documentation": "storybook:enterprise",
+      "stability": "Breaking changes allowed before beta"
+    },
+    {
+      "tag": "ds-form-field",
+      "family": "forms",
+      "status": "ready",
+      "owner": "Kanosis design system",
+      "adoption": "Shared catalog",
+      "accessibilityReview": "pending-component-matrix",
+      "documentation": "storybook:forms",
+      "stability": "Semver protected"
+    },
+    {
+      "tag": "ds-form-section",
+      "family": "enterprise-p2",
+      "status": "experimental",
+      "owner": "Kanosis design system",
+      "adoption": "Validate in a product workflow",
+      "accessibilityReview": "pending-component-matrix",
+      "documentation": "storybook:enterprise-p2",
+      "stability": "Breaking changes allowed before beta"
+    },
+    {
+      "tag": "ds-global-search",
+      "family": "enterprise-p1",
+      "status": "experimental",
+      "owner": "Kanosis design system",
+      "adoption": "Validate in a product workflow",
+      "accessibilityReview": "pending-component-matrix",
+      "documentation": "storybook:enterprise-p1",
+      "stability": "Breaking changes allowed before beta"
+    },
+    {
+      "tag": "ds-grid",
+      "family": "layout",
+      "status": "ready",
+      "owner": "Kanosis design system",
+      "adoption": "Shared catalog",
+      "accessibilityReview": "pending-component-matrix",
+      "documentation": "storybook:layout",
+      "stability": "Semver protected"
+    },
+    {
+      "tag": "ds-help-panel",
+      "family": "enterprise-p3",
+      "status": "experimental",
+      "owner": "Kanosis design system",
+      "adoption": "Validate in a product workflow",
+      "accessibilityReview": "pending-component-matrix",
+      "documentation": "storybook:enterprise-p3",
+      "stability": "Breaking changes allowed before beta"
+    },
+    {
+      "tag": "ds-icon",
+      "family": "navigation",
+      "status": "ready",
+      "owner": "Kanosis design system",
+      "adoption": "Shared catalog",
+      "accessibilityReview": "pending-component-matrix",
+      "documentation": "storybook:navigation",
+      "stability": "Semver protected"
+    },
+    {
+      "tag": "ds-icon-button",
+      "family": "button",
+      "status": "ready",
+      "owner": "Kanosis design system",
+      "adoption": "Shared catalog",
+      "accessibilityReview": "pending-component-matrix",
+      "documentation": "storybook:button",
+      "stability": "Semver protected"
+    },
+    {
+      "tag": "ds-illustration",
+      "family": "enhancements",
+      "status": "experimental",
+      "owner": "Kanosis design system",
+      "adoption": "Validate in a product workflow",
+      "accessibilityReview": "automated-composition",
+      "documentation": "storybook:enhancements",
+      "stability": "Breaking changes allowed before beta"
+    },
+    {
+      "tag": "ds-inline",
+      "family": "layout",
+      "status": "ready",
+      "owner": "Kanosis design system",
+      "adoption": "Shared catalog",
+      "accessibilityReview": "pending-component-matrix",
+      "documentation": "storybook:layout",
+      "stability": "Semver protected"
+    },
+    {
+      "tag": "ds-input",
+      "family": "forms",
+      "status": "ready",
+      "owner": "Kanosis design system",
+      "adoption": "Shared catalog",
+      "accessibilityReview": "automated-composition",
+      "documentation": "storybook:forms",
+      "stability": "Semver protected"
+    },
+    {
+      "tag": "ds-input-group",
+      "family": "enhancements",
+      "status": "experimental",
+      "owner": "Kanosis design system",
+      "adoption": "Validate in a product workflow",
+      "accessibilityReview": "automated-composition",
+      "documentation": "storybook:enhancements",
+      "stability": "Breaking changes allowed before beta"
+    },
+    {
+      "tag": "ds-inspector-pane",
+      "family": "layout",
+      "status": "ready",
+      "owner": "Kanosis design system",
+      "adoption": "Shared catalog",
+      "accessibilityReview": "pending-component-matrix",
+      "documentation": "storybook:layout",
+      "stability": "Semver protected"
+    },
+    {
+      "tag": "ds-job-status",
+      "family": "enterprise-p2",
+      "status": "experimental",
+      "owner": "Kanosis design system",
+      "adoption": "Validate in a product workflow",
+      "accessibilityReview": "pending-component-matrix",
+      "documentation": "storybook:enterprise-p2",
+      "stability": "Breaking changes allowed before beta"
+    },
+    {
+      "tag": "ds-json-editor",
+      "family": "enterprise-p3",
+      "status": "experimental",
+      "owner": "Kanosis design system",
+      "adoption": "Validate in a product workflow",
+      "accessibilityReview": "pending-component-matrix",
+      "documentation": "storybook:enterprise-p3",
+      "stability": "Breaking changes allowed before beta"
+    },
+    {
+      "tag": "ds-kpi-grid",
+      "family": "patterns",
+      "status": "ready",
+      "owner": "Kanosis design system",
+      "adoption": "Shared catalog",
+      "accessibilityReview": "pending-component-matrix",
+      "documentation": "storybook:patterns",
+      "stability": "Semver protected"
+    },
+    {
+      "tag": "ds-list",
+      "family": "navigation",
+      "status": "ready",
+      "owner": "Kanosis design system",
+      "adoption": "Shared catalog",
+      "accessibilityReview": "automated-composition",
+      "documentation": "storybook:navigation",
+      "stability": "Semver protected"
+    },
+    {
+      "tag": "ds-list-item",
+      "family": "navigation",
+      "status": "ready",
+      "owner": "Kanosis design system",
+      "adoption": "Shared catalog",
+      "accessibilityReview": "automated-composition",
+      "documentation": "storybook:navigation",
+      "stability": "Semver protected"
+    },
+    {
+      "tag": "ds-live-region",
+      "family": "enhancements",
+      "status": "experimental",
+      "owner": "Kanosis design system",
+      "adoption": "Validate in a product workflow",
+      "accessibilityReview": "automated-composition",
+      "documentation": "storybook:enhancements",
+      "stability": "Breaking changes allowed before beta"
+    },
+    {
+      "tag": "ds-loading-state",
+      "family": "feedback",
+      "status": "ready",
+      "owner": "Kanosis design system",
+      "adoption": "Shared catalog",
+      "accessibilityReview": "automated-composition",
+      "documentation": "storybook:feedback",
+      "stability": "Semver protected"
+    },
+    {
+      "tag": "ds-maintenance-notice",
+      "family": "enterprise-p3",
+      "status": "experimental",
+      "owner": "Kanosis design system",
+      "adoption": "Validate in a product workflow",
+      "accessibilityReview": "pending-component-matrix",
+      "documentation": "storybook:enterprise-p3",
+      "stability": "Breaking changes allowed before beta"
+    },
+    {
+      "tag": "ds-menu",
+      "family": "overlays",
+      "status": "ready",
+      "owner": "Kanosis design system",
+      "adoption": "Shared catalog",
+      "accessibilityReview": "automated-composition",
+      "documentation": "storybook:overlays",
+      "stability": "Semver protected"
+    },
+    {
+      "tag": "ds-menu-item",
+      "family": "overlays",
+      "status": "ready",
+      "owner": "Kanosis design system",
+      "adoption": "Shared catalog",
+      "accessibilityReview": "automated-composition",
+      "documentation": "storybook:overlays",
+      "stability": "Semver protected"
+    },
+    {
+      "tag": "ds-metric",
+      "family": "display",
+      "status": "ready",
+      "owner": "Kanosis design system",
+      "adoption": "Shared catalog",
+      "accessibilityReview": "pending-component-matrix",
+      "documentation": "storybook:display",
+      "stability": "Semver protected"
+    },
+    {
+      "tag": "ds-navigation-group",
+      "family": "enterprise-p1",
+      "status": "experimental",
+      "owner": "Kanosis design system",
+      "adoption": "Validate in a product workflow",
+      "accessibilityReview": "pending-component-matrix",
+      "documentation": "storybook:enterprise-p1",
+      "stability": "Breaking changes allowed before beta"
+    },
+    {
+      "tag": "ds-notification-center",
+      "family": "enterprise-p1",
+      "status": "experimental",
+      "owner": "Kanosis design system",
+      "adoption": "Validate in a product workflow",
+      "accessibilityReview": "pending-component-matrix",
+      "documentation": "storybook:enterprise-p1",
+      "stability": "Breaking changes allowed before beta"
+    },
+    {
+      "tag": "ds-page-header",
+      "family": "layout",
+      "status": "ready",
+      "owner": "Kanosis design system",
+      "adoption": "Shared catalog",
+      "accessibilityReview": "pending-component-matrix",
+      "documentation": "storybook:layout",
+      "stability": "Semver protected"
+    },
+    {
+      "tag": "ds-pagination",
+      "family": "navigation",
+      "status": "ready",
+      "owner": "Kanosis design system",
+      "adoption": "Shared catalog",
+      "accessibilityReview": "automated-composition",
+      "documentation": "storybook:navigation",
+      "stability": "Semver protected"
+    },
+    {
+      "tag": "ds-pane",
+      "family": "layout",
+      "status": "ready",
+      "owner": "Kanosis design system",
+      "adoption": "Shared catalog",
+      "accessibilityReview": "pending-component-matrix",
+      "documentation": "storybook:layout",
+      "stability": "Semver protected"
+    },
+    {
+      "tag": "ds-pane-content",
+      "family": "layout",
+      "status": "ready",
+      "owner": "Kanosis design system",
+      "adoption": "Shared catalog",
+      "accessibilityReview": "pending-component-matrix",
+      "documentation": "storybook:layout",
+      "stability": "Semver protected"
+    },
+    {
+      "tag": "ds-pane-group",
+      "family": "layout",
+      "status": "ready",
+      "owner": "Kanosis design system",
+      "adoption": "Shared catalog",
+      "accessibilityReview": "pending-component-matrix",
+      "documentation": "storybook:layout",
+      "stability": "Semver protected"
+    },
+    {
+      "tag": "ds-pane-header",
+      "family": "layout",
+      "status": "ready",
+      "owner": "Kanosis design system",
+      "adoption": "Shared catalog",
+      "accessibilityReview": "pending-component-matrix",
+      "documentation": "storybook:layout",
+      "stability": "Semver protected"
+    },
+    {
+      "tag": "ds-panel",
+      "family": "display",
+      "status": "ready",
+      "owner": "Kanosis design system",
+      "adoption": "Shared catalog",
+      "accessibilityReview": "pending-component-matrix",
+      "documentation": "storybook:display",
+      "stability": "Semver protected"
+    },
+    {
+      "tag": "ds-permission-matrix",
+      "family": "enterprise-p3",
+      "status": "experimental",
+      "owner": "Kanosis design system",
+      "adoption": "Validate in a product workflow",
+      "accessibilityReview": "pending-component-matrix",
+      "documentation": "storybook:enterprise-p3",
+      "stability": "Breaking changes allowed before beta"
+    },
+    {
+      "tag": "ds-progress",
+      "family": "feedback",
+      "status": "ready",
+      "owner": "Kanosis design system",
+      "adoption": "Shared catalog",
+      "accessibilityReview": "automated-composition",
+      "documentation": "storybook:feedback",
+      "stability": "Semver protected"
+    },
+    {
+      "tag": "ds-quick-actions",
+      "family": "enterprise-p1",
+      "status": "experimental",
+      "owner": "Kanosis design system",
+      "adoption": "Validate in a product workflow",
+      "accessibilityReview": "pending-component-matrix",
+      "documentation": "storybook:enterprise-p1",
+      "stability": "Breaking changes allowed before beta"
+    },
+    {
+      "tag": "ds-radio",
+      "family": "secondary-forms",
+      "status": "ready",
+      "owner": "Kanosis design system",
+      "adoption": "Shared catalog",
+      "accessibilityReview": "automated-composition",
+      "documentation": "storybook:secondary-forms",
+      "stability": "Semver protected"
+    },
+    {
+      "tag": "ds-radio-group",
+      "family": "secondary-forms",
+      "status": "ready",
+      "owner": "Kanosis design system",
+      "adoption": "Shared catalog",
+      "accessibilityReview": "automated-composition",
+      "documentation": "storybook:secondary-forms",
+      "stability": "Semver protected"
+    },
+    {
+      "tag": "ds-range",
+      "family": "secondary-forms",
+      "status": "ready",
+      "owner": "Kanosis design system",
+      "adoption": "Shared catalog",
+      "accessibilityReview": "automated-composition",
+      "documentation": "storybook:secondary-forms",
+      "stability": "Semver protected"
+    },
+    {
+      "tag": "ds-record-header",
+      "family": "enterprise-p1",
+      "status": "experimental",
+      "owner": "Kanosis design system",
+      "adoption": "Validate in a product workflow",
+      "accessibilityReview": "pending-component-matrix",
+      "documentation": "storybook:enterprise-p1",
+      "stability": "Breaking changes allowed before beta"
+    },
+    {
+      "tag": "ds-reorder-item",
+      "family": "enhancements",
+      "status": "experimental",
+      "owner": "Kanosis design system",
+      "adoption": "Validate in a product workflow",
+      "accessibilityReview": "automated-composition",
+      "documentation": "storybook:enhancements",
+      "stability": "Breaking changes allowed before beta"
+    },
+    {
+      "tag": "ds-reorder-list",
+      "family": "enhancements",
+      "status": "experimental",
+      "owner": "Kanosis design system",
+      "adoption": "Validate in a product workflow",
+      "accessibilityReview": "automated-composition",
+      "documentation": "storybook:enhancements",
+      "stability": "Breaking changes allowed before beta"
+    },
+    {
+      "tag": "ds-role-badge",
+      "family": "enterprise-p3",
+      "status": "experimental",
+      "owner": "Kanosis design system",
+      "adoption": "Validate in a product workflow",
+      "accessibilityReview": "pending-component-matrix",
+      "documentation": "storybook:enterprise-p3",
+      "stability": "Breaking changes allowed before beta"
+    },
+    {
+      "tag": "ds-saved-view",
+      "family": "enterprise",
+      "status": "experimental",
+      "owner": "Kanosis design system",
+      "adoption": "Validate in a product workflow",
+      "accessibilityReview": "pending-component-matrix",
+      "documentation": "storybook:enterprise",
+      "stability": "Breaking changes allowed before beta"
+    },
+    {
+      "tag": "ds-scrollable-pane",
+      "family": "layout",
+      "status": "ready",
+      "owner": "Kanosis design system",
+      "adoption": "Shared catalog",
+      "accessibilityReview": "pending-component-matrix",
+      "documentation": "storybook:layout",
+      "stability": "Semver protected"
+    },
+    {
+      "tag": "ds-search-input",
+      "family": "forms",
+      "status": "ready",
+      "owner": "Kanosis design system",
+      "adoption": "Shared catalog",
+      "accessibilityReview": "pending-component-matrix",
+      "documentation": "storybook:forms",
+      "stability": "Semver protected"
+    },
+    {
+      "tag": "ds-segment",
+      "family": "enhancements",
+      "status": "experimental",
+      "owner": "Kanosis design system",
+      "adoption": "Validate in a product workflow",
+      "accessibilityReview": "automated-composition",
+      "documentation": "storybook:enhancements",
+      "stability": "Breaking changes allowed before beta"
+    },
+    {
+      "tag": "ds-segmented-control",
+      "family": "enhancements",
+      "status": "experimental",
+      "owner": "Kanosis design system",
+      "adoption": "Validate in a product workflow",
+      "accessibilityReview": "automated-composition",
+      "documentation": "storybook:enhancements",
+      "stability": "Breaking changes allowed before beta"
+    },
+    {
+      "tag": "ds-select",
+      "family": "forms",
+      "status": "ready",
+      "owner": "Kanosis design system",
+      "adoption": "Shared catalog",
+      "accessibilityReview": "automated-composition",
+      "documentation": "storybook:forms",
+      "stability": "Semver protected"
+    },
+    {
+      "tag": "ds-sidebar",
+      "family": "navigation",
+      "status": "ready",
+      "owner": "Kanosis design system",
+      "adoption": "Shared catalog",
+      "accessibilityReview": "pending-component-matrix",
+      "documentation": "storybook:navigation",
+      "stability": "Semver protected"
+    },
+    {
+      "tag": "ds-sidebar-item",
+      "family": "navigation",
+      "status": "ready",
+      "owner": "Kanosis design system",
+      "adoption": "Shared catalog",
+      "accessibilityReview": "pending-component-matrix",
+      "documentation": "storybook:navigation",
+      "stability": "Semver protected"
+    },
+    {
+      "tag": "ds-skeleton",
+      "family": "feedback",
+      "status": "ready",
+      "owner": "Kanosis design system",
+      "adoption": "Shared catalog",
+      "accessibilityReview": "pending-component-matrix",
+      "documentation": "storybook:feedback",
+      "stability": "Semver protected"
+    },
+    {
+      "tag": "ds-split-button",
+      "family": "enhancements",
+      "status": "experimental",
+      "owner": "Kanosis design system",
+      "adoption": "Validate in a product workflow",
+      "accessibilityReview": "automated-composition",
+      "documentation": "storybook:enhancements",
+      "stability": "Breaking changes allowed before beta"
+    },
+    {
+      "tag": "ds-stack",
+      "family": "layout",
+      "status": "ready",
+      "owner": "Kanosis design system",
+      "adoption": "Shared catalog",
+      "accessibilityReview": "pending-component-matrix",
+      "documentation": "storybook:layout",
+      "stability": "Semver protected"
+    },
+    {
+      "tag": "ds-status-badge",
+      "family": "display",
+      "status": "ready",
+      "owner": "Kanosis design system",
+      "adoption": "Shared catalog",
+      "accessibilityReview": "pending-component-matrix",
+      "documentation": "storybook:display",
+      "stability": "Semver protected"
+    },
+    {
+      "tag": "ds-stepper",
+      "family": "enterprise-p2",
+      "status": "experimental",
+      "owner": "Kanosis design system",
+      "adoption": "Validate in a product workflow",
+      "accessibilityReview": "pending-component-matrix",
+      "documentation": "storybook:enterprise-p2",
+      "stability": "Breaking changes allowed before beta"
+    },
+    {
+      "tag": "ds-switch",
+      "family": "secondary-forms",
+      "status": "ready",
+      "owner": "Kanosis design system",
+      "adoption": "Shared catalog",
+      "accessibilityReview": "automated-composition",
+      "documentation": "storybook:secondary-forms",
+      "stability": "Semver protected"
+    },
+    {
+      "tag": "ds-tab",
+      "family": "interaction",
+      "status": "ready",
+      "owner": "Kanosis design system",
+      "adoption": "Shared catalog",
+      "accessibilityReview": "automated-composition",
+      "documentation": "storybook:interaction",
+      "stability": "Semver protected"
+    },
+    {
+      "tag": "ds-tabs",
+      "family": "interaction",
+      "status": "ready",
+      "owner": "Kanosis design system",
+      "adoption": "Shared catalog",
+      "accessibilityReview": "automated-composition",
+      "documentation": "storybook:interaction",
+      "stability": "Semver protected"
+    },
+    {
+      "tag": "ds-task-list",
+      "family": "enterprise-p2",
+      "status": "experimental",
+      "owner": "Kanosis design system",
+      "adoption": "Validate in a product workflow",
+      "accessibilityReview": "pending-component-matrix",
+      "documentation": "storybook:enterprise-p2",
+      "stability": "Breaking changes allowed before beta"
+    },
+    {
+      "tag": "ds-tenant-switcher",
+      "family": "enterprise-p1",
+      "status": "experimental",
+      "owner": "Kanosis design system",
+      "adoption": "Validate in a product workflow",
+      "accessibilityReview": "pending-component-matrix",
+      "documentation": "storybook:enterprise-p1",
+      "stability": "Breaking changes allowed before beta"
+    },
+    {
+      "tag": "ds-textarea",
+      "family": "secondary-forms",
+      "status": "ready",
+      "owner": "Kanosis design system",
+      "adoption": "Shared catalog",
+      "accessibilityReview": "automated-composition",
+      "documentation": "storybook:secondary-forms",
+      "stability": "Semver protected"
+    },
+    {
+      "tag": "ds-theme-toggle",
+      "family": "interaction",
+      "status": "ready",
+      "owner": "Kanosis design system",
+      "adoption": "Shared catalog",
+      "accessibilityReview": "pending-component-matrix",
+      "documentation": "storybook:interaction",
+      "stability": "Semver protected"
+    },
+    {
+      "tag": "ds-time-picker",
+      "family": "enterprise-p2",
+      "status": "experimental",
+      "owner": "Kanosis design system",
+      "adoption": "Validate in a product workflow",
+      "accessibilityReview": "pending-component-matrix",
+      "documentation": "storybook:enterprise-p2",
+      "stability": "Breaking changes allowed before beta"
+    },
+    {
+      "tag": "ds-timeline",
+      "family": "enterprise-p2",
+      "status": "experimental",
+      "owner": "Kanosis design system",
+      "adoption": "Validate in a product workflow",
+      "accessibilityReview": "pending-component-matrix",
+      "documentation": "storybook:enterprise-p2",
+      "stability": "Breaking changes allowed before beta"
+    },
+    {
+      "tag": "ds-toast",
+      "family": "feedback",
+      "status": "ready",
+      "owner": "Kanosis design system",
+      "adoption": "Shared catalog",
+      "accessibilityReview": "automated-composition",
+      "documentation": "storybook:feedback",
+      "stability": "Semver protected"
+    },
+    {
+      "tag": "ds-toast-region",
+      "family": "feedback",
+      "status": "ready",
+      "owner": "Kanosis design system",
+      "adoption": "Shared catalog",
+      "accessibilityReview": "automated-composition",
+      "documentation": "storybook:feedback",
+      "stability": "Semver protected"
+    },
+    {
+      "tag": "ds-tooltip",
+      "family": "overlays",
+      "status": "ready",
+      "owner": "Kanosis design system",
+      "adoption": "Shared catalog",
+      "accessibilityReview": "pending-component-matrix",
+      "documentation": "storybook:overlays",
+      "stability": "Semver protected"
+    },
+    {
+      "tag": "ds-tour",
+      "family": "enterprise-p3",
+      "status": "experimental",
+      "owner": "Kanosis design system",
+      "adoption": "Validate in a product workflow",
+      "accessibilityReview": "pending-component-matrix",
+      "documentation": "storybook:enterprise-p3",
+      "stability": "Breaking changes allowed before beta"
+    },
+    {
+      "tag": "ds-tree",
+      "family": "tree",
+      "status": "ready",
+      "owner": "Kanosis design system",
+      "adoption": "Shared catalog",
+      "accessibilityReview": "automated-composition",
+      "documentation": "storybook:tree",
+      "stability": "Semver protected"
+    },
+    {
+      "tag": "ds-tree-item",
+      "family": "tree",
+      "status": "ready",
+      "owner": "Kanosis design system",
+      "adoption": "Shared catalog",
+      "accessibilityReview": "automated-composition",
+      "documentation": "storybook:tree",
+      "stability": "Semver protected"
+    },
+    {
+      "tag": "ds-user-menu",
+      "family": "enterprise-p1",
+      "status": "experimental",
+      "owner": "Kanosis design system",
+      "adoption": "Validate in a product workflow",
+      "accessibilityReview": "pending-component-matrix",
+      "documentation": "storybook:enterprise-p1",
+      "stability": "Breaking changes allowed before beta"
+    },
+    {
+      "tag": "ds-validation-summary",
+      "family": "enterprise",
+      "status": "experimental",
+      "owner": "Kanosis design system",
+      "adoption": "Validate in a product workflow",
+      "accessibilityReview": "pending-component-matrix",
+      "documentation": "storybook:enterprise",
+      "stability": "Breaking changes allowed before beta"
+    },
+    {
+      "tag": "ds-view-toolbar",
+      "family": "enterprise",
+      "status": "experimental",
+      "owner": "Kanosis design system",
+      "adoption": "Validate in a product workflow",
+      "accessibilityReview": "pending-component-matrix",
+      "documentation": "storybook:enterprise",
+      "stability": "Breaking changes allowed before beta"
+    },
+    {
+      "tag": "ds-workspace-tabs",
+      "family": "enterprise-p1",
+      "status": "experimental",
+      "owner": "Kanosis design system",
+      "adoption": "Validate in a product workflow",
+      "accessibilityReview": "pending-component-matrix",
+      "documentation": "storybook:enterprise-p1",
+      "stability": "Breaking changes allowed before beta"
+    }
+  ]
+}

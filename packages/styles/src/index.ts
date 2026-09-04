@@ -1,4 +1,11 @@
-import { css, type CSSResultGroup } from 'lit';
+import { breakpoints } from '@endeavoury/kanosis-tokens';
+import { css, unsafeCSS, type CSSResultGroup } from 'lit';
+
+export const responsiveBreakpoints = breakpoints;
+export const mediaCompact = unsafeCSS(`(max-width: ${breakpoints.compact})`);
+export const mediaMedium = unsafeCSS(`(max-width: ${breakpoints.medium})`);
+export const mediaExpanded = unsafeCSS(`(max-width: ${breakpoints.expanded})`);
+export const mediaWide = unsafeCSS(`(max-width: ${breakpoints.wide})`);
 
 export const hostStyles = css`
   :host {
@@ -46,6 +53,21 @@ export const focusStyles = css`
   }
 `;
 
+export const preferenceStyles = css`
+  @media (forced-colors: active) {
+    :where(button, input, select, textarea, a, [tabindex]):focus-visible {
+      outline: 2px solid Highlight;
+      outline-offset: 3px;
+    }
+    :where(button, input, select, textarea) {
+      forced-color-adjust: auto;
+    }
+  }
+  :host-context([dir='rtl']) {
+    direction: rtl;
+  }
+`;
+
 export const controlStyles = css`
   .control {
     min-height: var(--ds-control-height-md);
@@ -72,7 +94,7 @@ export const controlStyles = css`
   }
   .control:disabled {
     cursor: not-allowed;
-    opacity: 0.5;
+    opacity: var(--ds-opacity-disabled);
   }
 `;
 
@@ -138,7 +160,7 @@ export const spinnerStyles = css`
     border-top-color: var(--ds-spinner-color, var(--ds-color-accent-primary));
     border-right-color: var(--ds-spinner-gap, transparent);
     border-radius: 50%;
-    animation: ds-spin 0.8s linear infinite;
+    animation: ds-spin var(--ds-duration-progress) linear infinite;
   }
   @keyframes ds-spin {
     to {
@@ -153,17 +175,24 @@ export const spinnerStyles = css`
   }
 `;
 
-export const foundationStyles: CSSResultGroup = [hostStyles, typographyStyles, focusStyles];
+export const foundationStyles: CSSResultGroup = [
+  hostStyles,
+  typographyStyles,
+  focusStyles,
+  preferenceStyles,
+];
 export const controlFoundationStyles: CSSResultGroup = [
   hostStyles,
   typographyStyles,
   focusStyles,
+  preferenceStyles,
   controlStyles,
 ];
 export const formFoundationStyles: CSSResultGroup = [
   hostStyles,
   typographyStyles,
   focusStyles,
+  preferenceStyles,
   controlStyles,
   formStyles,
   a11yStyles,

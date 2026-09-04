@@ -109,6 +109,17 @@ import {
   DsTreeItem,
   DsProgress,
   DsSkeleton,
+  DsActionBar,
+  DsBrandMark,
+  DsChip,
+  DsIllustration,
+  DsInputGroup,
+  DsLiveRegion,
+  DsReorderItem,
+  DsReorderList,
+  DsSegment,
+  DsSegmentedControl,
+  DsSplitButton,
   type DsActivateDetail,
   type DsCheckedChangeDetail,
   type DsDisclosureChangeDetail,
@@ -216,6 +227,47 @@ export const LoadingState = component('ds-loading-state', DsLoadingState);
 export const EmptyState = component('ds-empty-state', DsEmptyState);
 export const Progress = component('ds-progress', DsProgress);
 export const Skeleton = component('ds-skeleton', DsSkeleton);
+export const LiveRegion = component('ds-live-region', DsLiveRegion);
+export const SegmentedControl = createComponent({
+  tagName: 'ds-segmented-control',
+  elementClass: DsSegmentedControl,
+  react: React,
+  events: { onDsChange: 'ds-change' as EventName<CustomEvent<{ value: string }>> },
+});
+export const Segment = component('ds-segment', DsSegment);
+export const ActionBar = component('ds-action-bar', DsActionBar);
+export const SplitButton = createComponent({
+  tagName: 'ds-split-button',
+  elementClass: DsSplitButton,
+  react: React,
+  events: {
+    onDsActivate: 'ds-activate' as EventName<CustomEvent<void>>,
+    onDsMenuToggle: 'ds-menu-toggle' as EventName<CustomEvent<{ open: boolean }>>,
+  },
+});
+export const InputGroup = component('ds-input-group', DsInputGroup);
+export const Chip = createComponent({
+  tagName: 'ds-chip',
+  elementClass: DsChip,
+  react: React,
+  events: {
+    onDsChange: 'ds-change' as EventName<CustomEvent<{ value: string; selected: boolean }>>,
+    onDsDismiss: 'ds-dismiss' as EventName<CustomEvent<{ value: string; reason: string }>>,
+  },
+});
+export const Illustration = component('ds-illustration', DsIllustration);
+export const BrandMark = component('ds-brand-mark', DsBrandMark);
+export const ReorderList = createComponent({
+  tagName: 'ds-reorder-list',
+  elementClass: DsReorderList,
+  react: React,
+  events: {
+    onDsReorder: 'ds-reorder' as EventName<
+      CustomEvent<{ value: string; fromIndex: number; toIndex: number; values: string[] }>
+    >,
+  },
+});
+export const ReorderItem = component('ds-reorder-item', DsReorderItem);
 export const Toast = createComponent({
   tagName: 'ds-toast',
   elementClass: DsToast,

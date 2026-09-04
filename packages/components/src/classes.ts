@@ -1,6 +1,7 @@
 import type {} from './custom-elements.js';
 
 export * from './core/ds-element.js';
+export * from './core/accessibility.js';
 export * from './components/icon.js';
 export * from './components/button.js';
 export * from './components/forms.js';
@@ -20,3 +21,4 @@ export * from './components/enterprise.js';
 export * from './components/enterprise-p1.js';
 export * from './components/enterprise-p2.js';
 export * from './components/enterprise-p3.js';
+export * from './components/enhancements.js';

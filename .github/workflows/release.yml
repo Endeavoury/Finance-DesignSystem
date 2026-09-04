@@ -54,6 +54,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Install visual-test browser
+        run: npx playwright install --with-deps chromium
+
       - name: Select semantic version increment
         id: increment
         env:

@@ -4,6 +4,8 @@
 
 ```bash
 npm run storybook       # interactive review
+npm run tokens:generate # generate typed token metadata from runtime CSS
+npm run verify:tokens   # reject token drift and unsafe foundation values
 npm run typecheck       # project-reference TypeScript check
 npm test                # Web Component behavior and accessibility
 npm run build           # packages and three framework examples
@@ -35,6 +37,7 @@ Every registered custom element must have all of the following:
 - a component implementation and narrow registration entry point;
 - a Storybook story that renders the element (including an autodocs page);
 - a documentation entry in `docs/component-catalog.md` linking to its story family;
+- generated ownership and maturity status in `docs/component-status.json`;
 - behavior and accessibility coverage where the element has interaction.
 
 Run `npm run verify:components` to enforce this contract locally and in CI.
@@ -55,7 +58,11 @@ Agents and other tooling can discover the complete public catalog with `npm run 
 
 ## Adding tokens or shared styles
 
-Add raw scale values and semantic aliases to the tokens package, then document them in a Foundations story. A shared Lit style belongs in the styles package only when several components use the same behavioral or visual convention. Avoid catch-all foundations that make individual component bundles expensive.
+Add raw scale values and semantic aliases to `packages/tokens/src/tokens.css`, run
+`npm run tokens:generate`, then document them in a Foundations story. Do not hand-edit the generated
+TypeScript metadata. A shared Lit style belongs in the styles package only when several components
+use the same behavioral or visual convention. Avoid catch-all foundations that make individual
+component bundles expensive.
 
 ## Test strategy
 
@@ -66,4 +73,6 @@ Add raw scale values and semantic aliases to the tokens package, then document t
 - Storybook static build: validates every story import and docs configuration.
 - Bundle analysis: measures minified full and individual imports, gzipped output, and shared-style marker duplication.
 
-Visual regression is prepared for local/CI use through the deterministic static Storybook build. A screenshot runner can be attached to the generated `storybook-static` output without a paid service; project-specific baseline ownership should be established before committing binary snapshots.
+Visual regression uses the deterministic static Storybook build and the Playwright screenshot suite.
+Baselines cover themes, contrast, direction, and shared viewport ranges; update them only after design
+review.

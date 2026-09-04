@@ -14,4 +14,5 @@ import './register/enterprise.js';
 import './register/enterprise-p1.js';
 import './register/enterprise-p2.js';
 import './register/enterprise-p3.js';
+import './register/enhancements.js';
 export * from './classes.js';

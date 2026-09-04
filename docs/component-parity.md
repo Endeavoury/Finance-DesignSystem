@@ -1,5 +1,9 @@
 # Component breadth benchmark
 
+> This capability matrix records the earlier Bootstrap and Material breadth pass. For the current
+> quality, foundation, component, and pattern priorities across Bootstrap, Material, GitHub Primer,
+> and Atlassian, see the [external design-system review](external-design-system-review.md).
+
 All adapters expose the same custom-element implementation. Ontarchon Studio
 and Nexus consume the vanilla custom-element contract directly from Angular;
 Finance-Inzicht does the same; the public website consumes the generated browser
@@ -14,7 +18,7 @@ Kanosis deliberately keeps one semantic, accessible Web Component API instead of
 
 ## Coverage matrix
 
-| Product capability     | Kanosis                                                                            | Material / Bootstrap analogue                             | Status                      |
+| Product capability     | Kanosis                                                                                   | Material / Bootstrap analogue                             | Status                      |
 | ---------------------- | ----------------------------------------------------------------------------------------- | --------------------------------------------------------- | --------------------------- |
 | Actions                | `ds-button`, `ds-icon-button`, `ds-button-group`                                          | Buttons, icon buttons, FAB, button groups                 | Covered                     |
 | Text entry             | `ds-input`, `ds-search-input`, `ds-textarea`                                              | Text fields, search, form controls                        | Covered                     |
@@ -32,14 +36,16 @@ Kanosis deliberately keeps one semantic, accessible Web Component API instead of
 | Data display           | `ds-data-table`, `ds-list`, layout primitives                                             | Tables and list groups                                    | Covered                     |
 | Application structure  | `ds-app-shell`, `ds-page-header`, `ds-filter-bar`, layout primitives                      | Navbar/sidebar, containers, grid, stacks                  | Covered                     |
 
-The complete package currently registers 58 custom elements. Storybook is required to contain every registered element, so the catalog cannot silently grow without reviewable examples.
+The complete package currently registers 118 custom elements. Storybook is required to contain every registered element, so the catalog cannot silently grow without a reviewable example. Presence is a discoverability check; it is not by itself evidence that every state is production-ready.
 
 ## Deliberate differences
 
 - Carousel and scrollspy are content-site patterns, not current financial-product primitives. They remain outside the core package.
 - Popovers are represented by the composable menu, tooltip, dialog, and drawer primitives. A generic unconstrained popover will only be added with a concrete accessible interaction model.
 - CSS utilities are not reproduced wholesale. `ds-stack`, `ds-inline`, `ds-grid`, and `ds-container` provide stable layout contracts without leaking hundreds of global classes.
-- Date/time pickers, autocomplete/combobox, and rich data-grid virtualization need dedicated internationalization and interaction work. They are the next meaningful breadth tier rather than thin visual wrappers.
+- Date/time pickers, autocomplete/combobox, and the richer data-grid layer are present, but they still
+  need deeper internationalization, interaction, large-data, and accessibility evidence before being
+  treated as mature solely on the strength of component parity.
 - Components retain the Kanosis visual language. Material and Bootstrap are capability benchmarks, not styling dependencies.
 
 ## Catalog quality contract
@@ -54,6 +60,10 @@ New components are not considered delivered until they have:
 6. Storybook examples, automated behavior tests, and representative axe coverage;
 7. bundle-budget participation.
 
-## Next breadth tier
+## Next maturity tier
 
-The remaining high-value additions are autocomplete/combobox, date and time input patterns, a segmented control, a richer data-grid layer, visual-regression coverage across both themes, and formal RTL/high-contrast verification.
+Autocomplete/combobox, date and time inputs, and a richer data-grid layer have since been delivered.
+The next tier is catalog maturity rather than breadth: a segmented control and overflow action bar
+remain candidates, while token integrity, visual regression, component-level accessibility evidence,
+RTL, forced-colors, high contrast, and task-pattern guidance take priority. See the
+[external review](external-design-system-review.md) for the ordered backlog.

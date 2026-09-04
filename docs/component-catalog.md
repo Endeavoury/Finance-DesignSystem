@@ -1,6 +1,15 @@
 # Component catalog
 
-This catalog is the documentation index for every registered custom element. Each tag is covered by a Storybook story (with autodocs) and by the component tests. The story links below point to the source family so documentation remains discoverable without duplicating API prose.
+This catalog is the documentation index for every registered custom element. Each tag is covered by
+a Storybook example with autodocs. Story presence establishes discoverability; production readiness
+is tracked separately in the [component status manifest](component-status.json) under the
+[component maturity policy](component-maturity.md).
+
+The [implementation report](implementation-report.md) maps the external review backlog to the
+delivered foundations, components, patterns, and quality gates. Detailed guides currently cover the
+[data table/grid](components/data-table.md) and
+[action, input, asset, and reordering additions](components/maturity-additions.md); the status
+manifest keeps catalog-only entries experimental rather than overstating their readiness.
 
 ## Layout and navigation
 
@@ -21,5 +30,11 @@ This catalog is the documentation index for every registered custom element. Eac
 ## Foundations and controls
 
 `ds-alert`, `ds-avatar`, `ds-badge`, `ds-breadcrumb`, `ds-breadcrumbs`, `ds-button`, `ds-button-group`, `ds-card`, `ds-checkbox`, `ds-code-block`, `ds-container`, `ds-description-list`, `ds-dialog`, `ds-disclosure`, `ds-drawer`, `ds-empty-state`, `ds-form-field`, `ds-grid`, `ds-icon`, `ds-icon-button`, `ds-inline`, `ds-input`, `ds-kpi-grid`, `ds-list`, `ds-list-item`, `ds-loading-state`, `ds-menu`, `ds-menu-item`, `ds-metric`, `ds-page-header`, `ds-pagination`, `ds-panel`, `ds-progress`, `ds-radio`, `ds-radio-group`, `ds-range`, `ds-search-input`, `ds-select`, `ds-sidebar-item`, `ds-skeleton`, `ds-stack`, `ds-status-badge`, `ds-switch`, `ds-tab`, `ds-tabs`, `ds-textarea`, `ds-theme-toggle`, `ds-toast`, `ds-toast-region`, `ds-tooltip`, `ds-tree`, `ds-tree-item` — [component stories](../storybook/stories/components)
+
+## Action, accessibility, asset, and reordering additions
+
+`ds-live-region`, `ds-segmented-control`, `ds-segment`, `ds-action-bar`, `ds-split-button`,
+`ds-input-group`, `ds-chip`, `ds-illustration`, `ds-brand-mark`, `ds-reorder-list`,
+`ds-reorder-item` — [maturity addition stories](../storybook/stories/components/enhancements.stories.ts)
 
 When a component gains a dedicated story family, update its link here; the tag itself must remain present so `npm run verify:components` can enforce coverage.

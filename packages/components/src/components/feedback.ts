@@ -1,6 +1,11 @@
 import { css, html, nothing, type CSSResultGroup } from 'lit';
 import { property } from 'lit/decorators.js';
-import { foundationStyles, spinnerStyles, surfaceStyles } from '@endeavoury/kanosis-styles';
+import {
+  foundationStyles,
+  mediaCompact,
+  spinnerStyles,
+  surfaceStyles,
+} from '@endeavoury/kanosis-styles';
 import { DsElement, type DsTone } from '../core/ds-element.js';
 
 export class DsAlert extends DsElement {
@@ -253,7 +258,7 @@ export class DsProgress extends DsElement {
           var(--ds-color-bg-sunken) 75% 100%
         );
         background-size: 220% 100%;
-        animation: ds-progress 1.4s linear infinite;
+        animation: ds-progress var(--ds-duration-progress) linear infinite;
       }
       @keyframes ds-progress {
         to {
@@ -320,7 +325,7 @@ export class DsSkeleton extends DsElement {
           var(--ds-color-bg-sunken) 56%
         );
         background-size: 220% 100%;
-        animation: ds-skeleton 1.5s var(--ds-ease-standard) infinite;
+        animation: ds-skeleton var(--ds-duration-skeleton) var(--ds-ease-standard) infinite;
       }
       :host([shape='circle']) {
         width: var(--skeleton-width, 2.5rem);
@@ -524,7 +529,7 @@ export class DsToastRegion extends DsElement {
         bottom: var(--ds-space-4);
         left: var(--ds-space-4);
       }
-      @media (max-width: 560px) {
+      @media ${mediaCompact} {
         :host,
         :host([position]) {
           top: var(--ds-space-2);

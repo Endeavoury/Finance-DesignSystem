@@ -118,9 +118,16 @@ describe('representative accessibility compositions', () => {
     </main>`;
     const descriptions = document.querySelector('ds-description-list')!;
     descriptions.items = [{ term: 'Version', value: '1.0.0' }];
-    const elements = [...document.querySelectorAll<HTMLElement & { updateComplete: Promise<unknown> }>('ds-tree,ds-tree-item,ds-description-list,ds-code-block')];
+    const elements = [
+      ...document.querySelectorAll<HTMLElement & { updateComplete: Promise<unknown> }>(
+        'ds-tree,ds-tree-item,ds-description-list,ds-code-block',
+      ),
+    ];
     await Promise.all(elements.map((element) => element.updateComplete));
-    document.querySelector('ds-tree-item')!.shadowRoot!.querySelector('slot:not([name])')!.dispatchEvent(new Event('slotchange'));
+    document
+      .querySelector('ds-tree-item')!
+      .shadowRoot!.querySelector('slot:not([name])')!
+      .dispatchEvent(new Event('slotchange'));
     await Promise.all(elements.map((element) => element.updateComplete));
     const result = await axe.run(document.body, { rules: { region: { enabled: false } } });
     expect(result.violations).toEqual([]);
@@ -149,6 +156,64 @@ describe('representative accessibility compositions', () => {
     ];
     await Promise.all(elements.map((element) => element.updateComplete));
 
+    const result = await axe.run(document.body, { rules: { region: { enabled: false } } });
+    expect(result.violations).toEqual([]);
+  });
+
+  it('has no detectable violations in mature action, asset, and reorder additions', async () => {
+    document.body.innerHTML = `<main><h1>Workspace preferences</h1>
+      <ds-segmented-control label="Density" value="comfortable">
+        <ds-segment value="compact">Compact</ds-segment>
+        <ds-segment value="comfortable">Comfortable</ds-segment>
+      </ds-segmented-control>
+      <ds-action-bar label="Workspace actions">
+        <ds-button>Save</ds-button><ds-button slot="overflow">Archive</ds-button>
+      </ds-action-bar>
+      <ds-split-button label="Publish" menu-label="Publishing options">
+        Publish<ds-menu-item slot="menu" value="draft">Save draft</ds-menu-item>
+      </ds-split-button>
+      <ds-chip value="active" label="Active" dismissible>Active</ds-chip>
+      <ds-input-group label="Account code"><span slot="prefix">AC-</span><ds-input label="Code"></ds-input></ds-input-group>
+      <ds-reorder-list label="Panels">
+        <ds-reorder-item value="summary" label="Summary">Summary</ds-reorder-item>
+        <ds-reorder-item value="activity" label="Activity">Activity</ds-reorder-item>
+      </ds-reorder-list>
+      <ds-illustration variant="empty" label="No panels"></ds-illustration>
+      <ds-brand-mark></ds-brand-mark>
+      <ds-live-region message="Preferences loaded"></ds-live-region>
+    </main>`;
+    const elements = [
+      ...document.querySelectorAll<HTMLElement & { updateComplete: Promise<unknown> }>('main *'),
+    ].filter((element) => element.localName.startsWith('ds-'));
+    await Promise.all(elements.map((element) => element.updateComplete));
+    document
+      .querySelector('ds-segmented-control')!
+      .shadowRoot!.querySelector('slot')!
+      .dispatchEvent(new Event('slotchange'));
+    await Promise.all(elements.map((element) => element.updateComplete));
+    const result = await axe.run(document.body, { rules: { region: { enabled: false } } });
+    expect(result.violations).toEqual([]);
+  });
+
+  it('has no detectable violations in labeled, sortable, paged data tables and grids', async () => {
+    document.body.innerHTML = `<main><h1>Accounts</h1>
+      <ds-data-table caption="Account balances" description="Balances at close of business"></ds-data-table>
+      <ds-data-grid label="Pending accounts"></ds-data-grid>
+    </main>`;
+    const columns = [
+      { key: 'name', label: 'Account', rowHeader: true, sortable: true },
+      { key: 'balance', label: 'Balance', numeric: true, sortable: true },
+    ];
+    const rows = [{ id: 'cash', name: 'Cash', balance: 1250 }];
+    const elements = [
+      ...document.querySelectorAll<HTMLElement & { updateComplete: Promise<unknown> }>(
+        'ds-data-table,ds-data-grid',
+      ),
+    ];
+    for (const element of elements) {
+      Object.assign(element, { columns, rows, pageSize: 10, totalRows: 12 });
+    }
+    await Promise.all(elements.map((element) => element.updateComplete));
     const result = await axe.run(document.body, { rules: { region: { enabled: false } } });
     expect(result.violations).toEqual([]);
   });

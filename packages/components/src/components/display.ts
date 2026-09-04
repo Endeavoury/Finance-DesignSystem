@@ -1,6 +1,6 @@
 import { css, html, nothing, type CSSResultGroup } from 'lit';
 import { property, state } from 'lit/decorators.js';
-import { foundationStyles, surfaceStyles } from '@endeavoury/kanosis-styles';
+import { foundationStyles, mediaCompact, surfaceStyles } from '@endeavoury/kanosis-styles';
 import { DsElement, type DsTone } from '../core/ds-element.js';
 
 export class DsBadge extends DsElement {
@@ -124,7 +124,7 @@ export class DsAvatar extends DsElement {
         font-weight: var(--ds-font-weight-semibold);
         text-transform: uppercase;
         box-shadow:
-          inset 0 1px 0 rgb(255 255 255 / 16%),
+          inset 0 1px 0 var(--ds-color-highlight),
           0 5px 14px color-mix(in srgb, var(--ds-color-accent-primary) 16%, transparent);
       }
       :host([size='small']) .avatar {
@@ -425,7 +425,7 @@ export class DsDescriptionList extends DsElement {
       div { min-width: 0; padding: var(--ds-space-3); border: 1px solid var(--ds-color-border-subtle); border-radius: var(--ds-radius-md); background: var(--ds-color-bg-surface-subtle); }
       dt { color: var(--ds-color-text-muted); font-size: var(--ds-font-size-xs); font-weight: var(--ds-font-weight-semibold); letter-spacing: var(--ds-letter-spacing-wide); text-transform: uppercase; }
       dd { margin: var(--ds-space-1) 0 0; color: var(--ds-color-text-primary); font-weight: var(--ds-font-weight-medium); overflow-wrap: anywhere; }
-      @media (max-width: 36rem) { dl { grid-template-columns: 1fr; } }
+      @media ${mediaCompact} { dl { grid-template-columns: 1fr; } }
     `,
   ];
   @property({ attribute: false }) items: DsDescriptionItem[] = [];
@@ -442,7 +442,7 @@ export class DsCodeBlock extends DsElement {
     foundationStyles,
     css`
       :host { display: block; min-width: 0; }
-      figure { margin: 0; overflow: hidden; border: 1px solid var(--ds-color-border-default); border-radius: var(--ds-radius-lg); background: var(--ds-color-bg-inverse, #07141f); color: var(--ds-color-text-inverse); }
+      figure { margin: 0; overflow: hidden; border: 1px solid var(--ds-color-border-default); border-radius: var(--ds-radius-lg); background: var(--ds-color-bg-inverse); color: var(--ds-color-text-inverse); }
       figcaption { display: flex; justify-content: space-between; gap: var(--ds-space-3); padding: var(--ds-space-2) var(--ds-space-4); border-bottom: 1px solid color-mix(in srgb, currentColor 16%, transparent); color: color-mix(in srgb, currentColor 72%, transparent); font-size: var(--ds-font-size-xs); }
       pre { max-width: 100%; margin: 0; padding: var(--ds-space-4); overflow: auto; font-family: var(--ds-font-mono); font-size: var(--ds-font-size-sm); line-height: var(--ds-line-height-normal); tab-size: 2; }
       :host([wrap]) pre { white-space: pre-wrap; overflow-wrap: anywhere; }

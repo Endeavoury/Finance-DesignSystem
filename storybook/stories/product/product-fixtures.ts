@@ -147,7 +147,7 @@ export const productStyles = html`<style>
     box-shadow: var(--ds-shadow-accent);
     color: #fff;
   }
-  @media (max-width: 760px) {
+  @media (max-width: 48rem) {
     .split,
     .settings {
       grid-template-columns: 1fr;

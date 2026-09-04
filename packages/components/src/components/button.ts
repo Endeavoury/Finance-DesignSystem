@@ -75,7 +75,7 @@ export class DsButton extends DsElement {
         );
         color: var(--ds-color-text-inverse);
         box-shadow:
-          inset 0 1px 0 rgb(255 255 255 / 18%),
+          inset 0 1px 0 var(--ds-color-highlight),
           var(--ds-shadow-accent);
       }
       :host([variant='primary']) :is(button, a):hover:not(:disabled):not([aria-disabled='true']) {
@@ -85,7 +85,7 @@ export class DsButton extends DsElement {
           color-mix(in srgb, var(--ds-color-accent-primary) 88%, black)
         );
         box-shadow:
-          inset 0 1px 0 rgb(255 255 255 / 22%),
+          inset 0 1px 0 var(--ds-color-highlight),
           0 10px 26px color-mix(in srgb, var(--ds-color-accent-primary) 26%, transparent);
       }
       :host([variant='secondary']) :is(button, a) {

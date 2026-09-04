@@ -1,6 +1,6 @@
 import { css, html, nothing, type CSSResultGroup } from 'lit';
 import { property } from 'lit/decorators.js';
-import { foundationStyles } from '@endeavoury/kanosis-styles';
+import { foundationStyles, mediaCompact } from '@endeavoury/kanosis-styles';
 import { DsElement } from '../core/ds-element.js';
 
 export interface DsAuditEntry {
@@ -535,7 +535,7 @@ export class DsCompareView extends DsElement {
       .column + .column {
         border-left: 1px solid var(--ds-color-border-default);
       }
-      @media (max-width: 640px) {
+      @media ${mediaCompact} {
         .compare {
           grid-template-columns: 1fr;
         }

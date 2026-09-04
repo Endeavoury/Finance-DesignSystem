@@ -26,4 +26,7 @@ if (!HTMLElement.prototype.attachInternals) {
 afterEach(() => {
   document.body.replaceChildren();
   document.documentElement.removeAttribute('data-ds-theme');
+  document.documentElement.removeAttribute('data-ds-contrast');
+  document.documentElement.removeAttribute('data-ds-brand');
+  document.documentElement.removeAttribute('dir');
 });

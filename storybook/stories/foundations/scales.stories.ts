@@ -19,12 +19,12 @@ export const MotionAndBreakpoints: StoryObj = {
   render: () =>
     html`<ds-panel
       heading="Motion and responsive policy"
-      description="Fast 120ms feedback, 180ms structural transitions, and automatic reduction when requested."
+      description="Fast 140ms feedback, 220ms structural transitions, semantic motion roles, and automatic reduction when requested."
       ><ds-stack gap="3"
-        ><code>mobile 390px · tablet 768px · laptop 1280px · desktop 1440px · wide 1920px</code>
+        ><code>compact ≤40rem · medium ≤48rem · expanded ≤56.25rem · wide ≤68.75rem</code>
         <p style="color:var(--ds-color-text-secondary)">
           Component responsiveness is container-conscious where possible; application-shell
-          navigation changes at 680px.
+          structure uses the shared compact, medium, expanded, and wide contract.
         </p></ds-stack
       ></ds-panel
     >`,

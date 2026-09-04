@@ -1,6 +1,10 @@
 import { css, html, nothing, type CSSResultGroup, type PropertyValues } from 'lit';
 import { property, query } from 'lit/decorators.js';
-import { foundationStyles } from '@endeavoury/kanosis-styles';
+import {
+  foundationStyles,
+  mediaCompact,
+  mediaExpanded,
+} from '@endeavoury/kanosis-styles';
 import { DsElement } from '../core/ds-element.js';
 
 const gaps = css`
@@ -240,7 +244,7 @@ export class DsInspectorPane extends DsElement {
       :host([collapsed]) {
         display: none;
       }
-      @media (max-width: 800px) {
+      @media ${mediaExpanded} {
         :host {
           position: absolute;
           z-index: var(--ds-z-drawer);
@@ -336,12 +340,20 @@ export class DsInline extends DsElement {
       :host([wrap='false']) {
         flex-wrap: nowrap;
       }
+      @media ${mediaCompact} {
+        :host([collapse-at-compact]) {
+          align-items: stretch;
+          flex-direction: column;
+        }
+      }
     `,
   ];
   @property({ reflect: true }) gap = '3';
   @property({ reflect: true }) align: 'start' | 'center' | 'end' = 'center';
   @property({ reflect: true }) justify: 'start' | 'center' | 'end' | 'between' = 'start';
   @property({ type: Boolean, reflect: true }) wrap = true;
+  @property({ type: Boolean, reflect: true, attribute: 'collapse-at-compact' })
+  collapseAtCompact = false;
   protected override render() {
     return html`<slot></slot>`;
   }
@@ -371,21 +383,29 @@ export class DsGrid extends DsElement {
       :host([columns='6']) {
         --columns: 6;
       }
-      @media (max-width: 900px) {
+      @media ${mediaExpanded} {
         :host([responsive]) {
-          grid-template-columns: repeat(2, minmax(0, 1fr));
+          grid-template-columns: repeat(var(--medium-columns, 2), minmax(0, 1fr));
         }
       }
-      @media (max-width: 600px) {
+      @media ${mediaCompact} {
         :host([responsive]) {
-          grid-template-columns: 1fr;
+          grid-template-columns: repeat(var(--compact-columns, 1), minmax(0, 1fr));
         }
       }
     `,
   ];
   @property({ reflect: true }) columns = '3';
+  @property({ reflect: true, attribute: 'medium-columns' }) mediumColumns = '2';
+  @property({ reflect: true, attribute: 'compact-columns' }) compactColumns = '1';
   @property({ reflect: true }) gap = '4';
   @property({ type: Boolean, reflect: true }) responsive = true;
+  protected override updated(changed: PropertyValues<this>) {
+    if (changed.has('mediumColumns'))
+      this.style.setProperty('--medium-columns', this.mediumColumns);
+    if (changed.has('compactColumns'))
+      this.style.setProperty('--compact-columns', this.compactColumns);
+  }
   protected override render() {
     return html`<slot></slot>`;
   }
@@ -396,14 +416,25 @@ export class DsContainer extends DsElement {
     css`
       :host {
         display: block;
-        width: min(100% - 2.5rem, var(--container, 92rem));
+        width: min(
+          calc(100% - 2 * var(--ds-space-5)),
+          var(--container, var(--ds-container-normal))
+        );
         margin-inline: auto;
       }
+      @media ${mediaCompact} {
+        :host {
+          width: min(
+            calc(100% - 2 * var(--ds-space-4)),
+            var(--container, var(--ds-container-normal))
+          );
+        }
+      }
       :host([size='narrow']) {
-        --container: 48rem;
+        --container: var(--ds-container-narrow);
       }
       :host([size='wide']) {
-        --container: 108rem;
+        --container: var(--ds-container-wide);
       }
       :host([flush]) {
         width: 100%;
@@ -450,7 +481,7 @@ export class DsPageHeader extends DsElement {
       .actions {
         flex: 0 0 auto;
       }
-      @media (max-width: 640px) {
+      @media ${mediaCompact} {
         .header {
           display: grid;
           align-items: start;
@@ -582,7 +613,7 @@ export class DsDetailSidebar extends DsElement {
         border-top: 1px solid var(--ds-color-border-subtle);
         background: var(--ds-color-bg-surface-subtle);
       }
-      @media (max-width: 640px) {
+      @media ${mediaCompact} {
         aside {
           width: 100%;
         }

@@ -112,6 +112,19 @@ import type {
 } from './components/navigation-extras.js';
 import type { DsFilterBar, DsKpiGrid } from './components/patterns.js';
 import type { DsTree, DsTreeItem } from './components/tree.js';
+import type {
+  DsActionBar,
+  DsBrandMark,
+  DsChip,
+  DsIllustration,
+  DsInputGroup,
+  DsLiveRegion,
+  DsReorderItem,
+  DsReorderList,
+  DsSegment,
+  DsSegmentedControl,
+  DsSplitButton,
+} from './components/enhancements.js';
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -222,6 +235,17 @@ declare global {
     'ds-tour': DsTour;
     'ds-coachmark': DsCoachmark;
     'ds-compare-view': DsCompareView;
+    'ds-live-region': DsLiveRegion;
+    'ds-segmented-control': DsSegmentedControl;
+    'ds-segment': DsSegment;
+    'ds-action-bar': DsActionBar;
+    'ds-split-button': DsSplitButton;
+    'ds-input-group': DsInputGroup;
+    'ds-chip': DsChip;
+    'ds-illustration': DsIllustration;
+    'ds-brand-mark': DsBrandMark;
+    'ds-reorder-list': DsReorderList;
+    'ds-reorder-item': DsReorderItem;
   }
 }
 

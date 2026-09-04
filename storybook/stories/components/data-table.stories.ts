@@ -32,13 +32,14 @@ const rows = [
 ];
 const columns: DsTableColumn[] = [
   { key: 'date', label: 'Booking date', sortable: true, width: '130px' },
-  { key: 'counterparty', label: 'Description', sortable: true },
+  { key: 'counterparty', label: 'Description', sortable: true, rowHeader: true },
   { key: 'category', label: 'Category' },
   { key: 'status', label: 'Source' },
   {
     key: 'amount',
     label: 'Amount',
     align: 'end',
+    numeric: true,
     sortable: true,
     format: (value) =>
       new Intl.NumberFormat('en-NL', { style: 'currency', currency: 'EUR' }).format(Number(value)),
@@ -47,6 +48,7 @@ const columns: DsTableColumn[] = [
     key: 'balance',
     label: 'Balance after',
     align: 'end',
+    numeric: true,
     format: (value) =>
       new Intl.NumberFormat('en-NL', { style: 'currency', currency: 'EUR' }).format(Number(value)),
   },

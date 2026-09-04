@@ -1,6 +1,6 @@
 import { css, html, nothing, type CSSResultGroup } from 'lit';
 import { property } from 'lit/decorators.js';
-import { foundationStyles } from '@endeavoury/kanosis-styles';
+import { foundationStyles, mediaCompact } from '@endeavoury/kanosis-styles';
 import { DsElement } from '../core/ds-element.js';
 import { DsDropZone } from './upload.js';
 import { DsProgress } from './feedback.js';
@@ -111,7 +111,7 @@ export class DsFormSection extends DsElement {
         grid-template-columns: repeat(var(--columns, 2), minmax(0, 1fr));
         gap: var(--ds-space-4);
       }
-      @media (max-width: 640px) {
+      @media ${mediaCompact} {
         .fields {
           grid-template-columns: 1fr;
         }

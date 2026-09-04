@@ -1,6 +1,6 @@
 import { css, html, nothing, type CSSResultGroup } from 'lit';
 import { property, state } from 'lit/decorators.js';
-import { foundationStyles } from '@endeavoury/kanosis-styles';
+import { foundationStyles, mediaMedium } from '@endeavoury/kanosis-styles';
 import { DsElement } from '../core/ds-element.js';
 
 export interface DsActivateDetail {
@@ -83,7 +83,7 @@ export class DsSidebarItem extends DsElement {
         text-overflow: ellipsis;
         white-space: nowrap;
       }
-      @media (max-width: 680px) {
+      @media ${mediaMedium} {
         .item {
           min-height: 3.25rem;
           flex-direction: column;
@@ -191,7 +191,7 @@ export class DsSidebar extends DsElement {
         flex: 0 0 auto;
         padding-top: var(--ds-space-4);
       }
-      @media (max-width: 680px) {
+      @media ${mediaMedium} {
         :host {
           width: auto;
           height: auto;
@@ -351,7 +351,7 @@ export class DsAppShell extends DsElement {
         overflow: hidden;
         scrollbar-gutter: auto;
       }
-      @media (max-width: 680px) {
+      @media ${mediaMedium} {
         :host {
           position: relative;
           grid-template-columns: minmax(0, 1fr);

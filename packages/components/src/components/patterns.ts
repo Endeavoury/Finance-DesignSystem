@@ -1,6 +1,13 @@
 import { css, html, type CSSResultGroup } from 'lit';
 import { property } from 'lit/decorators.js';
-import { foundationStyles, surfaceStyles } from '@endeavoury/kanosis-styles';
+import {
+  foundationStyles,
+  mediaCompact,
+  mediaExpanded,
+  mediaMedium,
+  mediaWide,
+  surfaceStyles,
+} from '@endeavoury/kanosis-styles';
 import { DsElement } from '../core/ds-element.js';
 
 export class DsFilterBar extends DsElement {
@@ -30,7 +37,7 @@ export class DsFilterBar extends DsElement {
         gap: var(--ds-space-2);
         flex: 0 0 auto;
       }
-      @media (max-width: 900px) {
+      @media ${mediaExpanded} {
         .bar {
           display: grid;
         }
@@ -41,7 +48,7 @@ export class DsFilterBar extends DsElement {
           justify-content: flex-end;
         }
       }
-      @media (max-width: 560px) {
+      @media ${mediaCompact} {
         .fields {
           grid-template-columns: 1fr;
         }
@@ -73,17 +80,17 @@ export class DsKpiGrid extends DsElement {
         grid-template-columns: repeat(var(--columns, 4), minmax(0, 1fr));
         gap: var(--ds-space-4);
       }
-      @media (max-width: 1100px) {
+      @media ${mediaWide} {
         :host {
           grid-template-columns: repeat(3, minmax(0, 1fr));
         }
       }
-      @media (max-width: 760px) {
+      @media ${mediaMedium} {
         :host {
           grid-template-columns: repeat(2, minmax(0, 1fr));
         }
       }
-      @media (max-width: 380px) {
+      @media ${mediaCompact} {
         :host {
           grid-template-columns: 1fr;
         }

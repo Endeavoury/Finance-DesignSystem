@@ -24,6 +24,7 @@ const entries = {
   enterpriseP1: `import '@endeavoury/kanosis/enterprise-p1';`,
   enterpriseP2: `import '@endeavoury/kanosis/enterprise-p2';`,
   enterpriseP3: `import '@endeavoury/kanosis/enterprise-p3';`,
+  enhancements: `import '@endeavoury/kanosis/enhancements';`,
   full: `import '@endeavoury/kanosis';`,
 };
 const budgets = {
@@ -40,6 +41,7 @@ const budgets = {
   enterpriseP1: { rawBytes: 90000, gzipBytes: 22000 },
   enterpriseP2: { rawBytes: 90000, gzipBytes: 22000 },
   enterpriseP3: { rawBytes: 90000, gzipBytes: 22000 },
+  enhancements: { rawBytes: 85000, gzipBytes: 21000 },
   full: { rawBytes: 380000, gzipBytes: 70000 },
 };
 const report = { generatedAt: new Date().toISOString(), budgets, bundles: {} };
