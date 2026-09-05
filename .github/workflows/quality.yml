@@ -36,6 +36,14 @@ jobs:
       - name: Run complete quality gate
         run: npm run check
 
+      - name: Upload visual failure evidence
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: visual-failures-${{ github.job }}
+          path: test-results/
+          if-no-files-found: ignore
+
       - name: Verify publishable package metadata and contents
         run: npm run release:verify
 

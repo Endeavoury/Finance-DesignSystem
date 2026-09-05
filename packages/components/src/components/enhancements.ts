@@ -149,7 +149,7 @@ export class DsSegmentedControl extends DsElement {
       0,
       enabled.findIndex((segment) => segment.value === this.value),
     );
-    let next = current;
+    let next: number;
     if (event.key === 'Home') next = 0;
     else if (event.key === 'End') next = enabled.length - 1;
     else if (event.key === 'ArrowRight' || event.key === 'ArrowDown')

@@ -47,7 +47,8 @@ for await (const path of glob('packages/components/src/register/*.ts')) {
       : 'pending-component-matrix';
     const stories = storySources
       .filter((story) => story.source.includes(`<${tag}`))
-      .map((story) => story.path);
+      .map((story) => story.path)
+      .sort();
     const behaviorReview = behaviorTests.includes(`'${tag}'`)
       ? 'automated'
       : 'pending-component-matrix';

@@ -63,7 +63,8 @@ for (const entry of cases) {
     await page.goto(
       `/iframe.html?id=${entry.story}&viewMode=story&globals=${encodeURIComponent(entry.globals)}`,
     );
-    await page.locator('#storybook-root').waitFor();
+    await page.locator('#storybook-root [data-ds-theme]').waitFor();
+    await page.evaluate(() => document.fonts.ready);
     if ('zoom' in entry && entry.zoom)
       await page.locator('#storybook-root').evaluate((element, zoom) => {
         (element as HTMLElement).style.zoom = String(zoom);
@@ -74,5 +75,24 @@ for (const entry of cases) {
           '*{line-height:1.5!important;letter-spacing:.12em!important;word-spacing:.16em!important}p{margin-block-end:2em!important}',
       });
     await expect(page.locator('#storybook-root')).toHaveScreenshot(`${entry.name}.png`);
+  });
+}
+
+for (const width of [390, 1100]) {
+  test(`sidebar keyboard collapse and restore at ${width}px`, async ({ page }) => {
+    await page.setViewportSize({ width, height: 844 });
+    await page.goto('/iframe.html?id=components-navigation--collapsible-sidebar&viewMode=story');
+    const toggle = page.locator('ds-app-shell .sidebar-toggle');
+    await expect(toggle).toBeVisible();
+    await toggle.focus();
+    await page.keyboard.press('Enter');
+    await expect(toggle).toHaveAttribute('aria-expanded', 'true');
+    await expect(page.getByRole('navigation', { name: 'Primary navigation' })).toBeVisible();
+    await page.keyboard.press('Space');
+    await expect(toggle).toHaveAttribute('aria-expanded', 'false');
+    await expect(page.getByRole('navigation', { name: 'Primary navigation' })).toHaveCount(0);
+    await expect(toggle).toBeFocused();
+    const workspace = await page.locator('ds-app-shell .workspace').boundingBox();
+    expect(workspace!.width).toBeGreaterThan(width - 2);
   });
 }

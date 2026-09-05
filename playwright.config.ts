@@ -11,7 +11,8 @@ export default defineConfig({
     reducedMotion: 'reduce',
   },
   webServer: {
-    command: 'npm run build-storybook && node scripts/serve-static.mjs storybook-static 6106',
+    command:
+      'npm run build-storybook && node scripts/serve-static.mjs storybook/storybook-static 6106',
     url: 'http://127.0.0.1:6106/index.json',
     reuseExistingServer: !process.env['CI'],
     timeout: 180_000,

@@ -7,3 +7,5 @@ coverage/
 *.tsbuildinfo
 bundle-report.json
 release-assets/
+test-results/
+playwright-report/
