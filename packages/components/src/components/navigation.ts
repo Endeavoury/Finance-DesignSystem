@@ -1,4 +1,4 @@
-import { css, html, nothing, type CSSResultGroup } from 'lit';
+import { css, html, nothing, type CSSResultGroup, type PropertyValues } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { foundationStyles, mediaMedium } from '@endeavoury/kanosis-styles';
 import { DsElement } from '../core/ds-element.js';
@@ -304,6 +304,35 @@ export class DsAppShell extends DsElement {
         box-shadow: 0 1px 0 color-mix(in srgb, var(--ds-color-border-highlight) 48%, transparent);
         backdrop-filter: blur(22px) saturate(130%);
       }
+      .header {
+        display: flex;
+        align-items: center;
+      }
+      .header slot {
+        flex: 1;
+        min-width: 0;
+      }
+      .sidebar-toggle {
+        flex: 0 0 auto;
+        display: inline-grid;
+        place-items: center;
+        min-width: var(--ds-target-min);
+        min-height: var(--ds-target-min);
+        margin-inline: var(--ds-space-3) 0;
+        padding: var(--ds-space-2);
+        border: 1px solid var(--ds-color-border-default);
+        border-radius: var(--ds-radius-md);
+        background: var(--ds-color-bg-surface);
+        color: var(--ds-color-text-primary);
+        cursor: pointer;
+      }
+      .sidebar-toggle:hover {
+        background: var(--ds-color-bg-hover);
+      }
+      .sidebar-toggle svg {
+        width: 1.25rem;
+        height: 1.25rem;
+      }
       .header[hidden] {
         display: none;
       }
@@ -352,7 +381,8 @@ export class DsAppShell extends DsElement {
         scrollbar-gutter: auto;
       }
       @media ${mediaMedium} {
-        :host {
+        :host,
+        :host([sidebar-collapsed]) {
           position: relative;
           grid-template-columns: minmax(0, 1fr);
         }
@@ -393,16 +423,71 @@ export class DsAppShell extends DsElement {
   @property({ attribute: 'content-mode', reflect: true }) contentMode: 'scroll' | 'pane' = 'scroll';
   @property({ attribute: 'sidebar-collapsed', type: Boolean, reflect: true }) sidebarCollapsed =
     false;
+  @property({ attribute: 'collapse-sidebar-label' }) collapseSidebarLabel = 'Collapse sidebar';
+  @property({ attribute: 'expand-sidebar-label' }) expandSidebarLabel = 'Expand sidebar';
   @state() private hasHeader = false;
+  @state() private hasSidebar = false;
+
+  protected override updated(changed: PropertyValues<this>) {
+    if (changed.has('sidebarCollapsed') && this.sidebarCollapsed) {
+      const sidebar = this.querySelector('[slot="sidebar"]');
+      if (sidebar?.contains(this.ownerDocument.activeElement)) {
+        this.shadowRoot?.querySelector<HTMLButtonElement>('.sidebar-toggle')?.focus();
+      }
+    }
+  }
+
+  private handleSidebarSlot(event: Event) {
+    this.hasSidebar = (event.currentTarget as HTMLSlotElement).assignedElements().length > 0;
+  }
+
+  private toggleSidebar() {
+    this.sidebarCollapsed = !this.sidebarCollapsed;
+    this.emit<{ collapsed: boolean }>('ds-sidebar-toggle', { collapsed: this.sidebarCollapsed });
+  }
 
   private handleHeaderSlot(event: Event) {
     this.hasHeader = (event.currentTarget as HTMLSlotElement).assignedElements().length > 0;
   }
 
   protected override render() {
-    return html`<aside class="sidebar" part="sidebar"><slot name="sidebar"></slot></aside>
+    return html`<aside
+        id="sidebar"
+        class="sidebar"
+        part="sidebar"
+        ?inert=${this.sidebarCollapsed}
+        aria-hidden=${this.sidebarCollapsed ? 'true' : nothing}
+      >
+        <slot name="sidebar" @slotchange=${this.handleSidebarSlot}></slot>
+      </aside>
       <section class="workspace">
-        <header class="header" part="header" ?hidden=${!this.hasHeader}>
+        <header class="header" part="header" ?hidden=${!this.hasHeader && !this.hasSidebar}>
+          ${
+            this.hasSidebar
+              ? html`<button
+                  class="sidebar-toggle"
+                  part="sidebar-toggle"
+                  type="button"
+                  aria-label=${this.sidebarCollapsed ? this.expandSidebarLabel : this.collapseSidebarLabel}
+                  title=${this.sidebarCollapsed ? this.expandSidebarLabel : this.collapseSidebarLabel}
+                  aria-expanded=${String(!this.sidebarCollapsed)}
+                  aria-controls="sidebar"
+                  @click=${this.toggleSidebar}
+                >
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.7"
+                    aria-hidden="true"
+                  >
+                    <rect x="3" y="4" width="18" height="16" rx="2"></rect>
+                    <path d="M9 4v16"></path>
+                    <path d=${this.sidebarCollapsed ? 'm13 9 3 3-3 3' : 'm16 9-3 3 3 3'}></path>
+                  </svg>
+                </button>`
+              : nothing
+          }
           <slot name="header" @slotchange=${this.handleHeaderSlot}></slot>
         </header>
         <div class="workspace-body" part="workspace">

@@ -1,3 +1,4 @@
+import { html } from 'lit';
 import { fireEvent } from '@testing-library/dom';
 import { describe, expect, it, vi } from 'vitest';
 import type {
@@ -159,6 +160,96 @@ describe('data and navigation', () => {
     expect(listener.mock.calls[0][0].detail.key).toBe('account-1');
   });
 
+  it('sorts signed decimal numbers correctly and keeps missing values last', async () => {
+    const table = (await mount(document.createElement('ds-data-table'))) as DsDataTable;
+    table.columns = [{ key: 'amount', label: 'Amount', sortable: true, numeric: true }];
+    table.rows = [3.12, -2, null, 3.5, -10].map((amount) => ({ amount }));
+    const values = () =>
+      [...table.shadowRoot!.querySelectorAll('tbody td')].map((cell) => cell.textContent);
+    await table.updateComplete;
+    fireEvent.click(table.shadowRoot!.querySelector('.sort')!);
+    await table.updateComplete;
+    expect(values()).toEqual(['-10', '-2', '3.12', '3.5', '—']);
+    fireEvent.click(table.shadowRoot!.querySelector('.sort')!);
+    await table.updateComplete;
+    expect(values()).toEqual(['3.5', '3.12', '-2', '-10', '—']);
+    expect(table.rows.map((row) => row['amount'])).toEqual([3.12, -2, null, 3.5, -10]);
+  });
+
+  it('preserves fallback row identity across sorting and pagination', async () => {
+    const table = (await mount(document.createElement('ds-data-table'))) as DsDataTable;
+    table.columns = [{ key: 'name', label: 'Name', sortable: true }];
+    table.rows = [{ name: 'Zulu' }, { name: 'Alpha' }, { name: 'Beta' }];
+    table.selectable = true;
+    table.pageSize = 1;
+    const listener = vi.fn();
+    table.addEventListener('ds-row-select', listener);
+    await table.updateComplete;
+    fireEvent.click(table.shadowRoot!.querySelector('tbody tr')!);
+    expect(table.selectedKey).toBe('0');
+    fireEvent.click(table.shadowRoot!.querySelector('.sort')!);
+    await table.updateComplete;
+    expect(table.shadowRoot!.querySelector('[data-selected]')).toBeNull();
+    table.page = 3;
+    await table.updateComplete;
+    expect(table.shadowRoot!.querySelector('[data-selected]')?.textContent).toContain('Zulu');
+    fireEvent.click(table.shadowRoot!.querySelector('tbody tr')!);
+    expect(listener.mock.lastCall![0].detail).toEqual({ row: table.rows[0], index: 0, key: '0' });
+  });
+
+  it('clamps pages after filtering and reports the visible range', async () => {
+    const table = (await mount(document.createElement('ds-data-table'))) as DsDataTable;
+    table.columns = [{ key: 'name', label: 'Name' }];
+    table.rows = ['A', 'B', 'C', 'D', 'E'].map((name) => ({ name }));
+    table.pageSize = 2;
+    table.page = 3;
+    await table.updateComplete;
+    expect(table.shadowRoot!.querySelector('.range')?.textContent).toBe('5–5 of 5 rows');
+    table.rows = table.rows.slice(0, 3);
+    await table.updateComplete;
+    expect(table.page).toBe(2);
+    expect(table.shadowRoot!.querySelector('tbody td')?.textContent).toBe('C');
+    expect(table.shadowRoot!.querySelector('.range')?.textContent).toBe('3–3 of 3 rows');
+    table.rows = [];
+    await table.updateComplete;
+    expect(table.page).toBe(1);
+    expect(table.shadowRoot!.querySelector('.empty')).not.toBeNull();
+  });
+
+  it('keeps inline actions independent from row activation and blocks changes while busy', async () => {
+    const table = (await mount(document.createElement('ds-data-table'))) as DsDataTable;
+    const action = vi.fn();
+    const selection = vi.fn();
+    table.columns = [
+      {
+        key: 'name',
+        label: 'Name',
+        sortable: true,
+        format: (value) => html`<button @click=${action}>Edit ${value}</button>`,
+      },
+    ];
+    table.rows = [{ name: 'Alpha' }, { name: 'Beta' }];
+    table.selectable = true;
+    table.pageSize = 1;
+    table.addEventListener('ds-row-select', selection);
+    await table.updateComplete;
+    const button = table.shadowRoot!.querySelector('tbody button')!;
+    fireEvent.click(button);
+    const keydown = new KeyboardEvent('keydown', { key: ' ', bubbles: true, cancelable: true });
+    button.dispatchEvent(keydown);
+    expect(action).toHaveBeenCalledOnce();
+    expect(selection).not.toHaveBeenCalled();
+    expect(keydown.defaultPrevented).toBe(false);
+    table.busy = true;
+    await table.updateComplete;
+    fireEvent.keyDown(table.shadowRoot!.querySelector('tbody tr')!, { key: 'Enter' });
+    expect(selection).not.toHaveBeenCalled();
+    expect(table.shadowRoot!.querySelector<HTMLButtonElement>('.sort')!.disabled).toBe(true);
+    expect(
+      table.shadowRoot!.querySelector<HTMLButtonElement>('[aria-label="Next page"]')!.disabled,
+    ).toBe(true);
+  });
+
   it('emits navigation activation across the shadow boundary', async () => {
     const item = (await mount(document.createElement('ds-sidebar-item'))) as DsSidebarItem;
     item.value = 'ledger';
@@ -313,6 +404,36 @@ describe('display foundations', () => {
     expect(shell.shadowRoot!.querySelector('header')?.hasAttribute('hidden')).toBe(false);
     expect(shell.shadowRoot!.querySelector('.workspace-body')).not.toBeNull();
     expect(shell.shadowRoot!.querySelector('slot[name="inspector"]')).not.toBeNull();
+  });
+
+  it('collapses and reopens sidebar navigation with an accessible persistent control', async () => {
+    const shell = (await mount(document.createElement('ds-app-shell'))) as DsAppShell;
+    expect(shell.shadowRoot!.querySelector('.sidebar-toggle')).toBeNull();
+    shell.innerHTML =
+      '<ds-sidebar slot="sidebar"><ds-sidebar-item>Overview</ds-sidebar-item></ds-sidebar>';
+    shell.shadowRoot!.querySelector('slot[name="sidebar"]')!.dispatchEvent(new Event('slotchange'));
+    await shell.updateComplete;
+    const toggle = shell.shadowRoot!.querySelector<HTMLButtonElement>('.sidebar-toggle')!;
+    const listener = vi.fn();
+    shell.addEventListener('ds-sidebar-toggle', listener);
+    expect(toggle.getAttribute('aria-expanded')).toBe('true');
+    fireEvent.click(toggle);
+    await shell.updateComplete;
+    expect(shell.sidebarCollapsed).toBe(true);
+    expect(shell.shadowRoot!.querySelector('aside')!.hasAttribute('inert')).toBe(true);
+    expect(toggle.getAttribute('aria-label')).toBe('Expand sidebar');
+    expect(toggle.getAttribute('aria-expanded')).toBe('false');
+    expect(shell.shadowRoot!.querySelector('header')!.hidden).toBe(false);
+    expect(listener.mock.lastCall![0]).toMatchObject({
+      bubbles: true,
+      composed: true,
+      detail: { collapsed: true },
+    });
+    fireEvent.click(toggle);
+    await shell.updateComplete;
+    expect(shell.sidebarCollapsed).toBe(false);
+    expect(shell.shadowRoot!.querySelector('aside')!.hasAttribute('inert')).toBe(false);
+    expect(toggle.getAttribute('aria-expanded')).toBe('true');
   });
 
   it('composes fixed pane groups with explicit positions and scroll ownership', async () => {

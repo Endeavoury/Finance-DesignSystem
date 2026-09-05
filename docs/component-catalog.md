@@ -38,3 +38,17 @@ manifest keeps catalog-only entries experimental rather than overstating their r
 `ds-reorder-item` — [maturity addition stories](../storybook/stories/components/enhancements.stories.ts)
 
 When a component gains a dedicated story family, update its link here; the tag itself must remain present so `npm run verify:components` can enforce coverage.
+
+## Collapsible application sidebar
+
+`ds-app-shell` automatically displays a header toggle when content is assigned to its `sidebar`
+slot. It works with mouse, Enter, and Space, and stays available when navigation is hidden.
+`sidebar-collapsed` (or the `sidebarCollapsed` property) controls the initial and programmatic state.
+Hidden navigation is inert and excluded from the accessibility tree. Collapsing navigation that
+contains focus moves focus to the toggle. On compact screens the toggle hides and restores the
+bottom navigation, reclaiming its content space.
+
+Listen for `ds-sidebar-toggle` with detail `{ collapsed: boolean }` to persist user preferences.
+Use `collapse-sidebar-label` and `expand-sidebar-label` for localized button labels, and the
+`sidebar-toggle` CSS part to customize its appearance. Keep the nested `ds-sidebar` expanded;
+the shell owns visibility, so its toggle can always restore navigation.

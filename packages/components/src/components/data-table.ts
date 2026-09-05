@@ -56,7 +56,7 @@ export class DsDataTable extends DsElement {
       }
       caption {
         padding: var(--ds-space-3);
-        text-align: left;
+        text-align: start;
         font-weight: var(--ds-font-weight-semibold);
       }
       .description {
@@ -70,10 +70,10 @@ export class DsDataTable extends DsElement {
       td {
         padding: 0.8125rem var(--ds-space-4);
         border-bottom: 1px solid var(--ds-color-border-subtle);
-        text-align: left;
+        text-align: start;
         vertical-align: middle;
       }
-      th {
+      thead th {
         position: sticky;
         top: 0;
         z-index: 1;
@@ -84,7 +84,10 @@ export class DsDataTable extends DsElement {
         letter-spacing: 0.085em;
         text-transform: uppercase;
       }
-      tbody tr:last-child td {
+      tbody th {
+        font-weight: var(--ds-font-weight-medium);
+      }
+      tbody tr:last-child > * {
         border-bottom: 0;
       }
       tbody tr {
@@ -97,7 +100,7 @@ export class DsDataTable extends DsElement {
       tbody tr[data-selected] {
         background: color-mix(in srgb, var(--ds-color-bg-selected) 72%, transparent);
       }
-      tbody tr[data-selected] td:first-child {
+      tbody tr[data-selected] > :first-child {
         box-shadow: inset 2px 0 var(--ds-color-accent-primary);
       }
       tbody tr[data-interactive]:focus-visible {
@@ -105,13 +108,13 @@ export class DsDataTable extends DsElement {
         outline-offset: -2px;
       }
       .end {
-        text-align: right;
+        text-align: end;
       }
       .center {
         text-align: center;
       }
       .numeric {
-        text-align: right;
+        text-align: end;
         font-variant-numeric: tabular-nums;
       }
       .sort {
@@ -119,7 +122,8 @@ export class DsDataTable extends DsElement {
         align-items: center;
         gap: var(--ds-space-1);
         width: 100%;
-        padding: 0;
+        min-height: var(--ds-target-min);
+        padding: var(--ds-space-1) 0;
         border: 0;
         background: transparent;
         color: inherit;
@@ -128,6 +132,13 @@ export class DsDataTable extends DsElement {
         text-transform: inherit;
         letter-spacing: inherit;
         cursor: pointer;
+      }
+      .sort:disabled {
+        cursor: wait;
+      }
+      .sort:focus-visible {
+        outline-offset: 3px;
+        border-radius: var(--ds-radius-sm);
       }
       .sort.end {
         justify-content: flex-end;
@@ -156,6 +167,7 @@ export class DsDataTable extends DsElement {
         position: sticky;
         left: 0;
         display: flex;
+        flex-wrap: wrap;
         align-items: center;
         justify-content: flex-end;
         gap: var(--ds-space-2);
@@ -163,6 +175,11 @@ export class DsDataTable extends DsElement {
         padding: var(--ds-space-2) var(--ds-space-3);
         border-top: 1px solid var(--ds-color-border-subtle);
         background: var(--ds-color-bg-surface-subtle);
+      }
+      .range {
+        margin-inline-end: auto;
+        color: var(--ds-color-text-muted);
+        font-size: var(--ds-font-size-sm);
       }
       .pagination button {
         min-width: var(--ds-target-min);
@@ -212,6 +229,10 @@ export class DsDataTable extends DsElement {
     if (this.announcementTimer) globalThis.clearTimeout(this.announcementTimer);
   }
 
+  protected override willUpdate() {
+    this.page = Math.min(this.pageCount(), Math.max(1, Math.floor(this.page) || 1));
+  }
+
   protected override updated(changed: PropertyValues<this>) {
     if (!changed.has('busy')) return;
     if (this.announcementTimer) globalThis.clearTimeout(this.announcementTimer);
@@ -230,7 +251,7 @@ export class DsDataTable extends DsElement {
     globalThis.setTimeout(() => (this.announcement = message), 20);
   }
   private sort(column: DsTableColumn) {
-    if (!column.sortable) return;
+    if (!column.sortable || this.busy) return;
     const key = String(column.key);
     this.sortDirection =
       this.sortKey === key && this.sortDirection === 'ascending' ? 'descending' : 'ascending';
@@ -239,39 +260,61 @@ export class DsDataTable extends DsElement {
     this.emit<DsSortDetail>('ds-sort', { key, direction: this.sortDirection });
   }
   private sortedRows() {
-    if (!this.sortKey) return this.rows;
-    const direction = this.sortDirection === 'ascending' ? 1 : -1,
-      key = this.sortKey;
-    return [...this.rows].sort(
-      (left, right) =>
-        String(left[key] ?? '').localeCompare(String(right[key] ?? ''), undefined, {
-          numeric: true,
-          sensitivity: 'base',
-        }) * direction,
-    );
+    const rows = this.rows.map((row, index) => ({ row, index }));
+    if (!this.sortKey) return rows;
+    const direction = this.sortDirection === 'ascending' ? 1 : -1;
+    const key = this.sortKey;
+    const collator = new Intl.Collator(undefined, { numeric: true, sensitivity: 'base' });
+    return rows.sort((left, right) => {
+      const a = left.row[key];
+      const b = right.row[key];
+      // Missing values stay last in either direction.
+      if (a == null) return b == null ? 0 : 1;
+      if (b == null) return -1;
+      return (
+        (typeof a === 'number' && typeof b === 'number'
+          ? a - b
+          : collator.compare(String(a), String(b))) * direction
+      );
+    });
   }
   private select(row: Record<string, unknown>, index: number) {
-    if (!this.selectable) return;
+    if (!this.selectable || this.busy) return;
     const key = String(row[this.rowKey] ?? index);
     this.selectedKey = key;
     this.emit<DsRowSelectDetail>('ds-row-select', { row, index, key });
   }
   private rowKeydown(event: KeyboardEvent, row: Record<string, unknown>, index: number) {
+    if (!this.selectable || this.busy || event.target !== event.currentTarget) return;
     if (event.key === 'Enter' || event.key === ' ') {
       event.preventDefault();
       this.select(row, index);
     }
   }
+  private rowClick(event: MouseEvent, row: Record<string, unknown>, index: number) {
+    const path = event.composedPath();
+    const interactive = path
+      .slice(0, path.indexOf(event.currentTarget!))
+      .some(
+        (target) =>
+          target instanceof Element &&
+          target.matches(
+            'button, a, input, select, textarea, [role="button"], [role="link"], [contenteditable], [tabindex]',
+          ),
+      );
+    if (!event.defaultPrevented && !interactive) this.select(row, index);
+  }
   private pageCount() {
-    if (!this.pageSize) return 1;
+    if (!(this.pageSize > 0)) return 1;
     return Math.max(1, Math.ceil((this.totalRows || this.rows.length) / this.pageSize));
   }
-  private visibleRows(rows: Record<string, unknown>[]) {
-    if (!this.pageSize || this.totalRows > this.rows.length) return rows;
+  private visibleRows(rows: { row: Record<string, unknown>; index: number }[]) {
+    if (!(this.pageSize > 0) || this.totalRows > this.rows.length) return rows;
     const start = (Math.max(1, this.page) - 1) * this.pageSize;
     return rows.slice(start, start + this.pageSize);
   }
   private changePage(page: number) {
+    if (this.busy) return;
     const next = Math.min(this.pageCount(), Math.max(1, page));
     if (next === this.page) return;
     this.page = next;
@@ -282,6 +325,9 @@ export class DsDataTable extends DsElement {
     const rows = this.visibleRows(this.sortedRows());
     const accessibleLabel = this.caption || this.label;
     const pageCount = this.pageCount();
+    const total = this.totalRows || this.rows.length;
+    const firstRow = rows.length ? (this.page - 1) * this.pageSize + 1 : 0;
+    const lastRow = Math.min(total, firstRow + rows.length - 1);
     return html`<div
       class="frame"
       part="frame"
@@ -309,19 +355,19 @@ export class DsDataTable extends DsElement {
         }
         <thead>
           <tr>
-            ${this.columns.map((column) => html`<th class=${column.numeric ? 'numeric' : (column.align ?? 'start')} style=${column.width ? `width:${column.width}` : nothing} aria-sort=${this.sortKey === String(column.key) ? this.sortDirection : column.sortable ? 'none' : nothing}>${column.sortable ? html`<button class="sort ${column.numeric ? 'end' : (column.align ?? 'start')}" type="button" @click=${() => this.sort(column)}>${column.label}<span class="indicator" aria-hidden="true">${this.sortKey === String(column.key) ? (this.sortDirection === 'ascending' ? '↑' : '↓') : '↕'}</span></button>` : column.label}</th>`)}
+            ${this.columns.map((column) => html`<th scope="col" class=${column.numeric ? 'numeric' : (column.align ?? 'start')} style=${column.width ? `width:${column.width}` : nothing} aria-sort=${this.sortKey === String(column.key) ? this.sortDirection : column.sortable ? 'none' : nothing}>${column.sortable ? html`<button class="sort ${column.numeric ? 'end' : (column.align ?? 'start')}" type="button" ?disabled=${this.busy} @click=${() => this.sort(column)}>${column.label}<span class="indicator" aria-hidden="true">${this.sortKey === String(column.key) ? (this.sortDirection === 'ascending' ? '↑' : '↓') : '↕'}</span></button>` : column.label}</th>`)}
           </tr>
         </thead>
         <tbody>
           ${
             rows.length
               ? rows.map(
-                  (row, index) =>
+                  ({ row, index }) =>
                     html`<tr
                       data-interactive=${this.selectable ? true : nothing}
                       data-selected=${String(row[this.rowKey] ?? index) === this.selectedKey ? true : nothing}
                       tabindex=${this.selectable ? '0' : nothing}
-                      @click=${() => this.select(row, index)}
+                      @click=${(event: MouseEvent) => this.rowClick(event, row, index)}
                       @keydown=${(event: KeyboardEvent) => this.rowKeydown(event, row, index)}
                     >
                       ${this.columns.map((column) => {
@@ -345,10 +391,11 @@ export class DsDataTable extends DsElement {
       ${
         pageCount > 1
           ? html`<nav class="pagination" aria-label=${`${accessibleLabel} pagination`}>
+              <span class="range">${firstRow}–${Math.max(0, lastRow)} of ${total} rows</span>
               <button
                 type="button"
                 aria-label="Previous page"
-                ?disabled=${this.page <= 1}
+                ?disabled=${this.busy || this.page <= 1}
                 @click=${() => this.changePage(this.page - 1)}
               >
                 ‹
@@ -357,7 +404,7 @@ export class DsDataTable extends DsElement {
               <button
                 type="button"
                 aria-label="Next page"
-                ?disabled=${this.page >= pageCount}
+                ?disabled=${this.busy || this.page >= pageCount}
                 @click=${() => this.changePage(this.page + 1)}
               >
                 ›

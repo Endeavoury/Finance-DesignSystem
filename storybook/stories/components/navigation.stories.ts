@@ -73,3 +73,17 @@ export const List: StoryObj = {
       </ds-list-item>
     </ds-list>`,
 };
+
+export const CollapsibleSidebar: StoryObj = {
+  render: () =>
+    html`<ds-app-shell sidebar-collapsed>
+      ${sidebar()}
+      <ds-inline slot="header" style="padding:0 24px"
+        ><strong>Collapsible navigation</strong></ds-inline
+      >
+      <ds-page-header
+        heading="More room for your work"
+        description="Use the sidebar button in the header to show or hide navigation. The same control works on compact screens."
+      ></ds-page-header>
+    </ds-app-shell>`,
+};

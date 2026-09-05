@@ -195,6 +195,26 @@ describe('representative accessibility compositions', () => {
     expect(result.violations).toEqual([]);
   });
 
+  it('has no detectable violations in expanded and collapsed application navigation', async () => {
+    document.body.innerHTML = `<ds-app-shell>
+      <ds-sidebar slot="sidebar"><ds-sidebar-item active>Overview</ds-sidebar-item></ds-sidebar>
+      <h1>Workspace</h1>
+    </ds-app-shell>`;
+    const shell = document.querySelector('ds-app-shell')! as HTMLElement & {
+      updateComplete: Promise<unknown>;
+      sidebarCollapsed: boolean;
+    };
+    await shell.updateComplete;
+    shell.shadowRoot!.querySelector('slot[name="sidebar"]')!.dispatchEvent(new Event('slotchange'));
+    await shell.updateComplete;
+    for (const collapsed of [false, true]) {
+      shell.sidebarCollapsed = collapsed;
+      await shell.updateComplete;
+      const result = await axe.run(document.body, { rules: { region: { enabled: false } } });
+      expect(result.violations).toEqual([]);
+    }
+  });
+
   it('has no detectable violations in labeled, sortable, paged data tables and grids', async () => {
     document.body.innerHTML = `<main><h1>Accounts</h1>
       <ds-data-table caption="Account balances" description="Balances at close of business"></ds-data-table>
@@ -211,7 +231,14 @@ describe('representative accessibility compositions', () => {
       ),
     ];
     for (const element of elements) {
-      Object.assign(element, { columns, rows, pageSize: 10, totalRows: 12 });
+      Object.assign(element, {
+        columns,
+        rows,
+        pageSize: 10,
+        totalRows: 12,
+        selectable: true,
+        selectedKey: 'cash',
+      });
     }
     await Promise.all(elements.map((element) => element.updateComplete));
     const result = await axe.run(document.body, { rules: { region: { enabled: false } } });

@@ -103,3 +103,35 @@ export const LongContentAndOverflow: StoryObj = {
       ></ds-data-table>
     </div>`,
 };
+
+export const Pagination: StoryObj = {
+  render: () =>
+    html`<ds-data-table
+      caption="Ledger entries"
+      description="Review bookings and select a row to inspect its details."
+      selectable
+      page-size="2"
+      .columns=${columns}
+      .rows=${rows}
+    ></ds-data-table>`,
+};
+export const InlineActions: StoryObj = {
+  render: () =>
+    html`<ds-data-table
+      caption="Ledger entries"
+      description="Links remain independently accessible within selectable rows."
+      selectable
+      .columns=${[
+      ...columns,
+      {
+        key: 'id',
+        label: 'Actions',
+        format: (_value: unknown, row: Record<string, unknown>) =>
+          html`<a href=${`#entry-${row['id']}`} aria-label=${`View ${row['counterparty']} entry`}
+            >View entry</a
+          >`,
+      },
+    ]}
+      .rows=${rows}
+    ></ds-data-table>`,
+};
